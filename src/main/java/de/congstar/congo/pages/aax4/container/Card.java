@@ -1,6 +1,6 @@
-package de.congstar.congo.aax4.ui.container;
+package de.congstar.congo.pages.aax4.container;
 
-import de.congstar.congo.aax4.ui.BasePageComponent;
+import de.congstar.congo.pages.aax4.BasePageComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;

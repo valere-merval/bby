@@ -1,6 +1,6 @@
-package de.congstar.congo.aax4.ui.controls;
+package de.congstar.congo.pages.aax4.controls;
 
-import de.congstar.congo.aax4.ui.BasePageComponent;
+import de.congstar.congo.pages.aax4.BasePageComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -9,36 +9,30 @@ import org.openqa.selenium.WebElement;
 import static de.congstar.selenium.ExpectedConditions.*;
 
 
-public class Input extends BasePageComponent {
+public abstract class Input extends BasePageComponent {
     By widgetSelector;
     By inputSelector;
+    By alertSelector;
 
     public Input(WebDriver driver, SearchContext context, String inputName) {
         super(driver, context);
         widgetSelector = By.cssSelector(".v-input:has(input[name=%s])".formatted(inputName));
-        inputSelector = By.cssSelector(".v-input:has(input[name=%s]) input[name=%s]".formatted(inputName, inputName));
+        inputSelector = By.cssSelector(".v-input:has(input[name=%1$s]) input[name=%1$s]".formatted(inputName));
+        alertSelector = By.cssSelector(".v-input:has(input[name=%s]) [role=alert]".formatted(inputName));
         getWidget();
     }
 
-    protected WebElement getInput() {
+    WebElement getInput() {
         return wait.until(ignore -> isPresent(context, inputSelector));
     }
 
-    protected WebElement getWidget() {
+    WebElement getWidget() {
         return wait.until(ignore -> isVisible(context, widgetSelector));
     }
 
-    public void fill(String text) {
-        var input = getInput();
-        input.sendKeys(text);
-        wait.until(attributeToBe(input, "value", text));
+    WebElement getAlert() {
+        return wait.until(ignore -> isPresent(context, alertSelector));
     }
 
-    public void check() {
-        var input = getInput();
-        if (!input.isSelected()) {
-            input.click();
-        }
-    }
 
 }

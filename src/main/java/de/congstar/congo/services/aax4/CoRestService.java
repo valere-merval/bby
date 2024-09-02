@@ -1,4 +1,4 @@
-package de.congstar.congo.aax4.rest;
+package de.congstar.congo.services.aax4;
 
 import de.congstar.congo.rest.aax4.client.api.ApiClient;
 import lombok.Data;

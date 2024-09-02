@@ -1,4 +1,4 @@
-package de.congstar.congo.aax4.ui;
+package de.congstar.congo.pages.aax4;
 
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;

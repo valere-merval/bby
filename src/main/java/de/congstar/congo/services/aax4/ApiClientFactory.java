@@ -1,4 +1,4 @@
-package de.congstar.congo.aax4.rest;
+package de.congstar.congo.services.aax4;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
