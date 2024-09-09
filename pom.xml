@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.congstar</groupId>
-    <artifactId>aax4-ta</artifactId>
+    <artifactId>aax4</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>aax4-ta</name>
+    <name>aax4</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
