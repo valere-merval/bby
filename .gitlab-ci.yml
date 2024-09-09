@@ -1,0 +1,48 @@
+stages:
+  - build
+  - test
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_REF_SLUG !~ /^staging/
+      variables:
+        conqa_stage: "tuap"
+    - if: $CI_COMMIT_REF_SLUG =~ /^staging/
+      variables:
+        conqa_stage: "intd"
+
+
+variables:
+  # OS
+  TZ: "Europe/Berlin"
+  http_proxy_host: "proxy.${conqa_stage}.conqa.run"
+  http_proxy_port: "3128"
+  http_proxy: "http://${http_proxy_host}:${http_proxy_port}"
+  java_no_proxy: "*.nicotuadev.de|*.nicotua.de|*.nicoint.de|*.comi.run|*.${conqa_stage}.conqa.run"
+  no_proxy: ".nicotuadev.de,.nicotua.de,.nicoint.de,.comi.run,.${conqa_stage}.conqa.run"
+  # maven
+  MAVEN_OPTS: '-Dmaven.repo.local=.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+  MAVEN_CLI_OPTS: '--batch-mode --show-version --settings .mvn/settings.xml'
+  # config/conqa.properties
+  conqa_hostname_suffix: "-internal"
+  conqa_direct_access_protocol: "http"
+  conqa_direct_access_socket_protocol: "ws"
+
+
+compile:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+  stage: build
+  image: maven:3.9.1-eclipse-temurin-17-alpine
+  tags:
+    - external
+    - $conqa_stage
+  before_script:
+    - 'env | sort'
+  script:
+    - 'mvn $MAVEN_OPTS $MAVEN_CLI_OPTS install'
+  after_script:
+    - '[[ $CI_JOB_STATUS == "success" && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH ]] && mvn $MAVEN_OPTS $MAVEN_CLI_OPTS deploy'
+  artifacts:
+    paths:
+      - target/
