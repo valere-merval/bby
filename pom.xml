@@ -39,6 +39,37 @@
             <version>${swagger.annotations.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>3.1.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson -->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>3.1.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>3.1.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.scribejava/scribejava-core -->
+        <dependency>
+            <groupId>com.github.scribejava</groupId>
+            <artifactId>scribejava-core</artifactId>
+            <version>8.3.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/jakarta.annotation/jakarta.annotation-api -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- Jackson dependencies for JSON mapping -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -112,11 +143,12 @@
                         <configuration>
                             <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
                             <generatorName>java</generatorName>
-                            <library>native</library>
+                            <library>jersey3</library>
                             <output>target/generated-sources</output>
                             <configOptions>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                                 <sourceFolder>co-restservice</sourceFolder>
+                                <interfaceOnly>false</interfaceOnly>
                             </configOptions>
                             <inputSpec>${project.basedir}/src/main/resources/aax4-backend/api-docs.json</inputSpec>
                             <apiPackage>de.congstar.congo.rest.aax4.client.api</apiPackage>
@@ -124,14 +156,13 @@
                             <modelPackage>de.congstar.congo.rest.aax4.client.api.model</modelPackage>
 
                             <!-- Source generation only -->
+                            <generateSupportingFiles>true</generateSupportingFiles>
+                            <generateApis>true</generateApis>
                             <generateApiTests>false</generateApiTests>
                             <generateModelTests>false</generateModelTests>
                             <generateModelDocumentation>false</generateModelDocumentation>
                             <generateApiDocumentation>false</generateApiDocumentation>
 
-                            <supportingFilesToGenerate>
-                                AbstractOpenApiSchema.java,ApiClient.java,ApiException.java,ApiResponse.java,JSON.java,Pair.java,RFC3339DateFormat.java
-                            </supportingFilesToGenerate>
                         </configuration>
                     </execution>
                 </executions>
