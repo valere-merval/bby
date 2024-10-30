@@ -149,10 +149,9 @@
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                                 <sourceFolder>co-restservice</sourceFolder>
                                 <interfaceOnly>false</interfaceOnly>
-                                <!-- TODO: what about those? -->
                                 <generateConstructorWithAllArgs>true</generateConstructorWithAllArgs>
                                 <generateBuilders>true</generateBuilders>
-                                <!--<useRuntimeException>true</useRuntimeException>-->
+                                <useRuntimeException>true</useRuntimeException>
                             </configOptions>
                             <inputSpec>${project.basedir}/src/main/resources/aax4-backend/api-docs.json</inputSpec>
                             <apiPackage>de.congstar.congo.rest.aax4.client.api</apiPackage>
