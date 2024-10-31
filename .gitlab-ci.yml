@@ -33,7 +33,7 @@ compile:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   stage: build
-  image: maven:3.9.1-eclipse-temurin-17-alpine
+  image: git.congstar.net:5050/it-qa/hub/maven:3.9.8-jdk-21
   tags:
     - external
     - $conqa_stage
