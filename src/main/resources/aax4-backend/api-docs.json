@@ -524,7 +524,7 @@
 					"monitoring-interfaces-controller"
 				],
 				"summary": "Get information about the transactions for the specified interface and additional search criteria",
-				"operationId": "getTransactions_1",
+				"operationId": "getMonitoringTransactions",
 				"parameters": [
 					{
 						"name": "transactionObjectId",
@@ -1996,7 +1996,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Request one time or recurring top ups for a customer",
-				"operationId": "performInitialTopUpByServiceId",
+				"operationId": "performOneTimeOrRecurringTopUps",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -2151,7 +2151,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Contract takeover by a new customer",
-				"operationId": "takeoverContract",
+				"operationId": "takeoverContractByNewCustomer",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -2198,7 +2198,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Contract takeover by an existing customer",
-				"operationId": "takeoverContract_1",
+				"operationId": "takeoverContractByExistingCustomer",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -2317,7 +2317,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Submit stopping of an active credit note",
-				"operationId": "submitCreditNotesByServiceId",
+				"operationId": "stopActiveCreditNoteByServiceId",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -2688,7 +2688,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Get payment informations for first topup by serviceId",
-				"operationId": "getInitialTopUpInfoByServiceId",
+				"operationId": "getInitialTopUpByServiceId",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -2723,7 +2723,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Perform an initial top up for a prepaid customer by serviceId",
-				"operationId": "performInitialTopUpByServiceId_1",
+				"operationId": "performInitialTopUpByServiceId",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -2896,7 +2896,7 @@
 					"service-actions-controller"
 				],
 				"summary": "Submit credit note by serviceId",
-				"operationId": "submitCreditNotesByServiceId_1",
+				"operationId": "submitCreditNotesByServiceId",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -5908,7 +5908,7 @@
 					"service-controller"
 				],
 				"summary": "Get available services for changing service",
-				"operationId": "getAvailableServicesForChangingService_1",
+				"operationId": "getAvailableServicesForProductChange",
 				"parameters": [
 					{
 						"name": "serviceId",
@@ -6198,7 +6198,7 @@
 					"service-options-controller"
 				],
 				"summary": "Get available options for given dService option id for change option",
-				"operationId": "getAllTypedDataUsageByServiceId_1",
+				"operationId": "getChangeableOptionsByDServiceOptionId",
 				"parameters": [
 					{
 						"name": "optionId",
@@ -6235,7 +6235,7 @@
 					"products-filtered-controller"
 				],
 				"summary": "Get all products for client based on filter",
-				"operationId": "getProducts",
+				"operationId": "getFilteredProducts",
 				"parameters": [
 					{
 						"name": "clientId",
@@ -6403,7 +6403,7 @@
 					"product-controller"
 				],
 				"summary": "Get product info by product msisdn and puk",
-				"operationId": "getProducts_1",
+				"operationId": "getProductByMsisdnAndPuk",
 				"parameters": [
 					{
 						"name": "msisdn",
@@ -6680,7 +6680,7 @@
 					"customer-permissions-controller"
 				],
 				"summary": "Get permissions of an existing customer",
-				"operationId": "getClientPermissionsForCustomer_1",
+				"operationId": "getClientPermissionsForCustomerDeprecated",
 				"parameters": [
 					{
 						"name": "customerId",
@@ -10879,12 +10879,6 @@
 							"$ref": "#/components/schemas/Discount"
 						}
 					},
-					"mandatoryTotalOneTime": {
-						"type": "number"
-					},
-					"mandatoryTotalRecurring": {
-						"type": "number"
-					},
 					"discountedTotalOneTime": {
 						"type": "number"
 					},
@@ -10895,6 +10889,12 @@
 						"type": "number"
 					},
 					"discountedMandatoryTotalRecurring": {
+						"type": "number"
+					},
+					"mandatoryTotalOneTime": {
+						"type": "number"
+					},
+					"mandatoryTotalRecurring": {
 						"type": "number"
 					}
 				}
@@ -12301,12 +12301,6 @@
 					"rootBasketEntry": {
 						"type": "boolean"
 					},
-					"mandatoryTotalOneTime": {
-						"type": "number"
-					},
-					"mandatoryTotalRecurring": {
-						"type": "number"
-					},
 					"discountedTotalOneTime": {
 						"type": "number"
 					},
@@ -12317,6 +12311,12 @@
 						"type": "number"
 					},
 					"discountedMandatoryTotalRecurring": {
+						"type": "number"
+					},
+					"mandatoryTotalOneTime": {
+						"type": "number"
+					},
+					"mandatoryTotalRecurring": {
 						"type": "number"
 					}
 				}
@@ -13198,6 +13198,14 @@
 					}
 				}
 			},
+			"FixedData": {
+				"type": "object",
+				"properties": {
+					"firstAvailablePostponementDate": {
+						"type": "string"
+					}
+				}
+			},
 			"FixedProviderChangeImportData": {
 				"type": "object",
 				"properties": {
@@ -13523,6 +13531,9 @@
 							"FIXED_BROADBAND_ACCESS",
 							"FIXED_TECHNICAL_SERVICE"
 						]
+					},
+					"fixedData": {
+						"$ref": "#/components/schemas/FixedData"
 					},
 					"fixedAccessData": {
 						"$ref": "#/components/schemas/FixedAccessData"
@@ -14724,15 +14735,15 @@
 						"type": "integer",
 						"format": "int64"
 					},
-					"highlight": {
-						"type": "boolean"
-					},
 					"partnerCard": {
 						"type": "boolean"
 					},
 					"dserviceId": {
 						"type": "integer",
 						"format": "int64"
+					},
+					"highlight": {
+						"type": "boolean"
 					},
 					"winback": {
 						"type": "boolean"
@@ -14906,11 +14917,11 @@
 						"type": "integer",
 						"format": "int64"
 					},
-					"dworkflowId": {
+					"dworkflowItemId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"dworkflowItemId": {
+					"dworkflowId": {
 						"type": "integer",
 						"format": "int64"
 					}
@@ -15790,8 +15801,7 @@
 						"type": "string"
 					},
 					"discountAmount": {
-						"type": "integer",
-						"format": "int64"
+						"type": "number"
 					},
 					"discountPercentage": {
 						"type": "integer",
