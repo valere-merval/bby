@@ -6,7 +6,7 @@
 	},
 	"servers": [
 		{
-			"url": "http://cc4.nicotuadev.de/co-restservice",
+			"url": "/co-restservice",
 			"description": "Generated server url"
 		}
 	],
@@ -1107,6 +1107,43 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/CustomerConsents"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"oAuth2": []
+					}
+				]
+			}
+		},
+		"/customer/{customerId}/bills/changeBillCycle": {
+			"put": {
+				"tags": [
+					"customer-bills-controller"
+				],
+				"summary": "change bill cycle of given customerId to bill cycle 15",
+				"operationId": "changeCustomerBillCycle",
+				"parameters": [
+					{
+						"name": "customerId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
 								}
 							}
 						}
@@ -2635,6 +2672,53 @@
 				]
 			}
 		},
+		"/service/{serviceId}/action/postponeFixed": {
+			"post": {
+				"tags": [
+					"service-actions-controller"
+				],
+				"summary": "Set partner card flag",
+				"operationId": "setPartnerCard_1",
+				"parameters": [
+					{
+						"name": "serviceId",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/PostponeFixedRequest"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"oAuth2": []
+					}
+				]
+			}
+		},
 		"/service/{serviceId}/action/outpaymentForInactiveCustomer": {
 			"post": {
 				"tags": [
@@ -3622,42 +3706,6 @@
 							"*/*": {
 								"schema": {
 									"$ref": "#/components/schemas/ValidateSimResponse"
-								}
-							}
-						}
-					}
-				},
-				"security": [
-					{
-						"oAuth2": []
-					}
-				]
-			}
-		},
-		"/phoneNumber/reservation": {
-			"post": {
-				"tags": [
-					"phone-number-reservation-controller"
-				],
-				"summary": "Get reserved phone numbers for customer",
-				"operationId": "getCustomersReservedPhoneNumbers",
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/PhoneNumberReservationRequest"
-							}
-						}
-					},
-					"required": true
-				},
-				"responses": {
-					"200": {
-						"description": "OK",
-						"content": {
-							"*/*": {
-								"schema": {
-									"$ref": "#/components/schemas/PhoneNumberReservationResponse"
 								}
 							}
 						}
@@ -6571,6 +6619,42 @@
 				]
 			}
 		},
+		"/phoneNumber/reservation/{phonePattern}": {
+			"get": {
+				"tags": [
+					"phone-number-reservation-controller"
+				],
+				"summary": "Get reserved phone numbers for customer",
+				"operationId": "getCustomersReservedPhoneNumbers",
+				"parameters": [
+					{
+						"name": "phonePattern",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/PhoneNumberReservationResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"oAuth2": []
+					}
+				]
+			}
+		},
 		"/permissions/customer/{customerId}": {
 			"get": {
 				"tags": [
@@ -8815,6 +8899,10 @@
 					},
 					"displayAddress": {
 						"type": "string"
+					},
+					"relationshipStatusId": {
+						"type": "integer",
+						"format": "int64"
 					}
 				}
 			},
@@ -9206,15 +9294,15 @@
 						"type": "integer",
 						"format": "int64"
 					},
+					"kstatus": {
+						"$ref": "#/components/schemas/Status"
+					},
 					"wworkflow": {
 						"$ref": "#/components/schemas/WWorkflow"
 					},
 					"dworkflowId": {
 						"type": "integer",
 						"format": "int64"
-					},
-					"kstatus": {
-						"$ref": "#/components/schemas/Status"
 					}
 				}
 			},
@@ -9822,6 +9910,14 @@
 							"TOP_UP",
 							"OUTPAYMENT"
 						]
+					}
+				}
+			},
+			"PostponeFixedRequest": {
+				"type": "object",
+				"properties": {
+					"requestedDate": {
+						"type": "string"
 					}
 				}
 			},
@@ -10879,6 +10975,12 @@
 							"$ref": "#/components/schemas/Discount"
 						}
 					},
+					"mandatoryTotalOneTime": {
+						"type": "number"
+					},
+					"mandatoryTotalRecurring": {
+						"type": "number"
+					},
 					"discountedTotalOneTime": {
 						"type": "number"
 					},
@@ -10889,12 +10991,6 @@
 						"type": "number"
 					},
 					"discountedMandatoryTotalRecurring": {
-						"type": "number"
-					},
-					"mandatoryTotalOneTime": {
-						"type": "number"
-					},
-					"mandatoryTotalRecurring": {
 						"type": "number"
 					}
 				}
@@ -11084,7 +11180,8 @@
 							"USAGE_DAY",
 							"FOUR_WEEKS",
 							"SIX_MONTHS",
-							"DEPENDING_ON_CAMPAIGN"
+							"DEPENDING_ON_CAMPAIGN",
+							"TWELVE_MONTHS"
 						]
 					}
 				}
@@ -11376,15 +11473,16 @@
 							"USAGE_DAY",
 							"FOUR_WEEKS",
 							"SIX_MONTHS",
-							"DEPENDING_ON_CAMPAIGN"
+							"DEPENDING_ON_CAMPAIGN",
+							"TWELVE_MONTHS"
 						]
-					},
-					"mainService": {
-						"type": "boolean"
 					},
 					"endDate": {
 						"type": "string",
 						"format": "date-time"
+					},
+					"mainService": {
+						"type": "boolean"
 					}
 				}
 			},
@@ -11571,25 +11669,6 @@
 					}
 				}
 			},
-			"PhoneNumberReservationRequest": {
-				"type": "object",
-				"properties": {
-					"phonePattern": {
-						"type": "string"
-					}
-				}
-			},
-			"PhoneNumberReservationResponse": {
-				"type": "object",
-				"properties": {
-					"reservedPhoneNumbers": {
-						"type": "array",
-						"items": {
-							"type": "string"
-						}
-					}
-				}
-			},
 			"ResetPasswordRequest": {
 				"required": [
 					"email",
@@ -11740,6 +11819,9 @@
 					},
 					"futFlag": {
 						"type": "boolean"
+					},
+					"testing": {
+						"type": "string"
 					}
 				}
 			},
@@ -12231,15 +12313,15 @@
 							"$ref": "#/components/schemas/BasketEntry"
 						}
 					},
+					"totalNumberOfEntries": {
+						"type": "integer",
+						"format": "int32"
+					},
 					"basketTotalOneTime": {
 						"type": "number"
 					},
 					"basketTotalRecurring": {
 						"type": "number"
-					},
-					"totalNumberOfEntries": {
-						"type": "integer",
-						"format": "int32"
 					}
 				}
 			},
@@ -12301,6 +12383,12 @@
 					"rootBasketEntry": {
 						"type": "boolean"
 					},
+					"mandatoryTotalOneTime": {
+						"type": "number"
+					},
+					"mandatoryTotalRecurring": {
+						"type": "number"
+					},
 					"discountedTotalOneTime": {
 						"type": "number"
 					},
@@ -12311,12 +12399,6 @@
 						"type": "number"
 					},
 					"discountedMandatoryTotalRecurring": {
-						"type": "number"
-					},
-					"mandatoryTotalOneTime": {
-						"type": "number"
-					},
-					"mandatoryTotalRecurring": {
 						"type": "number"
 					}
 				}
@@ -12446,11 +12528,11 @@
 					"scheduled": {
 						"type": "boolean"
 					},
-					"dworkflowItemId": {
+					"wworkflowItemId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"wworkflowItemId": {
+					"dworkflowItemId": {
 						"type": "integer",
 						"format": "int64"
 					},
@@ -14373,6 +14455,9 @@
 						"type": "integer",
 						"format": "int64"
 					},
+					"additionalInformation": {
+						"type": "string"
+					},
 					"amount": {
 						"type": "number",
 						"format": "double"
@@ -14589,6 +14674,25 @@
 					}
 				}
 			},
+			"PhoneNumber": {
+				"type": "object",
+				"properties": {
+					"phoneNumber": {
+						"type": "string"
+					}
+				}
+			},
+			"PhoneNumberReservationResponse": {
+				"type": "object",
+				"properties": {
+					"reservedPhoneNumbers": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/PhoneNumber"
+						}
+					}
+				}
+			},
 			"NbaRecommendation": {
 				"type": "object",
 				"properties": {
@@ -14735,17 +14839,17 @@
 						"type": "integer",
 						"format": "int64"
 					},
-					"partnerCard": {
+					"highlight": {
+						"type": "boolean"
+					},
+					"winback": {
 						"type": "boolean"
 					},
 					"dserviceId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"highlight": {
-						"type": "boolean"
-					},
-					"winback": {
+					"partnerCard": {
 						"type": "boolean"
 					}
 				}
@@ -14917,11 +15021,11 @@
 						"type": "integer",
 						"format": "int64"
 					},
-					"dworkflowItemId": {
+					"dworkflowId": {
 						"type": "integer",
 						"format": "int64"
 					},
-					"dworkflowId": {
+					"dworkflowItemId": {
 						"type": "integer",
 						"format": "int64"
 					}
@@ -14938,13 +15042,6 @@
 						"type": "integer",
 						"format": "int32"
 					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
 					"size": {
 						"type": "integer",
 						"format": "int32"
@@ -14954,6 +15051,13 @@
 						"items": {
 							"$ref": "#/components/schemas/MonitoringTransactionInfo"
 						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
 					},
 					"pageable": {
 						"$ref": "#/components/schemas/PageableObject"
@@ -14976,12 +15080,12 @@
 			"PageableObject": {
 				"type": "object",
 				"properties": {
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
 					"offset": {
 						"type": "integer",
 						"format": "int64"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
 					},
 					"pageNumber": {
 						"type": "integer",
@@ -15024,13 +15128,6 @@
 						"type": "integer",
 						"format": "int32"
 					},
-					"number": {
-						"type": "integer",
-						"format": "int32"
-					},
-					"sort": {
-						"$ref": "#/components/schemas/Sort"
-					},
 					"size": {
 						"type": "integer",
 						"format": "int32"
@@ -15040,6 +15137,13 @@
 						"items": {
 							"$ref": "#/components/schemas/SearchResponse"
 						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"sort": {
+						"$ref": "#/components/schemas/Sort"
 					},
 					"pageable": {
 						"$ref": "#/components/schemas/PageableObject"
@@ -15162,15 +15266,15 @@
 							"$ref": "#/components/schemas/WorkflowEntity"
 						}
 					},
+					"kstatus": {
+						"$ref": "#/components/schemas/Status"
+					},
 					"wworkflow": {
 						"$ref": "#/components/schemas/WWorkflow"
 					},
 					"dworkflowId": {
 						"type": "integer",
 						"format": "int64"
-					},
-					"kstatus": {
-						"$ref": "#/components/schemas/Status"
 					}
 				}
 			},
