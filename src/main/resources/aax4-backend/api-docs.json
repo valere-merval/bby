@@ -1659,6 +1659,52 @@
         ]
       }
     },
+    "/simActivationCodes/create/{clientId}/{numCodes}": {
+      "post": {
+        "tags": [
+          "sim-activation-codes-controller"
+        ],
+        "summary": "create sim activation codes for inventory for transfer directory",
+        "operationId": "createSimActivationCodes",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "numCodes",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      }
+    },
     "/service/{serviceId}/termination/cancel": {
       "post": {
         "tags": [
@@ -1694,6 +1740,88 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/CancelTerminationResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      }
+    },
+    "/service/{serviceId}/retryMnpIn": {
+      "get": {
+        "tags": [
+          "service-controller"
+        ],
+        "summary": "Retry an already running MNP process",
+        "operationId": "getRetryMnpInfo",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRetryMnpResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "service-controller"
+        ],
+        "summary": "Submit a request to retry a running MNP process by serviceId",
+        "operationId": "retryMnpIn",
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetryMnpInRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RetryMnpInResponse"
                 }
               }
             }
@@ -3561,6 +3689,45 @@
         ]
       }
     },
+    "/products/fixed/available": {
+      "post": {
+        "tags": [
+          "products-filtered-controller"
+        ],
+        "summary": "Get all fixed products for client",
+        "operationId": "getFixedProducts",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimpleAddress"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      }
+    },
     "/product/prepaid/activate/new": {
       "post": {
         "tags": [
@@ -5045,6 +5212,94 @@
         ]
       }
     },
+    "/taskList/taskListDetail/{id}": {
+      "get": {
+        "tags": [
+          "task-list-controller"
+        ],
+        "summary": "Retrieve task list details by ID",
+        "description": "Fetches detailed information about a task list for the given ID. Requires authentication with the role 'ROLE_AGENT'.",
+        "operationId": "getTaskListDetail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the task list to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TasklistNewDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      }
+    },
+    "/simActivationCodes/create/{clientId}/{numCodes}/download": {
+      "get": {
+        "tags": [
+          "sim-activation-codes-controller"
+        ],
+        "summary": "create sim activation codes for inventory for local download",
+        "operationId": "downloadSimActivationCodes",
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "numCodes",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      }
+    },
     "/signup/{signUpId}": {
       "get": {
         "tags": [
@@ -5292,43 +5547,6 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ServiceToServiceResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oAuth2": []
-          }
-        ]
-      }
-    },
-    "/service/{serviceId}/retryMnpIn": {
-      "get": {
-        "tags": [
-          "service-controller"
-        ],
-        "summary": "Retry an already running MNP process",
-        "operationId": "getRetryMnpInfo",
-        "parameters": [
-          {
-            "name": "serviceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetRetryMnpResponse"
                 }
               }
             }
@@ -7107,6 +7325,69 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/CustomerDocument"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuth2": []
+          }
+        ]
+      }
+    },
+    "/datelist/ams": {
+      "get": {
+        "tags": [
+          "date-list-controller"
+        ],
+        "summary": "Get AMS Date List",
+        "operationId": "getAmsDateList",
+        "parameters": [
+          {
+            "name": "businessCase",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expectedRequestDateTime",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "requestStartDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "requestEndDate",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DateResultList"
                 }
               }
             }
@@ -9292,15 +9573,15 @@
             "type": "integer",
             "format": "int64"
           },
+          "kstatus": {
+            "$ref": "#/components/schemas/Status"
+          },
           "wworkflow": {
             "$ref": "#/components/schemas/WWorkflow"
           },
           "dworkflowId": {
             "type": "integer",
             "format": "int64"
-          },
-          "kstatus": {
-            "$ref": "#/components/schemas/Status"
           }
         }
       },
@@ -9490,6 +9771,58 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "RetryMnpInRequest": {
+        "type": "object",
+        "properties": {
+          "msisdn": {
+            "type": "string"
+          },
+          "currentProviderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mnpDate": {
+            "type": "string",
+            "enum": [
+              "VTEN",
+              "ASAP"
+            ]
+          },
+          "clientType": {
+            "type": "string",
+            "enum": [
+              "BASE_DATA",
+              "PRIVATE_CLIENT",
+              "BUSINESS_CLIENT"
+            ]
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date"
+          },
+          "previousCompanyName": {
+            "type": "string"
+          },
+          "previousCustomerId": {
+            "type": "string"
+          }
+        }
+      },
+      "RetryMnpInResponse": {
+        "type": "object",
+        "properties": {
+          "workflowId": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
@@ -10201,7 +10534,6 @@
             }
           },
           "allDiscountIds": {
-            "uniqueItems": true,
             "type": "array",
             "items": {
               "type": "integer",
@@ -10238,6 +10570,12 @@
               "type": "integer",
               "format": "int64"
             }
+          },
+          "pos": {
+            "type": "boolean"
+          },
+          "prepaidActivation": {
+            "type": "boolean"
           }
         }
       },
@@ -10653,290 +10991,31 @@
           }
         }
       },
-      "AuthenticationData": {
+      "SimpleAddress": {
+        "required": [
+          "city",
+          "houseNumber",
+          "street",
+          "zip"
+        ],
         "type": "object",
         "properties": {
-          "login": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "legiPin": {
-            "type": "string"
-          }
-        }
-      },
-      "ContractData": {
-        "type": "object",
-        "properties": {
-          "simType": {
-            "type": "string",
-            "enum": [
-              "MINI_PREPAID",
-              "MINI_POSTPAID",
-              "HYBRID",
-              "TRIPLE",
-              "NANO",
-              "E_SIM",
-              "DUAL_SIM",
-              "NO_SIM",
-              "ROUTER_SIM"
-            ]
-          },
-          "itemizedBillFormat": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "dataStoringOption": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "mnpData": {
-            "$ref": "#/components/schemas/MnpData"
-          }
-        }
-      },
-      "CreateCustomerPrepaidDto": {
-        "type": "object",
-        "properties": {
-          "client": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "customerData": {
-            "$ref": "#/components/schemas/BasicCustomerData"
-          },
-          "vviRead": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "vfzId": {
-            "type": "string"
-          },
-          "identificationMethod": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "vfzWorkflowId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "contactData": {
-            "$ref": "#/components/schemas/CreateCustomerContactData"
-          },
-          "mainAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "shippingAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "activateFlags": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          "paymentData": {
-            "$ref": "#/components/schemas/BankData"
-          },
-          "calculateBasketRequest": {
-            "$ref": "#/components/schemas/CalculateBasketRequest"
-          },
-          "contractData": {
-            "$ref": "#/components/schemas/ContractData"
-          },
-          "mnpData": {
-            "$ref": "#/components/schemas/MnpData"
-          },
-          "authenticationData": {
-            "$ref": "#/components/schemas/AuthenticationData"
-          },
-          "simcardInformation": {
-            "$ref": "#/components/schemas/SimcardInformation"
-          }
-        }
-      },
-      "SimcardInformation": {
-        "type": "object",
-        "properties": {
-          "msisdn": {
-            "type": "string"
-          },
-          "puk": {
-            "type": "string"
-          },
-          "activationCode": {
-            "type": "string"
-          }
-        }
-      },
-      "CreateCustomerPrepaidResponse": {
-        "type": "object",
-        "properties": {
-          "signupId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "CreateCustomerPostpaidContractOptions": {
-        "type": "object",
-        "properties": {
-          "simType": {
-            "type": "string",
-            "enum": [
-              "MINI_PREPAID",
-              "MINI_POSTPAID",
-              "HYBRID",
-              "TRIPLE",
-              "NANO",
-              "E_SIM",
-              "DUAL_SIM",
-              "NO_SIM",
-              "ROUTER_SIM"
-            ]
-          },
-          "itemizedBillFormat": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "dataStoringOption": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "mnpData": {
-            "$ref": "#/components/schemas/MnpData"
-          },
-          "businessCustomerData": {
-            "$ref": "#/components/schemas/BusinessCustomerData"
-          },
-          "mnpPersonalData": {
-            "$ref": "#/components/schemas/MnpPersonalData"
-          },
-          "goldenNumber": {
-            "type": "string"
-          },
-          "usageLocation": {
-            "$ref": "#/components/schemas/Address"
-          }
-        }
-      },
-      "CreateCustomerPostpaidDto": {
-        "type": "object",
-        "properties": {
-          "client": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "customerData": {
-            "$ref": "#/components/schemas/BasicCustomerData"
-          },
-          "identificationMethod": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "vviRead": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "contactData": {
-            "$ref": "#/components/schemas/CreateCustomerContactData"
-          },
-          "mainAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "shippingAddress": {
-            "$ref": "#/components/schemas/Address"
-          },
-          "activatePostpaidFlags": {
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          "paymentData": {
-            "$ref": "#/components/schemas/BankData"
-          },
-          "calculateBasketRequest": {
-            "$ref": "#/components/schemas/CalculateBasketRequest"
-          },
-          "contractOptions": {
-            "$ref": "#/components/schemas/CreateCustomerPostpaidContractOptions"
-          },
-          "mobileProductDataList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MobileProductData"
-            }
-          },
-          "authenticationData": {
-            "$ref": "#/components/schemas/AuthenticationData"
-          }
-        }
-      },
-      "MnpPersonalData": {
-        "type": "object",
-        "properties": {
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "birthdate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "MobileProductData": {
-        "type": "object",
-        "properties": {
-          "mobileProductId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "installmentId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "CreateCustomerPostpaidResponse": {
-        "type": "object",
-        "properties": {
-          "signupId": {
-            "type": "integer",
-            "format": "int64"
-          }
-        }
-      },
-      "DslDto": {
-        "type": "object",
-        "properties": {
-          "client": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "city": {
+          "street": {
             "type": "string"
           },
           "zip": {
             "type": "string"
           },
-          "street": {
-            "type": "string"
-          },
           "houseNumber": {
             "type": "string"
           },
-          "arealCode": {
+          "city": {
             "type": "string"
           },
-          "cli": {
+          "district": {
+            "type": "string"
+          },
+          "klsId": {
             "type": "string"
           }
         }
@@ -10967,7 +11046,6 @@
             "type": "number"
           },
           "discounts": {
-            "uniqueItems": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Discount"
@@ -11281,7 +11359,6 @@
             "format": "int64"
           },
           "discounts": {
-            "uniqueItems": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Discount"
@@ -11475,12 +11552,12 @@
               "TWELVE_MONTHS"
             ]
           },
-          "mainService": {
-            "type": "boolean"
-          },
           "endDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "mainService": {
+            "type": "boolean"
           }
         }
       },
@@ -11629,6 +11706,294 @@
               "FIXED_BROADBAND_ACCESS",
               "FIXED_TECHNICAL_SERVICE"
             ]
+          }
+        }
+      },
+      "AuthenticationData": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "legiPin": {
+            "type": "string"
+          }
+        }
+      },
+      "ContractData": {
+        "type": "object",
+        "properties": {
+          "simType": {
+            "type": "string",
+            "enum": [
+              "MINI_PREPAID",
+              "MINI_POSTPAID",
+              "HYBRID",
+              "TRIPLE",
+              "NANO",
+              "E_SIM",
+              "DUAL_SIM",
+              "NO_SIM",
+              "ROUTER_SIM"
+            ]
+          },
+          "itemizedBillFormat": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dataStoringOption": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mnpData": {
+            "$ref": "#/components/schemas/MnpData"
+          }
+        }
+      },
+      "CreateCustomerPrepaidDto": {
+        "type": "object",
+        "properties": {
+          "client": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerData": {
+            "$ref": "#/components/schemas/BasicCustomerData"
+          },
+          "vviRead": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "vfzId": {
+            "type": "string"
+          },
+          "identificationMethod": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "vfzWorkflowId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "contactData": {
+            "$ref": "#/components/schemas/CreateCustomerContactData"
+          },
+          "mainAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "activateFlags": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "paymentData": {
+            "$ref": "#/components/schemas/BankData"
+          },
+          "calculateBasketRequest": {
+            "$ref": "#/components/schemas/CalculateBasketRequest"
+          },
+          "contractData": {
+            "$ref": "#/components/schemas/ContractData"
+          },
+          "mnpData": {
+            "$ref": "#/components/schemas/MnpData"
+          },
+          "authenticationData": {
+            "$ref": "#/components/schemas/AuthenticationData"
+          },
+          "simcardInformation": {
+            "$ref": "#/components/schemas/SimcardInformation"
+          }
+        }
+      },
+      "SimcardInformation": {
+        "type": "object",
+        "properties": {
+          "msisdn": {
+            "type": "string"
+          },
+          "puk": {
+            "type": "string"
+          },
+          "activationCode": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateCustomerPrepaidResponse": {
+        "type": "object",
+        "properties": {
+          "signupId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CreateCustomerPostpaidContractOptions": {
+        "type": "object",
+        "properties": {
+          "simType": {
+            "type": "string",
+            "enum": [
+              "MINI_PREPAID",
+              "MINI_POSTPAID",
+              "HYBRID",
+              "TRIPLE",
+              "NANO",
+              "E_SIM",
+              "DUAL_SIM",
+              "NO_SIM",
+              "ROUTER_SIM"
+            ]
+          },
+          "itemizedBillFormat": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dataStoringOption": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mnpData": {
+            "$ref": "#/components/schemas/MnpData"
+          },
+          "businessCustomerData": {
+            "$ref": "#/components/schemas/BusinessCustomerData"
+          },
+          "mnpPersonalData": {
+            "$ref": "#/components/schemas/MnpPersonalData"
+          },
+          "goldenNumber": {
+            "type": "string"
+          },
+          "usageLocation": {
+            "$ref": "#/components/schemas/Address"
+          }
+        }
+      },
+      "CreateCustomerPostpaidDto": {
+        "type": "object",
+        "properties": {
+          "client": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerData": {
+            "$ref": "#/components/schemas/BasicCustomerData"
+          },
+          "identificationMethod": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "vviRead": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "contactData": {
+            "$ref": "#/components/schemas/CreateCustomerContactData"
+          },
+          "mainAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "shippingAddress": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "activatePostpaidFlags": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "paymentData": {
+            "$ref": "#/components/schemas/BankData"
+          },
+          "calculateBasketRequest": {
+            "$ref": "#/components/schemas/CalculateBasketRequest"
+          },
+          "contractOptions": {
+            "$ref": "#/components/schemas/CreateCustomerPostpaidContractOptions"
+          },
+          "mobileProductDataList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MobileProductData"
+            }
+          },
+          "authenticationData": {
+            "$ref": "#/components/schemas/AuthenticationData"
+          }
+        }
+      },
+      "MnpPersonalData": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MobileProductData": {
+        "type": "object",
+        "properties": {
+          "mobileProductId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "installmentId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CreateCustomerPostpaidResponse": {
+        "type": "object",
+        "properties": {
+          "signupId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "DslDto": {
+        "type": "object",
+        "properties": {
+          "client": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "city": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "houseNumber": {
+            "type": "string"
+          },
+          "arealCode": {
+            "type": "string"
+          },
+          "cli": {
+            "type": "string"
           }
         }
       },
@@ -12189,6 +12554,9 @@
             "type": "integer",
             "format": "int64"
           },
+          "pos": {
+            "type": "boolean"
+          },
           "prepaidActivation": {
             "type": "boolean"
           }
@@ -12326,15 +12694,15 @@
               "$ref": "#/components/schemas/BasketEntry"
             }
           },
+          "totalNumberOfEntries": {
+            "type": "integer",
+            "format": "int32"
+          },
           "basketTotalOneTime": {
             "type": "number"
           },
           "basketTotalRecurring": {
             "type": "number"
-          },
-          "totalNumberOfEntries": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
@@ -12364,7 +12732,6 @@
             "type": "number"
           },
           "discounts": {
-            "uniqueItems": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Discount"
@@ -12564,12 +12931,12 @@
             "type": "integer",
             "format": "int64"
           },
-          "wworkflowItemName": {
-            "type": "string"
-          },
           "wworkflowItemId": {
             "type": "integer",
             "format": "int64"
+          },
+          "wworkflowItemName": {
+            "type": "string"
           }
         }
       },
@@ -12907,6 +13274,90 @@
             }
           }
         }
+      },
+      "TasklistNewDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "The unique ID of the task.",
+            "format": "int64",
+            "example": 109250990
+          },
+          "orderStatus": {
+            "type": "string",
+            "description": "The internal status code of the order.",
+            "example": "BL160 Schnittstellenfehlermeldungen Mobile"
+          },
+          "orderStatusString": {
+            "type": "string",
+            "description": "The description of the order status.",
+            "example": "Fehler in Seriennummer-Tracking-Datei"
+          },
+          "dueDate": {
+            "type": "string",
+            "description": "The due date of the task.",
+            "format": "date-time",
+            "example": "2010-07-01T08:17:29Z"
+          },
+          "severity": {
+            "type": "integer",
+            "description": "The severity level of the task.",
+            "format": "int64",
+            "example": 2
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes related to the task.",
+            "example": "This task needs immediate attention."
+          },
+          "status": {
+            "type": "integer",
+            "description": "The status of the task.",
+            "format": "int64",
+            "example": 0
+          },
+          "relatedObject": {
+            "type": "string",
+            "description": "The related object associated with the task.",
+            "example": "Workflow: 100965193 - KOMSA-SerNo.-Trackingdatei einlesen"
+          },
+          "userName": {
+            "type": "string",
+            "description": "The username of the person or system handling the task.",
+            "example": "Workflowautomatik"
+          },
+          "escalationLevel": {
+            "type": "integer",
+            "description": "The escalation level of the task.",
+            "format": "int64",
+            "example": 2
+          },
+          "dueDate1": {
+            "type": "string",
+            "description": "The first due date for the task.",
+            "format": "date-time",
+            "example": "2010-07-02T08:17:29Z"
+          },
+          "dueDate2": {
+            "type": "string",
+            "description": "The second due date for the task.",
+            "format": "date-time",
+            "example": "2010-07-02T08:17:29Z"
+          },
+          "marked": {
+            "type": "integer",
+            "description": "Indicates whether the task is marked.",
+            "format": "int64",
+            "example": 0
+          },
+          "lastReturnCode": {
+            "type": "string",
+            "description": "The last return code associated with the task.",
+            "example": "ERROR_CODE_123"
+          }
+        },
+        "description": "Represents a task in the task list with associated metadata."
       },
       "CustomerSignup": {
         "type": "object",
@@ -14288,7 +14739,6 @@
             "format": "int64"
           },
           "discounts": {
-            "uniqueItems": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Discount"
@@ -14890,15 +15340,15 @@
             "type": "integer",
             "format": "int64"
           },
-          "dserviceId": {
-            "type": "integer",
-            "format": "int64"
+          "winback": {
+            "type": "boolean"
           },
           "highlight": {
             "type": "boolean"
           },
-          "winback": {
-            "type": "boolean"
+          "dserviceId": {
+            "type": "integer",
+            "format": "int64"
           },
           "partnerCard": {
             "type": "boolean"
@@ -14931,11 +15381,11 @@
             "type": "number",
             "format": "double"
           },
-          "dserviceId": {
+          "sserviceId": {
             "type": "integer",
             "format": "int64"
           },
-          "sserviceId": {
+          "dserviceId": {
             "type": "integer",
             "format": "int64"
           }
@@ -15072,11 +15522,11 @@
             "type": "integer",
             "format": "int64"
           },
-          "dworkflowId": {
+          "dworkflowItemId": {
             "type": "integer",
             "format": "int64"
           },
-          "dworkflowItemId": {
+          "dworkflowId": {
             "type": "integer",
             "format": "int64"
           }
@@ -15165,6 +15615,25 @@
           },
           "unsorted": {
             "type": "boolean"
+          }
+        }
+      },
+      "DateResultList": {
+        "type": "object",
+        "properties": {
+          "StandardDates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          "AdditionalDates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "date"
+            }
           }
         }
       },
@@ -15317,15 +15786,15 @@
               "$ref": "#/components/schemas/WorkflowEntity"
             }
           },
+          "kstatus": {
+            "$ref": "#/components/schemas/Status"
+          },
           "wworkflow": {
             "$ref": "#/components/schemas/WWorkflow"
           },
           "dworkflowId": {
             "type": "integer",
             "format": "int64"
-          },
-          "kstatus": {
-            "$ref": "#/components/schemas/Status"
           }
         }
       },
@@ -15586,7 +16055,9 @@
                 "BNETZA",
                 "PRODUCT_DELETED",
                 "CAMPAIGN_PIGGY",
-                "CAMPAIGN_PIGGY_GREY"
+                "CAMPAIGN_PIGGY_GREY",
+                "FIXED_ABW_OUT",
+                "FIXED_ABW_IN"
               ]
             }
           },
