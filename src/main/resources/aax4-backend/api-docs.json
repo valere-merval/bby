@@ -6232,6 +6232,9 @@
                "houseNumber" : {
                   "type" : "string"
                },
+               "houseNumberSupplement" : {
+                  "type" : "string"
+               },
                "klsId" : {
                   "type" : "string"
                },
