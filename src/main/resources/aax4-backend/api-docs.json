@@ -1034,6 +1034,30 @@
             },
             "type" : "object"
          },
+         "Carrier" : {
+            "properties" : {
+               "carrierName" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "isEkp" : {
+                  "type" : "boolean"
+               },
+               "isPremiumProvider" : {
+                  "type" : "boolean"
+               },
+               "phoneNumberAsReferenceSufficient" : {
+                  "type" : "boolean"
+               },
+               "plusnetWbciCarrierCode" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "ChangeBankDataAsPerRequest" : {
             "properties" : {
                "bic" : {
@@ -7961,6 +7985,35 @@
             "summary" : "Get preselectable campaigns for various order processes",
             "tags" : [
                "campaign-controller"
+            ]
+         }
+      },
+      "/carrier/" : {
+         "get" : {
+            "operationId" : "getCarrier",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Carrier"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Returns the list of all available carrier",
+            "tags" : [
+               "carrier-controller"
             ]
          }
       },
@@ -16536,6 +16589,10 @@
       {
          "description" : "Provides endpoint to coupon code data",
          "name" : "coupon-code-controller"
+      },
+      {
+         "description" : "Provides endpoint to get the carrier",
+         "name" : "carrier-controller"
       },
       {
          "description" : "Provides endpoints to monitor interfaces and their respective transactions",
