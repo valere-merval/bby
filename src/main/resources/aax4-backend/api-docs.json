@@ -7991,6 +7991,16 @@
       "/carrier/" : {
          "get" : {
             "operationId" : "getCarrier",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "isEkp",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "boolean"
+                  }
+               }
+            ],
             "responses" : {
                "200" : {
                   "content" : {
@@ -12025,7 +12035,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get all fixed products for client",
+            "summary" : "Get all fixed products for a specific address",
             "tags" : [
                "products-filtered-controller"
             ]
@@ -16587,12 +16597,12 @@
    ],
    "tags" : [
       {
-         "description" : "Provides endpoint to coupon code data",
-         "name" : "coupon-code-controller"
+         "description" : "Provides endpoint to get the carrier ",
+         "name" : "carrier-controller"
       },
       {
-         "description" : "Provides endpoint to get the carrier",
-         "name" : "carrier-controller"
+         "description" : "Provides endpoint to coupon code data",
+         "name" : "coupon-code-controller"
       },
       {
          "description" : "Provides endpoints to monitor interfaces and their respective transactions",
