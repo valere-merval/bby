@@ -840,9 +840,6 @@
                   "type" : "array",
                   "uniqueItems" : true
                },
-               "pos" : {
-                  "type" : "boolean"
-               },
                "prepaidActivation" : {
                   "type" : "boolean"
                }
@@ -4637,9 +4634,6 @@
                },
                "email" : {
                   "type" : "string"
-               },
-               "pos" : {
-                  "type" : "boolean"
                },
                "predecessorDServiceId" : {
                   "format" : "int64",
