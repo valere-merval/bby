@@ -6619,38 +6619,9 @@
                   "format" : "date-time",
                   "type" : "string"
                },
-               "dueDate1" : {
-                  "description" : "The first due date for the task.",
-                  "example" : "2010-07-02T08:17:29Z",
-                  "format" : "date-time",
-                  "type" : "string"
-               },
-               "dueDate2" : {
-                  "description" : "The second due date for the task.",
-                  "example" : "2010-07-02T08:17:29Z",
-                  "format" : "date-time",
-                  "type" : "string"
-               },
-               "escalationLevel" : {
-                  "description" : "The escalation level of the task.",
-                  "example" : 2,
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "id" : {
                   "description" : "The unique ID of the task.",
                   "example" : 109250990,
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "lastReturnCode" : {
-                  "description" : "The last return code associated with the task.",
-                  "example" : "ERROR_CODE_123",
-                  "type" : "string"
-               },
-               "marked" : {
-                  "description" : "Indicates whether the task is marked.",
-                  "example" : 0,
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -6669,27 +6640,11 @@
                   "example" : "Fehler in Seriennummer-Tracking-Datei",
                   "type" : "string"
                },
-               "relatedObject" : {
-                  "description" : "The related object associated with the task.",
-                  "example" : "Workflow: 100965193 - KOMSA-SerNo.-Trackingdatei einlesen",
-                  "type" : "string"
-               },
-               "severity" : {
-                  "description" : "The severity level of the task.",
-                  "example" : 2,
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "status" : {
                   "description" : "The status of the task.",
                   "example" : 0,
                   "format" : "int64",
                   "type" : "integer"
-               },
-               "userName" : {
-                  "description" : "The username of the person or system handling the task.",
-                  "example" : "Workflowautomatik",
-                  "type" : "string"
                }
             },
             "type" : "object"
@@ -6979,6 +6934,29 @@
                   "type" : "integer"
                }
             },
+            "type" : "object"
+         },
+         "UsageLocation" : {
+            "properties" : {
+               "city" : {
+                  "type" : "string"
+               },
+               "houseNumber" : {
+                  "type" : "string"
+               },
+               "street" : {
+                  "type" : "string"
+               },
+               "zip" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "city",
+               "houseNumber",
+               "street",
+               "zip"
+            ],
             "type" : "object"
          },
          "VHistoryData" : {
@@ -7680,6 +7658,42 @@
             "summary" : "Change a customer's bank data at a specified date",
             "tags" : [
                "account-controller"
+            ]
+         }
+      },
+      "/address/usageLocationMapUrl" : {
+         "post" : {
+            "operationId" : "getUsageLocationMapUrl",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UsageLocation"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get usage location map URL based on address input",
+            "tags" : [
+               "address-controller"
             ]
          }
       },
@@ -13126,7 +13140,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Set partner card flag",
+            "summary" : "Starts postpone process for fixed services",
             "tags" : [
                "service-actions-controller"
             ]
@@ -15790,10 +15804,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/TasklistNewDto"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/TasklistNewDto"
                         }
                      }
                   },
