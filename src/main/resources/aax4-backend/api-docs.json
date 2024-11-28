@@ -6604,6 +6604,88 @@
             ],
             "type" : "object"
          },
+         "TaskListEntryRequest_Create" : {
+            "properties" : {
+               "dueDate" : {
+                  "description" : "TaskList entry is due starting from this date.",
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "entityId" : {
+                  "description" : "The ID of the entity to set on the taskList (usually workflowId).",
+                  "example" : 65423541,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "notes" : {
+                  "description" : "Can be used for additional information.",
+                  "example" : "Hier steht eine Notiz",
+                  "type" : "string"
+               },
+               "orderStatus" : {
+                  "description" : "The ID of the orderStatus (represents the taskList).",
+                  "example" : 100240,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "orderStatusString" : {
+                  "description" : "The orderStatusString to use for the taskList entry.",
+                  "example" : "Gutschrift - Ich kuemmere mich drum",
+                  "type" : "string"
+               },
+               "relEntity" : {
+                  "description" : "The entity to set on the taskList.",
+                  "example" : 7,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "status" : {
+                  "description" : "TaskList entry is assigned this status.",
+                  "example" : 0,
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "TaskListEntryRequest_Update" : {
+            "properties" : {
+               "dueDate" : {
+                  "description" : "TaskList entry is due starting from this date.",
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "notes" : {
+                  "description" : "Can be used for additional information.",
+                  "example" : "Hier steht eine Notiz",
+                  "type" : "string"
+               },
+               "orderStatus" : {
+                  "description" : "The ID of the orderStatus (represents the taskList).",
+                  "example" : 100240,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "orderStatusString" : {
+                  "description" : "The orderStatusString to use for the taskList entry.",
+                  "example" : "Gutschrift - Ich kuemmere mich drum",
+                  "type" : "string"
+               },
+               "status" : {
+                  "description" : "TaskList entry is assigned this status.",
+                  "example" : 0,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "taskListId" : {
+                  "description" : "The unique ID of the taskList entry.",
+                  "example" : 109250990,
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "TasklistNewDto_Full" : {
             "description" : "Represents a task in the task list with associated metadata.",
             "properties" : {
@@ -15799,6 +15881,78 @@
             ]
          }
       },
+      "/taskList/taskListDetail" : {
+         "post" : {
+            "operationId" : "createNewTaskListEntry",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TaskListEntryRequest_Create"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "format" : "int64",
+                           "type" : "integer"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Creates new entry for taskList",
+            "tags" : [
+               "task-list-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "updateTaskListEntry",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TaskListEntryRequest_Update"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "format" : "int64",
+                           "type" : "integer"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Updates existing taskList entry",
+            "tags" : [
+               "task-list-controller"
+            ]
+         }
+      },
       "/taskList/taskListDetail/{id}" : {
          "get" : {
             "description" : "Fetches detailed information about a task list for the given ID. Requires authentication with the role 'ROLE_AGENT'.",
@@ -16672,6 +16826,10 @@
       {
          "description" : "Provides endpoint to coupon code data",
          "name" : "coupon-code-controller"
+      },
+      {
+         "description" : "Provides endpoints to task lists and their respective entries",
+         "name" : "task-list-controller"
       },
       {
          "description" : "Provides endpoints to monitor interfaces and their respective transactions",
