@@ -6604,7 +6604,7 @@
             ],
             "type" : "object"
          },
-         "TasklistNewDto" : {
+         "TasklistNewDto_Full" : {
             "description" : "Represents a task in the task list with associated metadata.",
             "properties" : {
                "dueDate" : {
@@ -6639,6 +6639,28 @@
                   "example" : 0,
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "TasklistNewDto_Reduced" : {
+            "description" : "Represents a task in the task list with associated metadata.",
+            "properties" : {
+               "dueDate" : {
+                  "description" : "The due date of the task.",
+                  "example" : "2010-07-01T08:17:29Z",
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "orderStatus" : {
+                  "description" : "The internal status code of the order.",
+                  "example" : "BL160 Schnittstellenfehlermeldungen Mobile",
+                  "type" : "string"
+               },
+               "orderStatusString" : {
+                  "description" : "The description of the order status.",
+                  "example" : "Fehler in Seriennummer-Tracking-Datei",
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -15798,7 +15820,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/TasklistNewDto"
+                           "$ref" : "#/components/schemas/TasklistNewDto_Full"
                         }
                      }
                   },
@@ -15811,6 +15833,48 @@
                }
             ],
             "summary" : "Retrieve task list details by ID",
+            "tags" : [
+               "task-list-controller"
+            ]
+         }
+      },
+      "/taskList/taskListDetails/{workflowId}" : {
+         "get" : {
+            "description" : "Fetches reduced details about a task list for the given workflow ID. This includes only the `orderStatus`, `orderStatusString`, and `dueDate` fields. Requires authentication with the role 'ROLE_AGENT'.",
+            "operationId" : "getTaskListDetails",
+            "parameters" : [
+               {
+                  "description" : "The workflow ID of the task list to retrieve.",
+                  "in" : "path",
+                  "name" : "workflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/TasklistNewDto_Reduced"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieve reduced task list details by workflow ID",
             "tags" : [
                "task-list-controller"
             ]
