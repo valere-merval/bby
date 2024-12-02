@@ -4275,7 +4275,9 @@
                      "SHOW_WORKFLOWS",
                      "SET_PARTNER_CARD",
                      "ADD_MOBILE_CONTRACT",
-                     "POSTPONE_FIXED"
+                     "POSTPONE_FIXED",
+                     "CANCEL_FIXED",
+                     "CANCEL_HARDWARE_FIXED"
                   ],
                   "type" : "string"
                },
@@ -14213,7 +14215,9 @@
                         "SHOW_WORKFLOWS",
                         "SET_PARTNER_CARD",
                         "ADD_MOBILE_CONTRACT",
-                        "POSTPONE_FIXED"
+                        "POSTPONE_FIXED",
+                        "CANCEL_FIXED",
+                        "CANCEL_HARDWARE_FIXED"
                      ],
                      "type" : "string"
                   }
