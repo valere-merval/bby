@@ -6736,6 +6736,12 @@
                   "format" : "date-time",
                   "type" : "string"
                },
+               "id" : {
+                  "description" : "The unique ID of the task.",
+                  "example" : 109250990,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "orderStatus" : {
                   "description" : "The internal status code of the order.",
                   "example" : "BL160 Schnittstellenfehlermeldungen Mobile",
