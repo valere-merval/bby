@@ -16513,6 +16513,44 @@
             ]
          }
       },
+      "/workflow/{dWorkflowId}/flushWorkflowTime" : {
+         "put" : {
+            "operationId" : "flushWorkflowTime",
+            "parameters" : [
+               {
+                  "description" : "The workflowId which should be flushed",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Flushes time of workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
       "/workflow/{dWorkflowId}/restoreWorkflow" : {
          "put" : {
             "operationId" : "restoreWorkflow",
@@ -16697,6 +16735,43 @@
                }
             ],
             "summary" : "Mark workflowItem as obsolete",
+            "tags" : [
+               "workflowitem-controller"
+            ]
+         }
+      },
+      "/workflowitems/{dWorkflowItemId}/reprocess" : {
+         "post" : {
+            "operationId" : "reprocessFailedWorkflowitem",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowItemId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Reprocess Failed Workflowitem",
             "tags" : [
                "workflowitem-controller"
             ]
