@@ -955,6 +955,18 @@
             },
             "type" : "object"
          },
+         "CancelFixedRequest" : {
+            "properties" : {
+               "cancellationReason" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "notes" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CancelOptionRequest" : {
             "properties" : {
                "cancellationReason" : {
@@ -12593,6 +12605,90 @@
                }
             ],
             "summary" : "submit new barrings for a service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/cancelFixed" : {
+         "post" : {
+            "operationId" : "cancelFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CancelFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts cancellation process for Fixed main-service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/cancelHardwareFixed" : {
+         "post" : {
+            "operationId" : "cancelHardwareFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts cancellation process for Fixed hardwarepositions",
             "tags" : [
                "service-actions-controller"
             ]
