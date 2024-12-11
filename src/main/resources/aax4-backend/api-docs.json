@@ -3003,11 +3003,20 @@
                   "format" : "date-time",
                   "type" : "string"
                },
+               "phoneNumberAsReferenceSufficient" : {
+                  "type" : "boolean"
+               },
                "providerId" : {
                   "format" : "int64",
                   "type" : "integer"
                },
                "providerName" : {
+                  "type" : "string"
+               },
+               "referencedPhoneNumberCLI" : {
+                  "type" : "string"
+               },
+               "referencedPhoneNumberONKZ" : {
                   "type" : "string"
                },
                "resourceTransferCode" : {
@@ -14449,6 +14458,54 @@
                }
             ],
             "summary" : "Cancel postpaid and prepaid",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/changeHomespotLocation" : {
+         "put" : {
+            "operationId" : "changeHomespotLocation",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/Address"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "format" : "int64",
+                           "type" : "integer"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update the installation address for an existing Fixed Physical Access ",
             "tags" : [
                "service-controller"
             ]
