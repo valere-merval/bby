@@ -7048,6 +7048,15 @@
          },
          "UpdateFixedProviderChangeRequest" : {
             "properties" : {
+               "phoneNumberAsReferenceSufficient" : {
+                  "type" : "boolean"
+               },
+               "referencedPhoneNumberCLI" : {
+                  "type" : "string"
+               },
+               "referencedPhoneNumberONKZ" : {
+                  "type" : "string"
+               },
                "resourceTransferCode" : {
                   "type" : "string"
                },
