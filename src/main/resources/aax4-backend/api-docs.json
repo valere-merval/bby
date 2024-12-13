@@ -12522,18 +12522,10 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "enum" : [
-                                 "MINI_PREPAID",
-                                 "MINI_POSTPAID",
-                                 "HYBRID",
-                                 "TRIPLE",
-                                 "NANO",
-                                 "E_SIM",
-                                 "DUAL_SIM",
-                                 "NO_SIM",
-                                 "ROUTER_SIM"
-                              ],
-                              "type" : "string"
+                              "additionalProperties" : {
+                                 "type" : "string"
+                              },
+                              "type" : "object"
                            },
                            "type" : "array"
                         }
