@@ -6638,6 +6638,43 @@
             ],
             "type" : "object"
          },
+         "TaskListDto" : {
+            "description" : "Represents a task list",
+            "properties" : {
+               "allTimeAmount" : {
+                  "description" : "How many entries are due",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "last24Hours" : {
+                  "description" : "How many entries became due in the last 24 hours",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "last7Days" : {
+                  "description" : "How many entries became due in the last 7 days",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastDueDate" : {
+                  "description" : "Task list entry with the newest due date",
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "taskListId" : {
+                  "description" : "The unique ID of the task list",
+                  "example" : 50001,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "taskListName" : {
+                  "description" : "The name of the task list",
+                  "example" : "BL240 Billing",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "TaskListEntryRequest_Create" : {
             "properties" : {
                "dueDate" : {
@@ -14482,7 +14519,7 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "$ref" : "#/components/schemas/Address"
+                        "$ref" : "#/components/schemas/UsageLocation"
                      }
                   }
                },
@@ -14506,7 +14543,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "update the installation address for an existing Fixed Physical Access ",
+            "summary" : "update the homespot address",
             "tags" : [
                "service-controller"
             ]
@@ -16230,6 +16267,35 @@
                }
             ],
             "summary" : "Retrieve reduced task list details by workflow ID",
+            "tags" : [
+               "task-list-controller"
+            ]
+         }
+      },
+      "/taskList/taskLists" : {
+         "get" : {
+            "operationId" : "getTaskLists",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/TaskListDto"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get task lists",
             "tags" : [
                "task-list-controller"
             ]
