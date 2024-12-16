@@ -7085,9 +7085,6 @@
          },
          "UpdateFixedProviderChangeRequest" : {
             "properties" : {
-               "phoneNumberAsReferenceSufficient" : {
-                  "type" : "boolean"
-               },
                "referencedPhoneNumberCLI" : {
                   "type" : "string"
                },
@@ -7173,6 +7170,14 @@
                   "type" : "string"
                },
                "oldValue" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ValidateAreaCodeRequest" : {
+            "properties" : {
+               "areaCode" : {
                   "type" : "string"
                }
             },
@@ -7439,6 +7444,9 @@
                },
                "vo" : {
                   "type" : "string"
+               },
+               "workflowTestingData" : {
+                  "$ref" : "#/components/schemas/WorkflowTestingData"
                },
                "xmlPlain" : {
                   "type" : "string"
@@ -7728,6 +7736,14 @@
                "wworkflowitem" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "WorkflowTestingData" : {
+            "properties" : {
+               "workflowTestingFlag" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -14502,7 +14518,7 @@
          }
       },
       "/service/{serviceId}/changeHomespotLocation" : {
-         "put" : {
+         "post" : {
             "operationId" : "changeHomespotLocation",
             "parameters" : [
                {
@@ -16575,6 +16591,42 @@
                }
             ],
             "summary" : "Test if number is available",
+            "tags" : [
+               "validation-controller"
+            ]
+         }
+      },
+      "/validations/phonenumber/areacode" : {
+         "post" : {
+            "operationId" : "getAreaCodeType",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ValidateAreaCodeRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ValidationResultString"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Test if area code exists and return type",
             "tags" : [
                "validation-controller"
             ]
