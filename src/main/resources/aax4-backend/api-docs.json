@@ -14605,8 +14605,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "format" : "int64",
-                           "type" : "integer"
+                           "type" : "string"
                         }
                      }
                   },
@@ -16953,6 +16952,53 @@
                }
             ],
             "summary" : "Restores an archived workflow",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/updateTestingFlag" : {
+         "post" : {
+            "operationId" : "updateTestingFlag",
+            "parameters" : [
+               {
+                  "description" : "Set the given workflow testingflag to given value",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "testing",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "object"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Set the workflow testingflag to given value",
             "tags" : [
                "workflow-controller"
             ]
