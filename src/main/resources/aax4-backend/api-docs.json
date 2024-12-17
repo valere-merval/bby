@@ -1,6 +1,20 @@
 {
    "components" : {
       "schemas" : {
+         "AccessOwner" : {
+            "properties" : {
+               "firstName" : {
+                  "type" : "string"
+               },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "salutation" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               }
+            },
+            "type" : "object"
+         },
          "ActivatePrepaidDiscount" : {
             "properties" : {
                "couponCode" : {
@@ -1473,6 +1487,17 @@
             },
             "type" : "object"
          },
+         "ContanctInstallation" : {
+            "properties" : {
+               "contactPhoneData" : {
+                  "$ref" : "#/components/schemas/ContactPhoneData"
+               },
+               "email" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "Contingent" : {
             "properties" : {
                "amount" : {
@@ -1722,6 +1747,9 @@
          },
          "CreateCustomerDto" : {
             "properties" : {
+               "accessOwner" : {
+                  "$ref" : "#/components/schemas/AccessOwner"
+               },
                "authenticationData" : {
                   "$ref" : "#/components/schemas/AuthenticationData"
                },
@@ -1738,8 +1766,14 @@
                "contactData" : {
                   "$ref" : "#/components/schemas/CreateCustomerContactData"
                },
+               "contanctInstallation" : {
+                  "$ref" : "#/components/schemas/ContanctInstallation"
+               },
                "contractOptions" : {
                   "$ref" : "#/components/schemas/CreateCustomerContractOptions"
+               },
+               "currentProvider" : {
+                  "$ref" : "#/components/schemas/ProviderChange"
                },
                "customerData" : {
                   "$ref" : "#/components/schemas/BasicCustomerData"
@@ -1750,6 +1784,9 @@
                "identificationMethod" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "instalationAddress" : {
+                  "$ref" : "#/components/schemas/Address"
                },
                "mainAddress" : {
                   "$ref" : "#/components/schemas/Address"
@@ -1772,6 +1809,10 @@
                },
                "simcardInformation" : {
                   "$ref" : "#/components/schemas/SimcardInformation"
+               },
+               "startDtRequested" : {
+                  "format" : "date",
+                  "type" : "string"
                },
                "testing" : {
                   "type" : "string"
@@ -5072,6 +5113,22 @@
                "statusId" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "ProviderChange" : {
+            "properties" : {
+               "currentProvider" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "currentProviderName" : {
+                  "type" : "string"
+               },
+               "electronicAwaApprovalTime" : {
+                  "format" : "date",
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -8516,7 +8573,8 @@
                         "PREPAID",
                         "POSTPAID",
                         "HOMESPOT",
-                        "HARDWARE"
+                        "HARDWARE",
+                        "FIXED"
                      ],
                      "type" : "string"
                   }
@@ -8650,7 +8708,8 @@
                         "PREPAID",
                         "POSTPAID",
                         "HOMESPOT",
-                        "HARDWARE"
+                        "HARDWARE",
+                        "FIXED"
                      ],
                      "type" : "string"
                   }
@@ -16071,7 +16130,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "object"
+                           "type" : "string"
                         }
                      }
                   },
@@ -16117,7 +16176,8 @@
                   "content" : {
                      "application/octet-stream" : {
                         "schema" : {
-                           "type" : "object"
+                           "format" : "binary",
+                           "type" : "string"
                         }
                      }
                   },
