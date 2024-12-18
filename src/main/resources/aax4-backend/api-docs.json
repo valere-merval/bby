@@ -4556,6 +4556,52 @@
             },
             "type" : "object"
          },
+         "PageTaskListDescriptionDto" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/TaskListDescriptionDto"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/Sort"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "PageableObject" : {
             "properties" : {
                "offset" : {
@@ -6693,6 +6739,26 @@
                "id",
                "isChecked"
             ],
+            "type" : "object"
+         },
+         "TaskListDescriptionDto" : {
+            "description" : "Represents a task list description (order_status_string)",
+            "properties" : {
+               "amount" : {
+                  "description" : "How many entries are grouped under this task list description (order_status_string)",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "dueDate" : {
+                  "description" : "Due date of the task list entries",
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "orderStatusString" : {
+                  "description" : "The name of the task list description",
+                  "type" : "string"
+               }
+            },
             "type" : "object"
          },
          "TaskListDto" : {
@@ -16371,6 +16437,111 @@
                }
             ],
             "summary" : "Get task lists",
+            "tags" : [
+               "task-list-controller"
+            ]
+         }
+      },
+      "/taskList/{orderStatusId}" : {
+         "get" : {
+            "operationId" : "getTaskListDescriptions",
+            "parameters" : [
+               {
+                  "description" : "Unique ID of the task list",
+                  "in" : "path",
+                  "name" : "orderStatusId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "description" : "Can be due or upcoming",
+                  "in" : "query",
+                  "name" : "timeFrame",
+                  "required" : true,
+                  "schema" : {
+                     "enum" : [
+                        "DUE",
+                        "UPCOMING"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include task list descriptions, if their names contain this specified string",
+                  "in" : "query",
+                  "name" : "orderStatusStringSearch",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DUE_DATE",
+                     "enum" : [
+                        "DESCRIPTION",
+                        "DUE_DATE",
+                        "AMOUNT"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "If results should be sorted in descending or ascending order",
+                  "in" : "query",
+                  "name" : "descendingOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : true,
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 20,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/PageTaskListDescriptionDto"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get task list descriptions (same as order_status_strings)",
             "tags" : [
                "task-list-controller"
             ]
