@@ -17157,7 +17157,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "object"
+                           "type" : "string"
                         }
                      }
                   },
