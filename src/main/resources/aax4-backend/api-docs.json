@@ -7032,17 +7032,17 @@
                "email" : {
                   "type" : "string"
                },
-               "mobilePhone" : {
+               "landline" : {
                   "$ref" : "#/components/schemas/ContactPhoneData"
                },
-               "phone" : {
+               "mobilePhone" : {
                   "$ref" : "#/components/schemas/ContactPhoneData"
                }
             },
             "required" : [
                "email",
-               "mobilePhone",
-               "phone"
+               "landline",
+               "mobilePhone"
             ],
             "type" : "object"
          },
