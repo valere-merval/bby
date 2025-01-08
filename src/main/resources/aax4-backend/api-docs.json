@@ -1481,6 +1481,15 @@
                },
                "email" : {
                   "type" : "string"
+               },
+               "firstName" : {
+                  "type" : "string"
+               },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "salutation" : {
+                  "$ref" : "#/components/schemas/Lookup"
                }
             },
             "type" : "object"
@@ -1772,9 +1781,6 @@
                "contractOptions" : {
                   "$ref" : "#/components/schemas/CreateCustomerContractOptions"
                },
-               "currentProvider" : {
-                  "$ref" : "#/components/schemas/ProviderChange"
-               },
                "customerData" : {
                   "$ref" : "#/components/schemas/BasicCustomerData"
                },
@@ -1785,8 +1791,8 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "instalationAddress" : {
-                  "$ref" : "#/components/schemas/Address"
+               "installationAddress" : {
+                  "$ref" : "#/components/schemas/UsageLocation"
                },
                "mainAddress" : {
                   "$ref" : "#/components/schemas/Address"
@@ -1803,6 +1809,9 @@
                },
                "posOrder" : {
                   "type" : "boolean"
+               },
+               "providerChange" : {
+                  "$ref" : "#/components/schemas/ProviderChange"
                },
                "shippingAddress" : {
                   "$ref" : "#/components/schemas/Address"
