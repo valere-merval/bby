@@ -12436,6 +12436,53 @@
             ]
          }
       },
+      "/service/options/{optionId}/cancelChangeOption" : {
+         "post" : {
+            "operationId" : "cancelChangeOption",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "optionId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CancelOptionRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Cancel running option (dService) change",
+            "tags" : [
+               "service-options-controller"
+            ]
+         }
+      },
       "/service/options/{optionId}/change" : {
          "get" : {
             "operationId" : "getChangeableOptionsByDServiceOptionId",
