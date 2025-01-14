@@ -7356,6 +7356,10 @@
                "activationCode" : {
                   "type" : "string"
                },
+               "customerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "msisdn" : {
                   "type" : "string"
                },
@@ -7380,8 +7384,28 @@
                "puk" : {
                   "type" : "string"
                },
+               "responseError" : {
+                  "$ref" : "#/components/schemas/ValidateSimResponseError"
+               },
                "valid" : {
                   "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
+         "ValidateSimResponseError" : {
+            "properties" : {
+               "errorMessage" : {
+                  "type" : "string"
+               },
+               "errorType" : {
+                  "enum" : [
+                     "PUK",
+                     "MSISDN",
+                     "ACTIVATIONCODE",
+                     "GENERAL"
+                  ],
+                  "type" : "string"
                }
             },
             "type" : "object"
