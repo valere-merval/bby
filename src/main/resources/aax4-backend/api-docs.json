@@ -846,16 +846,14 @@
                   },
                   "type" : "array"
                },
-               "campaignIds" : {
-                  "items" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  },
-                  "type" : "array",
-                  "uniqueItems" : true
-               },
                "prepaidActivation" : {
                   "type" : "boolean"
+               },
+               "preselectableCampaigns" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/PreselectableCampaign"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -4858,6 +4856,19 @@
             },
             "type" : "object"
          },
+         "PreselectableCampaign" : {
+            "properties" : {
+               "campaignId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "targetId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "ProcedureResult" : {
             "properties" : {
                "errorCode" : {
@@ -8295,6 +8306,30 @@
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "targetOptionIds",
+                  "required" : false,
+                  "schema" : {
+                     "items" : {
+                        "format" : "int64",
+                        "type" : "integer"
+                     },
+                     "type" : "array"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "targetHardwareIds",
+                  "required" : false,
+                  "schema" : {
+                     "items" : {
+                        "format" : "int64",
+                        "type" : "integer"
+                     },
+                     "type" : "array"
                   }
                },
                {
