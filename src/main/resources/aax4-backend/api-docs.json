@@ -9248,6 +9248,43 @@
             ]
          }
       },
+      "/customer/{customerId}/actions/toggleTestFlag" : {
+         "post" : {
+            "operationId" : "toggleTestFlag",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Toggle testflag",
+            "tags" : [
+               "customer-actions-controller"
+            ]
+         }
+      },
       "/customer/{customerId}/address" : {
          "put" : {
             "operationId" : "saveCustomerAddress",
