@@ -8322,14 +8322,20 @@
                },
                {
                   "in" : "query",
-                  "name" : "targetHardwareIds",
+                  "name" : "targetHardwareId",
                   "required" : false,
                   "schema" : {
-                     "items" : {
-                        "format" : "int64",
-                        "type" : "integer"
-                     },
-                     "type" : "array"
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "installmentPlanId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                },
                {
