@@ -308,7 +308,6 @@
          "AdjustCreditRequest" : {
             "properties" : {
                "adjustment" : {
-                  "format" : "double",
                   "type" : "number"
                },
                "adjustmentReason" : {
@@ -7682,6 +7681,9 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "isRelevant" : {
+                  "type" : "boolean"
+               },
                "kstatus" : {
                   "$ref" : "#/components/schemas/Status"
                },
@@ -11252,6 +11254,27 @@
             "summary" : "get specific customer documents by documentId",
             "tags" : [
                "documents-controller"
+            ]
+         }
+      },
+      "/health/healthCheck" : {
+         "get" : {
+            "operationId" : "getHealthCheck",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "summary" : "Checks if the DB is reachable",
+            "tags" : [
+               "health-check-controller"
             ]
          }
       },
