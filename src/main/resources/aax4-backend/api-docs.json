@@ -7936,6 +7936,43 @@
    },
    "openapi" : "3.0.1",
    "paths" : {
+      "/accounts/{accountId}/bankAccount" : {
+         "delete" : {
+            "operationId" : "deleteBankAccount",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "accountId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Mark a customers bank account as deleted",
+            "tags" : [
+               "account-controller"
+            ]
+         }
+      },
       "/accounts/{accountId}/billingAddress" : {
          "put" : {
             "operationId" : "editBillingAddress",
