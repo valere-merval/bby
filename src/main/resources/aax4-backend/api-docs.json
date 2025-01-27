@@ -5009,6 +5009,9 @@
                "msisdn" : {
                   "type" : "string"
                },
+               "notes" : {
+                  "type" : "string"
+               },
                "options" : {
                   "items" : {
                      "$ref" : "#/components/schemas/Product"
@@ -7961,7 +7964,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/ProcedureResult"
+                           "type" : "string"
                         }
                      }
                   },
