@@ -6879,6 +6879,11 @@
                   "description" : "The name of the task list",
                   "example" : "BL240 Billing",
                   "type" : "string"
+               },
+               "upcoming" : {
+                  "description" : "How many entries have a due date in the future",
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
