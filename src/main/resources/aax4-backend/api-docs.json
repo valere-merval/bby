@@ -187,6 +187,63 @@
             },
             "type" : "object"
          },
+         "AddFixedRequest" : {
+            "properties" : {
+               "accessOwner" : {
+                  "$ref" : "#/components/schemas/AccessOwner"
+               },
+               "calculateBasketRequest" : {
+                  "$ref" : "#/components/schemas/CalculateBasketRequest"
+               },
+               "contactInstallation" : {
+                  "$ref" : "#/components/schemas/ContactInstallation"
+               },
+               "installationAddress" : {
+                  "$ref" : "#/components/schemas/UsageLocation"
+               },
+               "paymentData" : {
+                  "$ref" : "#/components/schemas/BankData"
+               },
+               "permissions" : {
+                  "items" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
+               },
+               "providerChange" : {
+                  "$ref" : "#/components/schemas/ProviderChange"
+               },
+               "shippingAddress" : {
+                  "$ref" : "#/components/schemas/Address"
+               },
+               "startDtRequested" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "vfzWorkflowId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "vviRead" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "vviStatus" : {
+                  "enum" : [
+                     "VVI_NOT_SENT",
+                     "VVI_SENT",
+                     "VVI_ERROR",
+                     "NO_CUSTOMER_EMAIL"
+                  ],
+                  "type" : "string"
+               },
+               "vzfID" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AddMultiSimRequest" : {
             "properties" : {
                "permissions" : {
@@ -8868,6 +8925,53 @@
                }
             ],
             "summary" : "Send pre contractual information to existing customer",
+            "tags" : [
+               "customer-actions-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/actions/addFixed" : {
+         "post" : {
+            "operationId" : "addFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/AddFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SignupResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Customer adds fixed product",
             "tags" : [
                "customer-actions-controller"
             ]
