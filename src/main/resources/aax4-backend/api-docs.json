@@ -8935,7 +8935,7 @@
             ]
          }
       },
-      "/customer/{customerId}/actions/addFixed" : {
+      "/customer/{customerId}/actions/addFixedContract" : {
          "post" : {
             "operationId" : "addFixed",
             "parameters" : [
