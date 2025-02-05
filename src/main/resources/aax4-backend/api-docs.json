@@ -6270,6 +6270,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "customerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "notes" : {
                   "type" : "string"
                },
