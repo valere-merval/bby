@@ -4414,7 +4414,8 @@
                      "ADD_MOBILE_CONTRACT",
                      "POSTPONE_FIXED",
                      "CANCEL_FIXED",
-                     "CANCEL_HARDWARE_FIXED"
+                     "CANCEL_HARDWARE_FIXED",
+                     "TERMINATE_FIXED"
                   ],
                   "type" : "string"
                },
@@ -14868,7 +14869,8 @@
                         "ADD_MOBILE_CONTRACT",
                         "POSTPONE_FIXED",
                         "CANCEL_FIXED",
-                        "CANCEL_HARDWARE_FIXED"
+                        "CANCEL_HARDWARE_FIXED",
+                        "TERMINATE_FIXED"
                      ],
                      "type" : "string"
                   }
