@@ -1267,6 +1267,15 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "vviStatus" : {
+                  "enum" : [
+                     "VVI_NOT_SENT",
+                     "VVI_SENT",
+                     "VVI_ERROR",
+                     "NO_CUSTOMER_EMAIL"
+                  ],
+                  "type" : "string"
+               },
                "vzfId" : {
                   "type" : "string"
                }
@@ -12301,6 +12310,7 @@
       },
       "/product/postpaid/activate" : {
          "post" : {
+            "deprecated" : true,
             "operationId" : "getPostpaid",
             "requestBody" : {
                "content" : {
