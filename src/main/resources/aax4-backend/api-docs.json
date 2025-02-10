@@ -3106,6 +3106,9 @@
             "properties" : {
                "firstAvailablePostponementDate" : {
                   "type" : "string"
+               },
+               "tariffChange" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -6315,6 +6318,14 @@
                   "type" : "integer"
                }
             },
+            "required" : [
+               "adjustment",
+               "communicationChannel",
+               "notification",
+               "terminationDate",
+               "terminationMode",
+               "terminationReason"
+            ],
             "type" : "object"
          },
          "ServiceTerminationResponse" : {
