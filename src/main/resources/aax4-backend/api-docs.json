@@ -4239,7 +4239,8 @@
                      "VOIP_PHONE_NUMBER",
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
-                     "FIXED_TECHNICAL_SERVICE"
+                     "FIXED_TECHNICAL_SERVICE",
+                     "FIXED_RENT_OPTION"
                   ],
                   "type" : "string"
                },
@@ -5162,7 +5163,8 @@
                      "VOIP_PHONE_NUMBER",
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
-                     "FIXED_TECHNICAL_SERVICE"
+                     "FIXED_TECHNICAL_SERVICE",
+                     "FIXED_RENT_OPTION"
                   ],
                   "type" : "string"
                },
@@ -5232,7 +5234,8 @@
                      "VOIP_PHONE_NUMBER",
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
-                     "FIXED_TECHNICAL_SERVICE"
+                     "FIXED_TECHNICAL_SERVICE",
+                     "FIXED_RENT_OPTION"
                   ],
                   "type" : "string"
                }
@@ -5714,7 +5717,8 @@
                      "VOIP_PHONE_NUMBER",
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
-                     "FIXED_TECHNICAL_SERVICE"
+                     "FIXED_TECHNICAL_SERVICE",
+                     "FIXED_RENT_OPTION"
                   ],
                   "type" : "string"
                },
@@ -5874,7 +5878,8 @@
                      "VOIP_PHONE_NUMBER",
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
-                     "FIXED_TECHNICAL_SERVICE"
+                     "FIXED_TECHNICAL_SERVICE",
+                     "FIXED_RENT_OPTION"
                   ],
                   "type" : "string"
                }
@@ -6546,7 +6551,8 @@
                      "VOIP_PHONE_NUMBER",
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
-                     "FIXED_TECHNICAL_SERVICE"
+                     "FIXED_TECHNICAL_SERVICE",
+                     "FIXED_RENT_OPTION"
                   ],
                   "type" : "string"
                }
@@ -12602,7 +12608,8 @@
                            "VOIP_PHONE_NUMBER",
                            "FIXED",
                            "FIXED_BROADBAND_ACCESS",
-                           "FIXED_TECHNICAL_SERVICE"
+                           "FIXED_TECHNICAL_SERVICE",
+                           "FIXED_RENT_OPTION"
                         ],
                         "type" : "string"
                      },
