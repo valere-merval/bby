@@ -606,6 +606,10 @@
                "companyName" : {
                   "type" : "string"
                },
+               "createDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "customerCode" : {
                   "type" : "string"
                },
@@ -2390,6 +2394,10 @@
                "contactData" : {
                   "$ref" : "#/components/schemas/ContactData"
                },
+               "createDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "customerCode" : {
                   "type" : "string"
                },
@@ -3107,7 +3115,7 @@
                "firstAvailablePostponementDate" : {
                   "type" : "string"
                },
-               "tariffChange" : {
+               "providerChange" : {
                   "type" : "boolean"
                }
             },
