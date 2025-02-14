@@ -4217,6 +4217,10 @@
                   },
                   "type" : "array"
                },
+               "score" : {
+                  "format" : "double",
+                  "type" : "number"
+               },
                "serviceId" : {
                   "format" : "int64",
                   "type" : "integer"
