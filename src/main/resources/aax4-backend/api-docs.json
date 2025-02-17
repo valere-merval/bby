@@ -195,6 +195,10 @@
                "calculateBasketRequest" : {
                   "$ref" : "#/components/schemas/CalculateBasketRequest"
                },
+               "client" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "contactInstallation" : {
                   "$ref" : "#/components/schemas/ContactInstallation"
                },
