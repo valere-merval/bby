@@ -7377,6 +7377,14 @@
             },
             "type" : "object"
          },
+         "UpdateIccidRequest" : {
+            "properties" : {
+               "iccid" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "UsageLocation" : {
             "properties" : {
                "city" : {
@@ -15825,7 +15833,7 @@
       },
       "/service/{serviceId}/fixedPrevTenant" : {
          "put" : {
-            "operationId" : "updateFixedPrevTenant_1",
+            "operationId" : "updateFixedPrevTenant",
             "parameters" : [
                {
                   "in" : "path",
@@ -15872,7 +15880,7 @@
       },
       "/service/{serviceId}/fixedProviderChange" : {
          "put" : {
-            "operationId" : "updateFixedPrevTenant",
+            "operationId" : "updateFixedProviderChange",
             "parameters" : [
                {
                   "in" : "path",
@@ -17550,7 +17558,7 @@
       },
       "/workflow/{dWorkflowId}/restoreWorkflow" : {
          "put" : {
-            "operationId" : "restoreWorkflow",
+            "operationId" : "restoreWorkflow_1",
             "parameters" : [
                {
                   "description" : "The workflow to restore from the archive",
@@ -17937,6 +17945,54 @@
             "summary" : "Get all transactions by a workflow item",
             "tags" : [
                "workflowitem-controller"
+            ]
+         }
+      },
+      "/workflows/{dWorkflowId}/action/updateIccid" : {
+         "put" : {
+            "operationId" : "restoreWorkflow",
+            "parameters" : [
+               {
+                  "description" : "The workflow which will be updated",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateIccidRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Updates the iccid for a given workflow",
+            "tags" : [
+               "workflow-action-controller"
             ]
          }
       }
