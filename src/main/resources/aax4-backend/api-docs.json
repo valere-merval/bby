@@ -17558,7 +17558,7 @@
       },
       "/workflow/{dWorkflowId}/restoreWorkflow" : {
          "put" : {
-            "operationId" : "restoreWorkflow_1",
+            "operationId" : "restoreWorkflow",
             "parameters" : [
                {
                   "description" : "The workflow to restore from the archive",
@@ -17589,6 +17589,54 @@
                }
             ],
             "summary" : "Restores an archived workflow",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/updateIccid" : {
+         "put" : {
+            "operationId" : "updateIccid",
+            "parameters" : [
+               {
+                  "description" : "The workflow which will be updated",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateIccidRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Updates the iccid for a given workflow",
             "tags" : [
                "workflow-controller"
             ]
@@ -17945,54 +17993,6 @@
             "summary" : "Get all transactions by a workflow item",
             "tags" : [
                "workflowitem-controller"
-            ]
-         }
-      },
-      "/workflows/{dWorkflowId}/action/updateIccid" : {
-         "put" : {
-            "operationId" : "restoreWorkflow",
-            "parameters" : [
-               {
-                  "description" : "The workflow which will be updated",
-                  "in" : "path",
-                  "name" : "dWorkflowId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/UpdateIccidRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "type" : "string"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Updates the iccid for a given workflow",
-            "tags" : [
-               "workflow-action-controller"
             ]
          }
       }
