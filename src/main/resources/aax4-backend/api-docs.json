@@ -6041,6 +6041,9 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "posServiceType" : {
+                  "type" : "boolean"
+               },
                "simType" : {
                   "items" : {
                      "format" : "int64",
@@ -17554,6 +17557,44 @@
                }
             ],
             "summary" : "Flushes time of workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/resetWorkflow" : {
+         "put" : {
+            "operationId" : "resetWorkflow",
+            "parameters" : [
+               {
+                  "description" : "The workflow to reset",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Resets a workflow",
             "tags" : [
                "workflow-controller"
             ]
