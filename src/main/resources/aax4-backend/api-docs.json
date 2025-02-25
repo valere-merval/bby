@@ -2588,6 +2588,9 @@
                },
                "paypalAccount" : {
                   "$ref" : "#/components/schemas/PaypalAccount"
+               },
+               "valid" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -7387,6 +7390,33 @@
          "UpdateIccidRequest" : {
             "properties" : {
                "iccid" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdateMnpDataRequest" : {
+            "properties" : {
+               "mnpDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "newProvider" : {
+                  "type" : "string"
+               },
+               "numbersType" : {
+                  "type" : "string"
+               },
+               "pid" : {
+                  "type" : "string"
+               },
+               "previousCarrier" : {
+                  "type" : "string"
+               },
+               "previousProvider" : {
+                  "type" : "string"
+               },
+               "requestType" : {
                   "type" : "string"
                }
             },
@@ -15990,6 +16020,53 @@
                }
             ],
             "summary" : "update itemized bill and data storing options for an existing Prepaid or Postpaid service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/mnpData" : {
+         "put" : {
+            "operationId" : "updateMnpData",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateMnpDataRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update details for mnp data",
             "tags" : [
                "service-controller"
             ]
