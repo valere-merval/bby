@@ -4704,6 +4704,52 @@
             },
             "type" : "object"
          },
+         "PageTaskListEntryDto" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/TaskListEntryDto"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/Sort"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "PageableObject" : {
             "properties" : {
                "offset" : {
@@ -6941,6 +6987,54 @@
                   "description" : "How many entries have a due date in the future",
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "TaskListEntryDto" : {
+            "description" : "Represents a task list entry",
+            "properties" : {
+               "dueDate" : {
+                  "description" : "The due date of the task.",
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "entityId" : {
+                  "description" : "The ID of the related entity entry",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastReturnCode" : {
+                  "description" : "The return code of a workflow",
+                  "type" : "string"
+               },
+               "orderStatusConfigId" : {
+                  "description" : "The ID of a w_order_status_config entry",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "relEntity" : {
+                  "description" : "The ID of the related entity",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "relatedObject" : {
+                  "description" : "The object that is related to this entry",
+                  "type" : "string"
+               },
+               "status" : {
+                  "description" : "The status of a d_tasklists entry",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "taskListEntryId" : {
+                  "description" : "The ID of a d_tasklists entry",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "userLogin" : {
+                  "description" : "The u_user login name",
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -16902,6 +16996,118 @@
                }
             ],
             "summary" : "Retrieve reduced task list details by workflow ID",
+            "tags" : [
+               "task-list-controller"
+            ]
+         }
+      },
+      "/taskList/taskListEntries" : {
+         "get" : {
+            "operationId" : "getTaskListEntries",
+            "parameters" : [
+               {
+                  "description" : "The orderStatusId",
+                  "in" : "query",
+                  "name" : "orderStatusId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "description" : "The orderStatusString",
+                  "in" : "query",
+                  "name" : "orderStatusString",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "The equal due date",
+                  "in" : "query",
+                  "name" : "dueDate",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Object to which this entry is related to",
+                  "in" : "query",
+                  "name" : "relatedObject",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "taskListsEntriesOrderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DUE_DATE",
+                     "enum" : [
+                        "DUE_DATE",
+                        "RELATED_OBJECT",
+                        "LAST_RETURN_CODE",
+                        "USER_LOGIN"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "If results should be sorted in descending or ascending order",
+                  "in" : "query",
+                  "name" : "descendingOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : true,
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 100,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/PageTaskListEntryDto"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get task list entries",
             "tags" : [
                "task-list-controller"
             ]
