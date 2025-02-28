@@ -7126,7 +7126,7 @@
             },
             "type" : "object"
          },
-         "TasklistNewDto_Full" : {
+         "TasklistNewDto" : {
             "description" : "Represents a task in the task list with associated metadata.",
             "properties" : {
                "dueDate" : {
@@ -7146,6 +7146,12 @@
                   "example" : "This task needs immediate attention.",
                   "type" : "string"
                },
+               "orderId" : {
+                  "description" : "The unique ID of the order status.",
+                  "example" : 109250990,
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "orderStatus" : {
                   "description" : "The internal status code of the order.",
                   "example" : "BL160 Schnittstellenfehlermeldungen Mobile",
@@ -7161,34 +7167,6 @@
                   "example" : 0,
                   "format" : "int64",
                   "type" : "integer"
-               }
-            },
-            "type" : "object"
-         },
-         "TasklistNewDto_Reduced" : {
-            "description" : "Represents a task in the task list with associated metadata.",
-            "properties" : {
-               "dueDate" : {
-                  "description" : "The due date of the task.",
-                  "example" : "2010-07-01T08:17:29Z",
-                  "format" : "date-time",
-                  "type" : "string"
-               },
-               "id" : {
-                  "description" : "The unique ID of the task.",
-                  "example" : 109250990,
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "orderStatus" : {
-                  "description" : "The internal status code of the order.",
-                  "example" : "BL160 Schnittstellenfehlermeldungen Mobile",
-                  "type" : "string"
-               },
-               "orderStatusString" : {
-                  "description" : "The description of the order status.",
-                  "example" : "Fehler in Seriennummer-Tracking-Datei",
-                  "type" : "string"
                }
             },
             "type" : "object"
@@ -16946,7 +16924,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/TasklistNewDto_Full"
+                           "$ref" : "#/components/schemas/TasklistNewDto"
                         }
                      }
                   },
@@ -16986,7 +16964,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/TasklistNewDto_Reduced"
+                              "$ref" : "#/components/schemas/TasklistNewDto"
                            },
                            "type" : "array"
                         }
