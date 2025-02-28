@@ -6994,6 +6994,11 @@
          "TaskListEntryDto" : {
             "description" : "Represents a task list entry",
             "properties" : {
+               "customerId" : {
+                  "description" : "The ID of a d_customer entry",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "dueDate" : {
                   "description" : "The due date of the task.",
                   "format" : "date-time",
