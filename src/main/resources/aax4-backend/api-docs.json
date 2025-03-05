@@ -6990,6 +6990,41 @@
             },
             "type" : "object"
          },
+         "TaskListEntriesResponse" : {
+            "description" : "Represents list of task list entries and the actions that can be invoked",
+            "properties" : {
+               "taskListActions" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/TaskListEntryActionDto"
+                  },
+                  "type" : "array"
+               },
+               "taskListEntries" : {
+                  "$ref" : "#/components/schemas/PageTaskListEntryDto"
+               }
+            },
+            "type" : "object"
+         },
+         "TaskListEntryActionDto" : {
+            "description" : "Represents an action that can be invoked to resolve a task list entry",
+            "properties" : {
+               "action" : {
+                  "description" : "Id of the action",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "count" : {
+                  "description" : "How many workflows are affected by this action",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "description" : {
+                  "description" : "Description of the action",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "TaskListEntryDto" : {
             "description" : "Represents a task list entry",
             "properties" : {
@@ -7035,10 +7070,6 @@
                   "description" : "The ID of a d_tasklists entry",
                   "format" : "int64",
                   "type" : "integer"
-               },
-               "userLogin" : {
-                  "description" : "The u_user login name",
-                  "type" : "string"
                }
             },
             "type" : "object"
@@ -7431,6 +7462,9 @@
          },
          "UpdateFixedProviderChangeRequest" : {
             "properties" : {
+               "isReferencePhoneNumberRequired" : {
+                  "type" : "boolean"
+               },
                "referencedPhoneNumberCLI" : {
                   "type" : "string"
                },
@@ -7967,6 +8001,12 @@
          },
          "WorkflowItem" : {
             "properties" : {
+               "allowedActionCategories" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/AllowedActionCategory"
+                  },
+                  "type" : "array"
+               },
                "completionDate" : {
                   "format" : "date-time",
                   "type" : "string"
@@ -17035,8 +17075,7 @@
                      "enum" : [
                         "DUE_DATE",
                         "RELATED_OBJECT",
-                        "LAST_RETURN_CODE",
-                        "USER_LOGIN"
+                        "LAST_RETURN_CODE"
                      ],
                      "type" : "string"
                   }
@@ -17077,7 +17116,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/PageTaskListEntryDto"
+                           "$ref" : "#/components/schemas/TaskListEntriesResponse"
                         }
                      }
                   },
