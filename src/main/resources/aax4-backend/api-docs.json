@@ -7176,16 +7176,16 @@
                   "example" : "This task needs immediate attention.",
                   "type" : "string"
                },
-               "orderId" : {
-                  "description" : "The unique ID of the order status.",
-                  "example" : 109250990,
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "orderStatus" : {
                   "description" : "The internal status code of the order.",
                   "example" : "BL160 Schnittstellenfehlermeldungen Mobile",
                   "type" : "string"
+               },
+               "orderStatusId" : {
+                  "description" : "The unique ID of the order status.",
+                  "example" : 100584,
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "orderStatusString" : {
                   "description" : "The description of the order status.",
