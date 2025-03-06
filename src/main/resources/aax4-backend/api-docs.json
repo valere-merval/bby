@@ -5371,7 +5371,8 @@
                "method" : {
                   "enum" : [
                      "TOP_UP",
-                     "OUTPAYMENT"
+                     "OUTPAYMENT",
+                     "REACTIVATION_WITH_ZERO_BALANCE"
                   ],
                   "type" : "string"
                }
