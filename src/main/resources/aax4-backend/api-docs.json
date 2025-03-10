@@ -7048,6 +7048,10 @@
                   "description" : "The return code of a workflow",
                   "type" : "string"
                },
+               "notes" : {
+                  "description" : "The notes to this entry",
+                  "type" : "string"
+               },
                "orderStatusConfigId" : {
                   "description" : "The ID of a w_order_status_config entry",
                   "format" : "int64",
