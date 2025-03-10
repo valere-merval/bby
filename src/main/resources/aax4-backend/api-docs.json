@@ -2678,6 +2678,17 @@
             },
             "type" : "object"
          },
+         "CustomerStatus" : {
+            "properties" : {
+               "status" : {
+                  "additionalProperties" : {
+                     "type" : "boolean"
+                  },
+                  "type" : "object"
+               }
+            },
+            "type" : "object"
+         },
          "DWorkflow" : {
             "properties" : {
                "contractId" : {
@@ -3455,11 +3466,19 @@
                "mailOrderId" : {
                   "type" : "string"
                },
+               "maxReturnDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "requestDate" : {
                   "format" : "date-time",
                   "type" : "string"
                },
                "requestRefId" : {
+                  "type" : "string"
+               },
+               "returnDate" : {
+                  "format" : "date",
                   "type" : "string"
                },
                "shippingAddress" : {
@@ -11071,6 +11090,113 @@
                }
             ],
             "summary" : "Get customer signups",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/status" : {
+         "get" : {
+            "operationId" : "getCustomerStatus",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CustomerStatus"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer status",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "updateCustomerStatus",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "items" : {
+                           "enum" : [
+                              "CARD_CANCELLED_DUE_TO_TERMS",
+                              "DUNNING_STATE",
+                              "PRESELECTION",
+                              "NEGATIVE_CREDIT_CHECK",
+                              "LNP_IN",
+                              "PHONETIME_TERMINATED",
+                              "MTAN",
+                              "QSC",
+                              "MNP_IN",
+                              "MNP_OUT",
+                              "CALENDAR_DAY_31",
+                              "RISK",
+                              "KOSI",
+                              "BNETZA",
+                              "PRODUCT_DELETED",
+                              "CAMPAIGN_PIGGY",
+                              "CAMPAIGN_PIGGY_GREY",
+                              "FIXED_ABW_OUT",
+                              "FIXED_ABW_IN"
+                           ],
+                           "type" : "string"
+                        },
+                        "type" : "array",
+                        "uniqueItems" : true
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CustomerStatus"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update customer status",
             "tags" : [
                "customer-details-controller"
             ]
