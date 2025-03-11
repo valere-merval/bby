@@ -17197,6 +17197,15 @@
                   }
                },
                {
+                  "description" : "Filter actions on these entityIds",
+                  "in" : "query",
+                  "name" : "entityIds",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
                   "description" : "Sort results by this criteria",
                   "in" : "query",
                   "name" : "taskListsEntriesOrderCriteria",
