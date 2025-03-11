@@ -169,6 +169,7 @@
                                 <useRuntimeException>true</useRuntimeException>
                                 <useSingleRequestParameter>true</useSingleRequestParameter>
                                 <annotationLibrary>swagger2</annotationLibrary>
+                                <openApiNullable>false</openApiNullable>
                             </configOptions>
                             <inputSpec>${project.basedir}/src/main/resources/aax4-backend/api-docs.json</inputSpec>
                             <apiPackage>de.congstar.congo.rest.aax4.client.api</apiPackage>
