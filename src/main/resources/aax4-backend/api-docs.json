@@ -7225,6 +7225,14 @@
             },
             "type" : "object"
          },
+         "TerminationFixedRequest" : {
+            "properties" : {
+               "informCustomerAboutTermination" : {
+                  "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
          "TopUp" : {
             "properties" : {
                "amount" : {
@@ -14878,6 +14886,53 @@
                }
             ],
             "summary" : "Terminate Service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/terminationFixed" : {
+         "post" : {
+            "operationId" : "terminationFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TerminationFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts cancellation process for Fixed main-service",
             "tags" : [
                "service-actions-controller"
             ]
