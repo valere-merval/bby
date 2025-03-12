@@ -4459,7 +4459,8 @@
                      "POSTPONE_FIXED",
                      "CANCEL_FIXED",
                      "CANCEL_HARDWARE_FIXED",
-                     "TERMINATE_FIXED"
+                     "TERMINATE_FIXED",
+                     "CANCEL_TERMINATE_FIXED"
                   ],
                   "type" : "string"
                },
@@ -15267,7 +15268,8 @@
                         "POSTPONE_FIXED",
                         "CANCEL_FIXED",
                         "CANCEL_HARDWARE_FIXED",
-                        "TERMINATE_FIXED"
+                        "TERMINATE_FIXED",
+                        "CANCEL_TERMINATE_FIXED"
                      ],
                      "type" : "string"
                   }
