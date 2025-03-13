@@ -18080,6 +18080,54 @@
             ]
          }
       },
+      "/workflow/{dWorkflowId}/overrideFraud" : {
+         "put" : {
+            "operationId" : "overrideFraud",
+            "parameters" : [
+               {
+                  "description" : "The workflow to override fraud",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "type" : "string"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Override fraud",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
       "/workflow/{dWorkflowId}/resetWorkflow" : {
          "put" : {
             "operationId" : "resetWorkflow",
