@@ -13632,6 +13632,53 @@
             ]
          }
       },
+      "/service/{serviceId}/action/cancelTerminationFixed" : {
+         "post" : {
+            "operationId" : "terminationFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TerminationFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts cancellation process for Fixed main-service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/change" : {
          "post" : {
             "operationId" : "change",
@@ -14887,53 +14934,6 @@
                }
             ],
             "summary" : "Terminate Service",
-            "tags" : [
-               "service-actions-controller"
-            ]
-         }
-      },
-      "/service/{serviceId}/action/terminationFixed" : {
-         "post" : {
-            "operationId" : "terminationFixed",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/TerminationFixedRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "type" : "string"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Starts cancellation process for Fixed main-service",
             "tags" : [
                "service-actions-controller"
             ]
