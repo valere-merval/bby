@@ -13661,7 +13661,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "string"
+                           "$ref" : "#/components/schemas/ServiceTerminationResponse"
                         }
                      }
                   },
