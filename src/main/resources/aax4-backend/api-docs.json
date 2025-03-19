@@ -673,7 +673,8 @@
                      "PRODUCT",
                      "OPTION",
                      "SHIPPING_COST",
-                     "DISCOUNT"
+                     "DISCOUNT",
+                     "FWTI_BUYOUT"
                   ],
                   "example" : "PRODUCT",
                   "type" : "string"
@@ -4580,6 +4581,14 @@
                   "type" : "string"
                },
                "iban" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "OverrideFraudRequest" : {
+            "properties" : {
+               "notes" : {
                   "type" : "string"
                }
             },
@@ -18099,7 +18108,7 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "type" : "string"
+                        "$ref" : "#/components/schemas/OverrideFraudRequest"
                      }
                   }
                },
