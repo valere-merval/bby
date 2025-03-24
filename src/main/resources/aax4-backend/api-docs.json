@@ -4460,6 +4460,7 @@
                      "POSTPONE_FIXED",
                      "CANCEL_FIXED",
                      "CANCEL_HARDWARE_FIXED",
+                     "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
                      "CANCEL_TERMINATE_FIXED"
                   ],
@@ -15277,6 +15278,7 @@
                         "POSTPONE_FIXED",
                         "CANCEL_FIXED",
                         "CANCEL_HARDWARE_FIXED",
+                        "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
                         "CANCEL_TERMINATE_FIXED"
                      ],
