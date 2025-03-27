@@ -9343,6 +9343,43 @@
             ]
          }
       },
+      "/customer/{customerId}/actions/invalidateEmail" : {
+         "post" : {
+            "operationId" : "invalidateEmail",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Invalidate E-Mail",
+            "tags" : [
+               "customer-actions-controller"
+            ]
+         }
+      },
       "/customer/{customerId}/actions/invoice/recall" : {
          "post" : {
             "operationId" : "recallInvoiceByTimeframe",
