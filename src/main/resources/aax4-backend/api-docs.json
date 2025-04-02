@@ -16917,6 +16917,16 @@
       "/settings" : {
          "get" : {
             "operationId" : "getSettings",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "apiKey",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            ],
             "responses" : {
                "200" : {
                   "content" : {
@@ -16929,11 +16939,6 @@
                   "description" : "OK"
                }
             },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
             "summary" : "Get settings for current environment",
             "tags" : [
                "settings-controller"
