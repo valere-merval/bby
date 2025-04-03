@@ -2430,6 +2430,7 @@
                         "RISK",
                         "KOSI",
                         "BNETZA",
+                        "FUT",
                         "PRODUCT_DELETED",
                         "CAMPAIGN_PIGGY",
                         "CAMPAIGN_PIGGY_GREY",
@@ -4462,7 +4463,8 @@
                      "CANCEL_HARDWARE_FIXED",
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
-                     "CANCEL_TERMINATE_FIXED"
+                     "CANCEL_TERMINATE_FIXED",
+                     "RESIGN_CANCELATION_FIXED"
                   ],
                   "type" : "string"
                },
@@ -6959,6 +6961,25 @@
             ],
             "type" : "object"
          },
+         "TaskListActionsRequest" : {
+            "properties" : {
+               "actionId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "actions" : {
+                  "$ref" : "#/components/schemas/TaskListEntriesRequest"
+               },
+               "dtaskListIds" : {
+                  "items" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "TaskListDescriptionDto" : {
             "description" : "Represents a task list description (order_status_string)",
             "properties" : {
@@ -7017,6 +7038,39 @@
                   "description" : "How many entries have a due date in the future",
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "TaskListEntriesRequest" : {
+            "properties" : {
+               "descendingOrder" : {
+                  "type" : "boolean"
+               },
+               "dueDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "entityIds" : {
+                  "type" : "string"
+               },
+               "orderStatusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "orderStatusString" : {
+                  "type" : "string"
+               },
+               "relatedObject" : {
+                  "type" : "string"
+               },
+               "taskListsEntriesOrderCriteria" : {
+                  "enum" : [
+                     "DUE_DATE",
+                     "RELATED_OBJECT",
+                     "LAST_RETURN_CODE"
+                  ],
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -11220,6 +11274,7 @@
                               "RISK",
                               "KOSI",
                               "BNETZA",
+                              "FUT",
                               "PRODUCT_DELETED",
                               "CAMPAIGN_PIGGY",
                               "CAMPAIGN_PIGGY_GREY",
@@ -15317,7 +15372,8 @@
                         "CANCEL_HARDWARE_FIXED",
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
-                        "CANCEL_TERMINATE_FIXED"
+                        "CANCEL_TERMINATE_FIXED",
+                        "RESIGN_CANCELATION_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -15436,6 +15492,43 @@
                }
             ],
             "summary" : "Cancel postpaid and prepaid",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/cancelProductProlongation" : {
+         "post" : {
+            "operationId" : "cancelProductProlongation",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Submit a request to cancel the product prolongation by serviceId",
             "tags" : [
                "service-controller"
             ]
@@ -17108,6 +17201,42 @@
             "summary" : "create sim activation codes for inventory for local download",
             "tags" : [
                "sim-activation-codes-controller"
+            ]
+         }
+      },
+      "/taskList/taskListActions" : {
+         "put" : {
+            "operationId" : "putTasklistActions",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TaskListActionsRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Apply action on given tasklis entries",
+            "tags" : [
+               "task-list-controller"
             ]
          }
       },
