@@ -13231,6 +13231,43 @@
             ]
          }
       },
+      "/service/options/{optionId}/cancelOptionTermination" : {
+         "post" : {
+            "operationId" : "cancelOptionTermination",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "optionId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Cancel running option (dService) termination",
+            "tags" : [
+               "service-options-controller"
+            ]
+         }
+      },
       "/service/options/{optionId}/change" : {
          "get" : {
             "operationId" : "getChangeableOptionsByDServiceOptionId",
