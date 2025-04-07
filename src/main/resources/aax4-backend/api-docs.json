@@ -4464,7 +4464,7 @@
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
                      "CANCEL_TERMINATE_FIXED",
-                     "RESIGN_CANCELATION_FIXED"
+                     "RESIGN_RETOURE_FIXED"
                   ],
                   "type" : "string"
                },
@@ -15410,7 +15410,7 @@
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
                         "CANCEL_TERMINATE_FIXED",
-                        "RESIGN_CANCELATION_FIXED"
+                        "RESIGN_RETOURE_FIXED"
                      ],
                      "type" : "string"
                   }
