@@ -6962,16 +6962,20 @@
             "type" : "object"
          },
          "TaskListActionsRequest" : {
+            "description" : "Represents a request for an action that should be applied ether on a list of tasklist Ids or on a search request",
             "properties" : {
                "actionId" : {
+                  "description" : "Id of the action that shall be applied",
                   "format" : "int64",
                   "type" : "integer"
                },
-               "actions" : {
-                  "$ref" : "#/components/schemas/TaskListEntriesRequest"
+               "queryParams" : {
+                  "$ref" : "#/components/schemas/TaskListEntriesRequestBasic"
                },
-               "dtaskListIds" : {
+               "taskListEntryIds" : {
+                  "description" : "If present queryParams mus be left empty. List of the tasklist entries on which the action shall be applied",
                   "items" : {
+                     "description" : "If present queryParams mus be left empty. List of the tasklist entries on which the action shall be applied",
                      "format" : "int64",
                      "type" : "integer"
                   },
@@ -7042,34 +7046,25 @@
             },
             "type" : "object"
          },
-         "TaskListEntriesRequest" : {
+         "TaskListEntriesRequestBasic" : {
+            "description" : "If present taskListEntryIds must be left empty. Query Parameter for which the action shall be applied",
             "properties" : {
-               "descendingOrder" : {
-                  "type" : "boolean"
-               },
                "dueDate" : {
+                  "description" : "The due date of the task list (d_tasklist.due_date)",
                   "format" : "date-time",
                   "type" : "string"
                },
-               "entityIds" : {
-                  "type" : "string"
-               },
                "orderStatusId" : {
+                  "description" : "The id of the task list description (d_tasklist.order_status)",
                   "format" : "int64",
                   "type" : "integer"
                },
                "orderStatusString" : {
+                  "description" : "The name of the task list description (d_tasklist.order_status_string)",
                   "type" : "string"
                },
                "relatedObject" : {
-                  "type" : "string"
-               },
-               "taskListsEntriesOrderCriteria" : {
-                  "enum" : [
-                     "DUE_DATE",
-                     "RELATED_OBJECT",
-                     "LAST_RETURN_CODE"
-                  ],
+                  "description" : "The search string to filter the tasklist entries (e.g. workflow id)",
                   "type" : "string"
                }
             },
@@ -14566,6 +14561,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/resignRetoure" : {
+         "post" : {
+            "operationId" : "resignRetoure",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts the resignation for return of hardware",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/setMnpOptIn" : {
          "get" : {
             "operationId" : "submitGetMnpOptIn",
@@ -17259,7 +17291,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "string"
+                           "$ref" : "#/components/schemas/MessageResponse"
                         }
                      }
                   },
