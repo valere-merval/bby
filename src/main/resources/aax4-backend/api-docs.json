@@ -18455,6 +18455,89 @@
             ]
          }
       },
+      "/workflow/{dWorkflowId}/simulateWorkflow" : {
+         "get" : {
+            "operationId" : "simulateWorkflowJob",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "type" : "string"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Resets a workflow",
+            "tags" : [
+               "workflow-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "simulateWorkflow",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "jobName",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Simulate  a workflow",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
       "/workflow/{dWorkflowId}/updateIccid" : {
          "put" : {
             "operationId" : "updateIccid",
