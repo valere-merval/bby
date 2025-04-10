@@ -7051,7 +7051,7 @@
             "properties" : {
                "dueDate" : {
                   "description" : "The due date of the task list (d_tasklist.due_date)",
-                  "format" : "date-time",
+                  "format" : "date",
                   "type" : "string"
                },
                "orderStatusId" : {
