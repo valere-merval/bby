@@ -18505,16 +18505,18 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
-               },
-               {
-                  "in" : "query",
-                  "name" : "jobName",
-                  "required" : true,
-                  "schema" : {
-                     "type" : "string"
-                  }
                }
             ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "type" : "string"
+                     }
+                  }
+               },
+               "required" : true
+            },
             "responses" : {
                "200" : {
                   "content" : {
