@@ -2160,6 +2160,14 @@
             },
             "type" : "object"
          },
+         "CronJob" : {
+            "properties" : {
+               "cronJobName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CurrentDataPass" : {
             "properties" : {
                "expiryTime" : {
@@ -18511,7 +18519,7 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "type" : "string"
+                        "$ref" : "#/components/schemas/CronJob"
                      }
                   }
                },
