@@ -12007,6 +12007,16 @@
                      "format" : "int32",
                      "type" : "integer"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "serviceId",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
                }
             ],
             "responses" : {
