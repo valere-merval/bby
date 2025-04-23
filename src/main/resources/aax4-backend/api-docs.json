@@ -470,18 +470,6 @@
             },
             "type" : "object"
          },
-         "AllowedPostponementDateList" : {
-            "properties" : {
-               "allowedDates" : {
-                  "items" : {
-                     "format" : "date",
-                     "type" : "string"
-                  },
-                  "type" : "array"
-               }
-            },
-            "type" : "object"
-         },
          "ApiResponse" : {
             "description" : "Standard API Response format",
             "properties" : {
@@ -6988,8 +6976,8 @@
          "TaskListActionsRequest" : {
             "description" : "Represents a request for an action that should be applied ether on a list of tasklist Ids or on a search request",
             "properties" : {
-               "actionId" : {
-                  "description" : "Id of the action that shall be applied",
+               "orderStatusConfigActionId" : {
+                  "description" : "The id of a OrderStatusConfigActions entry, which referenced action shall be applied",
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -7112,11 +7100,6 @@
          "TaskListEntryActionDto" : {
             "description" : "Represents an action that can be invoked to resolve a task list entry",
             "properties" : {
-               "action" : {
-                  "description" : "Id of the action",
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "count" : {
                   "description" : "How many workflows are affected by this action",
                   "format" : "int64",
@@ -7125,6 +7108,11 @@
                "description" : {
                   "description" : "Description of the action",
                   "type" : "string"
+               },
+               "orderStatusConfigActionId" : {
+                  "description" : "Id of an OrderStatusConfigActions entry",
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -11781,17 +11769,16 @@
             ]
          }
       },
-      "/datelist/allowedPostponementDates/{serviceId}" : {
+      "/datelist/allowedPostponementDates" : {
          "get" : {
-            "operationId" : "getAmsDateList_1",
+            "operationId" : "getAllowedPostponementDateList",
             "parameters" : [
                {
-                  "in" : "path",
+                  "in" : "query",
                   "name" : "serviceId",
                   "required" : true,
                   "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
+                     "type" : "string"
                   }
                }
             ],
@@ -11800,7 +11787,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/AllowedPostponementDateList"
+                           "type" : "string"
                         }
                      }
                   },
@@ -11812,7 +11799,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get date list of allowed postponement dates for Fixed",
+            "summary" : "Get list of allowed postponement dates for Fixed",
             "tags" : [
                "date-list-controller"
             ]
@@ -18213,6 +18200,7 @@
       },
       "/workflow/customer/{customerId}/recent" : {
          "get" : {
+            "deprecated" : true,
             "operationId" : "getCurrentWorkflow",
             "parameters" : [
                {
@@ -18255,6 +18243,46 @@
                   "in" : "query",
                   "name" : "status",
                   "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/DWorkflow"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer recent workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/customer/{customerId}/recent/v2" : {
+         "get" : {
+            "operationId" : "getCurrentWorkflowV2",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
