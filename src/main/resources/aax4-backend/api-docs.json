@@ -470,6 +470,18 @@
             },
             "type" : "object"
          },
+         "AllowedPostponementDateList" : {
+            "properties" : {
+               "allowedDates" : {
+                  "items" : {
+                     "format" : "date",
+                     "type" : "string"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "ApiResponse" : {
             "description" : "Standard API Response format",
             "properties" : {
@@ -3503,6 +3515,10 @@
                   "type" : "string"
                },
                "shippingStatus" : {
+                  "type" : "string"
+               },
+               "startDtDepreciation" : {
+                  "format" : "date",
                   "type" : "string"
                },
                "trackingId" : {
@@ -11765,6 +11781,43 @@
             ]
          }
       },
+      "/datelist/allowedPostponementDates/{serviceId}" : {
+         "get" : {
+            "operationId" : "getAmsDateList_1",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AllowedPostponementDateList"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get date list of allowed postponement dates for Fixed",
+            "tags" : [
+               "date-list-controller"
+            ]
+         }
+      },
       "/datelist/ams" : {
          "get" : {
             "operationId" : "getAmsDateList",
@@ -13741,7 +13794,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Starts cancellation process for Fixed hardwarepositions",
+            "summary" : "Starts cancellation process for Fixed hardware",
             "tags" : [
                "service-actions-controller"
             ]
