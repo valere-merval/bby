@@ -2740,6 +2740,9 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "statusExtended" : {
+                  "type" : "string"
+               },
                "userId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -4488,7 +4491,8 @@
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
                      "CANCEL_TERMINATE_FIXED",
-                     "RESIGN_RETOURE_FIXED"
+                     "RESIGN_RETOURE_FIXED",
+                     "ADD_RENT_OPTION"
                   ],
                   "type" : "string"
                },
@@ -15512,7 +15516,8 @@
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
                         "CANCEL_TERMINATE_FIXED",
-                        "RESIGN_RETOURE_FIXED"
+                        "RESIGN_RETOURE_FIXED",
+                        "ADD_RENT_OPTION"
                      ],
                      "type" : "string"
                   }
