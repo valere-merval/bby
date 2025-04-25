@@ -15,6 +15,17 @@
             },
             "type" : "object"
          },
+         "Action" : {
+            "properties" : {
+               "label" : {
+                  "type" : "string"
+               },
+               "url" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "ActivatePrepaidDiscount" : {
             "properties" : {
                "couponCode" : {
@@ -302,6 +313,15 @@
          "AddOptionToContractResponse" : {
             "properties" : {
                "signupId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "AddRentOptionRequest" : {
+            "properties" : {
+               "hardwareId" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -2596,6 +2616,20 @@
                      "type" : "boolean"
                   },
                   "type" : "object"
+               }
+            },
+            "type" : "object"
+         },
+         "CustomerMessages" : {
+            "properties" : {
+               "action" : {
+                  "$ref" : "#/components/schemas/Action"
+               },
+               "subject" : {
+                  "type" : "string"
+               },
+               "summary" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -10443,6 +10477,58 @@
             ]
          }
       },
+      "/customer/{customerId}/customerMessages" : {
+         "get" : {
+            "operationId" : "getCustomerMessages",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "messageType",
+                  "required" : true,
+                  "schema" : {
+                     "enum" : [
+                        "MESSAGE_BOARD",
+                        "OFFER_BOARD"
+                     ],
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/CustomerMessages"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer messages",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
       "/customer/{customerId}/details" : {
          "get" : {
             "operationId" : "getCustomerDetails",
@@ -13451,6 +13537,53 @@
                }
             ],
             "summary" : "add  new dataPass",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/addRentOption" : {
+         "post" : {
+            "operationId" : "addRentOption",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/AddRentOptionRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Adds a rent-hardware option to the given fixed contract",
             "tags" : [
                "service-actions-controller"
             ]
