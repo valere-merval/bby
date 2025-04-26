@@ -2622,14 +2622,11 @@
          },
          "CustomerMessages" : {
             "properties" : {
-               "action" : {
-                  "$ref" : "#/components/schemas/Action"
-               },
-               "subject" : {
-                  "type" : "string"
-               },
-               "summary" : {
-                  "type" : "string"
+               "kmtMessages" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Message"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -3885,6 +3882,20 @@
                "maxMonthsInFuture" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "Message" : {
+            "properties" : {
+               "action" : {
+                  "$ref" : "#/components/schemas/Action"
+               },
+               "subject" : {
+                  "type" : "string"
+               },
+               "summary" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -10477,7 +10488,7 @@
             ]
          }
       },
-      "/customer/{customerId}/customerMessages" : {
+      "/customer/{customerId}/customerMessages/{messageType}" : {
          "get" : {
             "operationId" : "getCustomerMessages",
             "parameters" : [
@@ -10491,7 +10502,7 @@
                   }
                },
                {
-                  "in" : "query",
+                  "in" : "path",
                   "name" : "messageType",
                   "required" : true,
                   "schema" : {
