@@ -321,9 +321,21 @@
          },
          "AddRentOptionRequest" : {
             "properties" : {
-               "hardwareId" : {
+               "city" : {
+                  "type" : "string"
+               },
+               "housenumber" : {
+                  "type" : "string"
+               },
+               "optionId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "street" : {
+                  "type" : "string"
+               },
+               "zip" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
