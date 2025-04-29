@@ -324,10 +324,23 @@
                "city" : {
                   "type" : "string"
                },
+               "firstName" : {
+                  "type" : "string"
+               },
                "housenumber" : {
                   "type" : "string"
                },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "notes" : {
+                  "type" : "string"
+               },
                "optionId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "salutation" : {
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -1072,6 +1085,62 @@
                "voPartnerId" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "CancelAndAddAlternativeFixedRequest" : {
+            "properties" : {
+               "calculateBasketRequest" : {
+                  "$ref" : "#/components/schemas/CalculateBasketRequest"
+               },
+               "client" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "contactInstallation" : {
+                  "$ref" : "#/components/schemas/ContactInstallation"
+               },
+               "contractId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "installationAddress" : {
+                  "$ref" : "#/components/schemas/UsageLocation"
+               },
+               "permissions" : {
+                  "items" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
+               },
+               "shippingAddress" : {
+                  "$ref" : "#/components/schemas/Address"
+               },
+               "startDtRequested" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "vfzWorkflowId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "vviRead" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "vviStatus" : {
+                  "enum" : [
+                     "VVI_NOT_SENT",
+                     "VVI_SENT",
+                     "VVI_ERROR",
+                     "NO_CUSTOMER_EMAIL"
+                  ],
+                  "type" : "string"
+               },
+               "vzfID" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -3907,6 +3976,13 @@
                   "type" : "string"
                },
                "summary" : {
+                  "type" : "string"
+               },
+               "type" : {
+                  "enum" : [
+                     "MESSAGE_BOARD",
+                     "OFFER_BOARD"
+                  ],
                   "type" : "string"
                }
             },
@@ -9209,7 +9285,8 @@
                         "POSTPAID",
                         "HOMESPOT",
                         "HARDWARE",
-                        "FIXED"
+                        "FIXED",
+                        "ALTERNATIVE_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -9391,7 +9468,8 @@
                         "POSTPAID",
                         "HOMESPOT",
                         "HARDWARE",
-                        "FIXED"
+                        "FIXED",
+                        "ALTERNATIVE_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -9425,6 +9503,53 @@
                }
             ],
             "summary" : "Customer adds mobile product",
+            "tags" : [
+               "customer-actions-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/actions/cancelAndAddNewFixedOrder" : {
+         "post" : {
+            "operationId" : "cancelAndAddNewFixedOrder",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CancelAndAddAlternativeFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SignupResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Customer adds fixed product",
             "tags" : [
                "customer-actions-controller"
             ]
@@ -10500,7 +10625,7 @@
             ]
          }
       },
-      "/customer/{customerId}/customerMessages/{messageType}" : {
+      "/customer/{customerId}/customerMessages" : {
          "get" : {
             "operationId" : "getCustomerMessages",
             "parameters" : [
@@ -10511,18 +10636,6 @@
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
-                  }
-               },
-               {
-                  "in" : "path",
-                  "name" : "messageType",
-                  "required" : true,
-                  "schema" : {
-                     "enum" : [
-                        "MESSAGE_BOARD",
-                        "OFFER_BOARD"
-                     ],
-                     "type" : "string"
                   }
                }
             ],
@@ -13049,6 +13162,46 @@
             "summary" : "Get product options prepaid activation",
             "tags" : [
                "product-prepaid-controller"
+            ]
+         }
+      },
+      "/product/rentHardware" : {
+         "get" : {
+            "operationId" : "getRentHardware",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Product"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get standalone rent-hardware",
+            "tags" : [
+               "product-controller"
             ]
          }
       },
