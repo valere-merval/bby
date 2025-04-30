@@ -319,40 +319,6 @@
             },
             "type" : "object"
          },
-         "AddRentOptionRequest" : {
-            "properties" : {
-               "city" : {
-                  "type" : "string"
-               },
-               "firstName" : {
-                  "type" : "string"
-               },
-               "housenumber" : {
-                  "type" : "string"
-               },
-               "lastName" : {
-                  "type" : "string"
-               },
-               "notes" : {
-                  "type" : "string"
-               },
-               "optionId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "salutation" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "street" : {
-                  "type" : "string"
-               },
-               "zip" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
          "AdditionalSimCardPC" : {
             "properties" : {
                "additionalSimCardName" : {
@@ -2848,6 +2814,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "refId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "scenario" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -3266,6 +3236,13 @@
          },
          "FixedData" : {
             "properties" : {
+               "allowedDates" : {
+                  "items" : {
+                     "format" : "date",
+                     "type" : "string"
+                  },
+                  "type" : "array"
+               },
                "firstAvailablePostponementDate" : {
                   "type" : "string"
                },
@@ -8218,6 +8195,10 @@
                   "type" : "integer"
                },
                "parentId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "refId" : {
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -13719,7 +13700,7 @@
          }
       },
       "/service/{serviceId}/action/addRentOption" : {
-         "post" : {
+         "put" : {
             "operationId" : "addRentOption",
             "parameters" : [
                {
@@ -13736,7 +13717,7 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "$ref" : "#/components/schemas/AddRentOptionRequest"
+                        "$ref" : "#/components/schemas/AddContractRequest"
                      }
                   }
                },
