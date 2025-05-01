@@ -1060,29 +1060,12 @@
                "calculateBasketRequest" : {
                   "$ref" : "#/components/schemas/CalculateBasketRequest"
                },
-               "client" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "contactInstallation" : {
-                  "$ref" : "#/components/schemas/ContactInstallation"
-               },
-               "contractId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "installationAddress" : {
-                  "$ref" : "#/components/schemas/UsageLocation"
-               },
                "permissions" : {
                   "items" : {
                      "format" : "int64",
                      "type" : "integer"
                   },
                   "type" : "array"
-               },
-               "shippingAddress" : {
-                  "$ref" : "#/components/schemas/Address"
                },
                "startDtRequested" : {
                   "format" : "date",
@@ -9489,53 +9472,6 @@
             ]
          }
       },
-      "/customer/{customerId}/actions/cancelAndAddNewFixedOrder" : {
-         "post" : {
-            "operationId" : "cancelAndAddNewFixedOrder",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "customerId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/CancelAndAddAlternativeFixedRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/SignupResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Customer adds fixed product",
-            "tags" : [
-               "customer-actions-controller"
-            ]
-         }
-      },
       "/customer/{customerId}/actions/contactReason" : {
          "post" : {
             "operationId" : "saveCustomerContactReason",
@@ -14004,6 +13940,53 @@
                }
             ],
             "summary" : "submit new barrings for a service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/cancelAndAddNewFixedOrder" : {
+         "post" : {
+            "operationId" : "cancelAndAddNewFixedOrder",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CancelAndAddAlternativeFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SignupResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Customer adds fixed product",
             "tags" : [
                "service-actions-controller"
             ]
