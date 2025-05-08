@@ -15,17 +15,6 @@
             },
             "type" : "object"
          },
-         "Action" : {
-            "properties" : {
-               "label" : {
-                  "type" : "string"
-               },
-               "url" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
          "ActivatePrepaidDiscount" : {
             "properties" : {
                "couponCode" : {
@@ -2650,17 +2639,6 @@
             },
             "type" : "object"
          },
-         "CustomerMessages" : {
-            "properties" : {
-               "kmtMessages" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/Message"
-                  },
-                  "type" : "array"
-               }
-            },
-            "type" : "object"
-         },
          "CustomerPaymentAccount" : {
             "properties" : {
                "bankAccount" : {
@@ -3929,20 +3907,20 @@
          },
          "Message" : {
             "properties" : {
-               "action" : {
-                  "$ref" : "#/components/schemas/Action"
+               "boardType" : {
+                  "enum" : [
+                     "MESSAGE_BOARD",
+                     "OFFER_BOARD"
+                  ],
+                  "type" : "string"
+               },
+               "body" : {
+                  "type" : "string"
                },
                "subject" : {
                   "type" : "string"
                },
                "summary" : {
-                  "type" : "string"
-               },
-               "type" : {
-                  "enum" : [
-                     "MESSAGE_BOARD",
-                     "OFFER_BOARD"
-                  ],
                   "type" : "string"
                }
             },
@@ -8273,6 +8251,9 @@
                "statusString" : {
                   "type" : "string"
                },
+               "stopped" : {
+                  "type" : "boolean"
+               },
                "transactions" : {
                   "items" : {
                      "$ref" : "#/components/schemas/WorkflowItemTransaction"
@@ -10562,7 +10543,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/CustomerMessages"
+                              "$ref" : "#/components/schemas/Message"
                            },
                            "type" : "array"
                         }
