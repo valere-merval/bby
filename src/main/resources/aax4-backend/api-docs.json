@@ -470,6 +470,18 @@
             },
             "type" : "object"
          },
+         "AllowedPostponementDateList" : {
+            "properties" : {
+               "allowedDates" : {
+                  "items" : {
+                     "format" : "date",
+                     "type" : "string"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "ApiResponse" : {
             "description" : "Standard API Response format",
             "properties" : {
@@ -1028,6 +1040,45 @@
                "voPartnerId" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "CancelAndAddAlternativeFixedRequest" : {
+            "properties" : {
+               "calculateBasketRequest" : {
+                  "$ref" : "#/components/schemas/CalculateBasketRequest"
+               },
+               "permissions" : {
+                  "items" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
+               },
+               "startDtRequested" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "vfzWorkflowId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "vviRead" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "vviStatus" : {
+                  "enum" : [
+                     "VVI_NOT_SENT",
+                     "VVI_SENT",
+                     "VVI_ERROR",
+                     "NO_CUSTOMER_EMAIL"
+                  ],
+                  "type" : "string"
+               },
+               "vzfID" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -2724,9 +2775,16 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "refId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "scenario" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "statusExtended" : {
+                  "type" : "string"
                },
                "userId" : {
                   "format" : "int64",
@@ -3139,6 +3197,13 @@
          },
          "FixedData" : {
             "properties" : {
+               "allowedDates" : {
+                  "items" : {
+                     "format" : "date",
+                     "type" : "string"
+                  },
+                  "type" : "array"
+               },
                "firstAvailablePostponementDate" : {
                   "type" : "string"
                },
@@ -3505,6 +3570,10 @@
                "shippingStatus" : {
                   "type" : "string"
                },
+               "startDtDepreciation" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "trackingId" : {
                   "type" : "string"
                },
@@ -3832,6 +3901,27 @@
                "maxMonthsInFuture" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "Message" : {
+            "properties" : {
+               "boardType" : {
+                  "enum" : [
+                     "MESSAGE_BOARD",
+                     "OFFER_BOARD"
+                  ],
+                  "type" : "string"
+               },
+               "body" : {
+                  "type" : "string"
+               },
+               "subject" : {
+                  "type" : "string"
+               },
+               "summary" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -4472,7 +4562,9 @@
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
                      "CANCEL_TERMINATE_FIXED",
-                     "RESIGN_RETOURE_FIXED"
+                     "RESIGN_RETOURE_FIXED",
+                     "ADD_RENT_OPTION",
+                     "APOLLO_DATA_TRANSFER"
                   ],
                   "type" : "string"
                },
@@ -6972,8 +7064,8 @@
          "TaskListActionsRequest" : {
             "description" : "Represents a request for an action that should be applied ether on a list of tasklist Ids or on a search request",
             "properties" : {
-               "actionId" : {
-                  "description" : "Id of the action that shall be applied",
+               "orderStatusConfigActionId" : {
+                  "description" : "The id of a OrderStatusConfigActions entry, which referenced action shall be applied",
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -7096,11 +7188,6 @@
          "TaskListEntryActionDto" : {
             "description" : "Represents an action that can be invoked to resolve a task list entry",
             "properties" : {
-               "action" : {
-                  "description" : "Id of the action",
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "count" : {
                   "description" : "How many workflows are affected by this action",
                   "format" : "int64",
@@ -7109,6 +7196,11 @@
                "description" : {
                   "description" : "Description of the action",
                   "type" : "string"
+               },
+               "orderStatusConfigActionId" : {
+                  "description" : "Id of an OrderStatusConfigActions entry",
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -8068,6 +8160,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "refId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "scenario" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -8155,6 +8251,9 @@
                },
                "statusString" : {
                   "type" : "string"
+               },
+               "stopped" : {
+                  "type" : "boolean"
                },
                "transactions" : {
                   "items" : {
@@ -9132,7 +9231,8 @@
                         "POSTPAID",
                         "HOMESPOT",
                         "HARDWARE",
-                        "FIXED"
+                        "FIXED",
+                        "ALTERNATIVE_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -9314,7 +9414,8 @@
                         "POSTPAID",
                         "HOMESPOT",
                         "HARDWARE",
-                        "FIXED"
+                        "FIXED",
+                        "ALTERNATIVE_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -10418,6 +10519,46 @@
                }
             ],
             "summary" : "Update customer data by customer id",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/customerMessages" : {
+         "get" : {
+            "operationId" : "getCustomerMessages",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Message"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer messages",
             "tags" : [
                "customer-details-controller"
             ]
@@ -11765,6 +11906,42 @@
             ]
          }
       },
+      "/datelist/allowedPostponementDates" : {
+         "get" : {
+            "operationId" : "getAllowedPostponementDateList",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AllowedPostponementDateList"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get list of allowed postponement dates for Fixed",
+            "tags" : [
+               "date-list-controller"
+            ]
+         }
+      },
       "/datelist/ams" : {
          "get" : {
             "operationId" : "getAmsDateList",
@@ -12887,6 +13064,46 @@
             ]
          }
       },
+      "/product/rentHardware" : {
+         "get" : {
+            "operationId" : "getRentHardware",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Product"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get standalone rent-hardware",
+            "tags" : [
+               "product-controller"
+            ]
+         }
+      },
       "/product/{msisdn}/{puk}" : {
          "get" : {
             "operationId" : "getProductByMsisdnAndPuk",
@@ -13400,6 +13617,53 @@
             ]
          }
       },
+      "/service/{serviceId}/action/addRentOption" : {
+         "put" : {
+            "operationId" : "addRentOption",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/AddContractRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Adds a rent-hardware option to the given fixed contract",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/adjustBalance" : {
          "post" : {
             "operationId" : "adjustBalance",
@@ -13663,6 +13927,53 @@
             ]
          }
       },
+      "/service/{serviceId}/action/cancelAndAddNewFixedOrder" : {
+         "post" : {
+            "operationId" : "cancelAndAddNewFixedOrder",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CancelAndAddAlternativeFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SignupResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Customer adds fixed product",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/cancelFixed" : {
          "post" : {
             "operationId" : "cancelFixed",
@@ -13741,7 +14052,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Starts cancellation process for Fixed hardwarepositions",
+            "summary" : "Starts cancellation process for Fixed hardware",
             "tags" : [
                "service-actions-controller"
             ]
@@ -15460,7 +15771,9 @@
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
                         "CANCEL_TERMINATE_FIXED",
-                        "RESIGN_RETOURE_FIXED"
+                        "RESIGN_RETOURE_FIXED",
+                        "ADD_RENT_OPTION",
+                        "APOLLO_DATA_TRANSFER"
                      ],
                      "type" : "string"
                   }
@@ -18160,6 +18473,7 @@
       },
       "/workflow/customer/{customerId}/recent" : {
          "get" : {
+            "deprecated" : true,
             "operationId" : "getCurrentWorkflow",
             "parameters" : [
                {
@@ -18202,6 +18516,46 @@
                   "in" : "query",
                   "name" : "status",
                   "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/DWorkflow"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer recent workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/customer/{customerId}/recent/v2" : {
+         "get" : {
+            "operationId" : "getCurrentWorkflowV2",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
