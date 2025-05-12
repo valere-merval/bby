@@ -16256,6 +16256,52 @@
             ]
          }
       },
+      "/service/{serviceId}/createApolloDataTransferWorkflow/{customerId}" : {
+         "post" : {
+            "operationId" : "createApolloDataTransferWorkflow",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Create apollo data transfer workflow",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/datapasses" : {
          "get" : {
             "operationId" : "getAllDatapassesByServiceId",
@@ -18044,6 +18090,52 @@
             "summary" : "Get task list descriptions (same as order_status_strings)",
             "tags" : [
                "task-list-controller"
+            ]
+         }
+      },
+      "/testing/fluxCompensate/{customerId}/{days}" : {
+         "post" : {
+            "operationId" : "changeDatesForCustomer",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "days",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Change all dates for customer",
+            "tags" : [
+               "testing-controller"
             ]
          }
       },
