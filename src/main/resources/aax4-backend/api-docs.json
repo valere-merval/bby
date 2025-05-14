@@ -9153,10 +9153,19 @@
             ]
          }
       },
-      "/couponcode/{couponCode}" : {
+      "/couponcode/{clientId}/{couponCode}" : {
          "get" : {
             "operationId" : "searchCouponCode",
             "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "clientId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
                {
                   "description" : "Is used to search for coupon code",
                   "in" : "path",
