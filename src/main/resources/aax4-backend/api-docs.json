@@ -606,6 +606,41 @@
             },
             "type" : "object"
          },
+         "BaseInterfaceSimulationResponse" : {
+            "properties" : {
+               "displayName" : {
+                  "type" : "string"
+               },
+               "dworkflowItemId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "returnCodes" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/WorkflowReturnCode"
+                  },
+                  "type" : "array"
+               },
+               "simulator" : {
+                  "enum" : [
+                     "VSS",
+                     "VSS_GOODS_ISSUE",
+                     "VSS_HARDWARE",
+                     "VSS_ADVICE_OF_RETURN",
+                     "VSS_SERIAL_NO_DELIVERY",
+                     "VSS_NEGATIVE_ORDER",
+                     "MNP",
+                     "WITA",
+                     "CASHANDGO",
+                     "BSIV2",
+                     "BONI4PARTNERS",
+                     "VSS2"
+                  ],
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "BasicCustomerData" : {
             "properties" : {
                "birthDate" : {
@@ -4564,7 +4599,8 @@
                      "CANCEL_TERMINATE_FIXED",
                      "RESIGN_RETOURE_FIXED",
                      "ADD_RENT_OPTION",
-                     "APOLLO_DATA_TRANSFER"
+                     "APOLLO_DATA_TRANSFER",
+                     "FLUX_COMPENSATOR"
                   ],
                   "type" : "string"
                },
@@ -6810,6 +6846,37 @@
             },
             "type" : "object"
          },
+         "SimulationResponse" : {
+            "properties" : {
+               "request" : {
+                  "type" : "string"
+               },
+               "response" : {
+                  "type" : "string"
+               },
+               "simulator" : {
+                  "enum" : [
+                     "VSS",
+                     "VSS_GOODS_ISSUE",
+                     "VSS_HARDWARE",
+                     "VSS_ADVICE_OF_RETURN",
+                     "VSS_SERIAL_NO_DELIVERY",
+                     "VSS_NEGATIVE_ORDER",
+                     "MNP",
+                     "WITA",
+                     "CASHANDGO",
+                     "BSIV2",
+                     "BONI4PARTNERS",
+                     "VSS2"
+                  ],
+                  "type" : "string"
+               },
+               "status" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "SkipSecurityCodeValidationRequest" : {
             "properties" : {
                "skipReasonId" : {
@@ -7937,6 +8004,59 @@
                   "type" : "string"
                }
             },
+            "type" : "object"
+         },
+         "WfiObjectStop" : {
+            "properties" : {
+               "objectId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "objectName" : {
+                  "type" : "string"
+               },
+               "stopped" : {
+                  "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
+         "WitaInterfaceSimulationRequest" : {
+            "properties" : {
+               "dWorkflowItemId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "returnCode" : {
+                  "type" : "string"
+               },
+               "returnDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "simulator" : {
+                  "enum" : [
+                     "VSS",
+                     "VSS_GOODS_ISSUE",
+                     "VSS_HARDWARE",
+                     "VSS_ADVICE_OF_RETURN",
+                     "VSS_SERIAL_NO_DELIVERY",
+                     "VSS_NEGATIVE_ORDER",
+                     "MNP",
+                     "WITA",
+                     "CASHANDGO",
+                     "BSIV2",
+                     "BONI4PARTNERS",
+                     "VSS2"
+                  ],
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "dWorkflowItemId",
+               "returnCode",
+               "simulator"
+            ],
             "type" : "object"
          },
          "WorkflowData" : {
@@ -12233,7 +12353,7 @@
       },
       "/monitoring/interfaces" : {
          "get" : {
-            "operationId" : "getInterfaces",
+            "operationId" : "getInterfaces_1",
             "parameters" : [
                {
                   "description" : "Is used to filter by section",
@@ -15782,7 +15902,8 @@
                         "CANCEL_TERMINATE_FIXED",
                         "RESIGN_RETOURE_FIXED",
                         "ADD_RENT_OPTION",
-                        "APOLLO_DATA_TRANSFER"
+                        "APOLLO_DATA_TRANSFER",
+                        "FLUX_COMPENSATOR"
                      ],
                      "type" : "string"
                   }
@@ -17659,6 +17780,96 @@
             ]
          }
       },
+      "/simulations/{dWorkflowId}/interfaces" : {
+         "get" : {
+            "operationId" : "getInterfaces",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/BaseInterfaceSimulationResponse"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get interface wfis which are ready for simulation",
+            "tags" : [
+               "interface-simulation-controller"
+            ]
+         }
+      },
+      "/simulations/{dWorkflowId}/simulateInterfaces" : {
+         "post" : {
+            "operationId" : "runSimulations",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/WitaInterfaceSimulationRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/SimulationResponse"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get interface wfis which are ready for simulation",
+            "tags" : [
+               "interface-simulation-controller"
+            ]
+         }
+      },
       "/taskList/taskListActions" : {
          "put" : {
             "operationId" : "putTasklistActions",
@@ -18130,7 +18341,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/ProcedureResult"
+                           "type" : "string"
                         }
                      }
                   },
@@ -18804,6 +19015,47 @@
             ]
          }
       },
+      "/workflow/{dWorkflowId}/getStopableWorkflowitems" : {
+         "get" : {
+            "operationId" : "getStopableWorkflowitems",
+            "parameters" : [
+               {
+                  "description" : "The workflowId where the wfis should be checked",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/WfiObjectStop"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get a List of stopable Wfis and the applicable status. (stopped or not)",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
       "/workflow/{dWorkflowId}/overrideFraud" : {
          "put" : {
             "operationId" : "overrideFraud",
@@ -18923,6 +19175,57 @@
                }
             ],
             "summary" : "Restores an archived workflow",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/setStopableWorkflowitems" : {
+         "put" : {
+            "operationId" : "setStopableWorkflowitems",
+            "parameters" : [
+               {
+                  "description" : "The workflowId where the wfis should be checked",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "items" : {
+                           "$ref" : "#/components/schemas/WfiObjectStop"
+                        },
+                        "type" : "array"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Set the stopable Workflowitems",
             "tags" : [
                "workflow-controller"
             ]
