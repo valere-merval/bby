@@ -4599,8 +4599,7 @@
                      "CANCEL_TERMINATE_FIXED",
                      "RESIGN_RETOURE_FIXED",
                      "ADD_RENT_OPTION",
-                     "APOLLO_DATA_TRANSFER",
-                     "FLUX_COMPENSATOR"
+                     "APOLLO_DATA_TRANSFER"
                   ],
                   "type" : "string"
                },
@@ -15902,8 +15901,7 @@
                         "CANCEL_TERMINATE_FIXED",
                         "RESIGN_RETOURE_FIXED",
                         "ADD_RENT_OPTION",
-                        "APOLLO_DATA_TRANSFER",
-                        "FLUX_COMPENSATOR"
+                        "APOLLO_DATA_TRANSFER"
                      ],
                      "type" : "string"
                   }
