@@ -5,8 +5,7 @@ include:
 
 stages:
   - build
-  - test
-
+  
 workflow:
   rules:
     - if: $CI_COMMIT_REF_SLUG !~ /^staging/
@@ -15,7 +14,6 @@ workflow:
     - if: $CI_COMMIT_REF_SLUG =~ /^staging/
       variables:
         conqa_stage: "intd"
-
 
 variables:
   # OS
@@ -32,13 +30,15 @@ variables:
   conqa_hostname_suffix: "-internal"
   conqa_direct_access_protocol: "http"
   conqa_direct_access_socket_protocol: "ws"
+  aax4_backend_base_url: 'https://cc4.nicotuadev.de/co-restservice'
 
+# Jobs
+image:  git.congstar.net:5050/it-qa/hub/maven:3.9.8-jdk-21
 
 compile:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
   stage: build
-  image: git.congstar.net:5050/it-qa/hub/maven:3.9.8-jdk-21
+  rules:
+    - if: $coin == null
   tags:
     - external
     - $conqa_stage
@@ -51,3 +51,39 @@ compile:
   artifacts:
     paths:
       - target/
+
+oasdiff:
+  stage: build
+  image:
+    name: git.congstar.net:5050/it-qa/hub/node:18-bookworm
+    entrypoint: [""]
+  dependencies: []
+  rules:
+    - if: $coin != null
+  tags:
+    - internal
+    - $conqa_stage
+  before_script:
+    - git remote set-url --push origin "https://oauth2:$AAX4_REPO_ACCESS_TOKEN@git.congstar.net/it-qa/libs/aax4.git"
+  script:
+    - 'echo "AAX4 backend base url: $aax4_backend_base_url"'
+    - chmod +x ./api/oasdiff/1.10.5/linux/oasdiff
+    - ./api/oasdiff/1.10.5/linux/oasdiff changelog ./src/main/resources/aax4-backend/api-docs.json "${aax4_backend_base_url}/v3/api-docs" | tee ./api/api-docs-changelog.txt
+    - if [[ -n $(grep '[^[:space:]]' ./api/api-docs-changelog.txt) ]]; then exit 1; fi
+  after_script:
+    - > 
+      if [[ $CI_JOB_STATUS == 'failed' ]]; then
+        git config --global user.email "698d60a8.congstar.net@de.teams.ms"
+        git config --global user.name "fnu-ci-conqa"
+        git branch "auto-update/$CI_JOB_ID"
+        git checkout "auto-update/$CI_JOB_ID"
+        curl -s "${aax4_backend_base_url}/v3/api-docs" | json_pp > src/main/resources/aax4-backend/api-docs.json
+        echo "$coin" > ../commit.txt
+        cat ./api/api-docs-changelog.txt >> ../commit.txt
+        git commit -a -F ../commit.txt
+        git push --set-upstream origin "auto-update/$CI_JOB_ID" -o merge_request.create -o merge_request.merge_when_pipeline_succeeds -o merge_request.remove_source_branch -o merge_request.title="$coin"
+      fi
+  artifacts:
+    when: on_failure
+    paths:
+      - ./api/api-docs-changelog.txt
