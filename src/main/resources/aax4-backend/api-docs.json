@@ -608,12 +608,12 @@
          },
          "BaseInterfaceSimulationResponse" : {
             "properties" : {
-               "displayName" : {
-                  "type" : "string"
-               },
-               "dworkflowItemId" : {
+               "dWorkflowItemId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "displayName" : {
+                  "type" : "string"
                },
                "returnCodes" : {
                   "items" : {
@@ -5088,6 +5088,9 @@
                      "CONTRACT_TAKEOVER",
                      "PROVIDER_CHANGE"
                   ],
+                  "type" : "string"
+               },
+               "testing" : {
                   "type" : "string"
                }
             },
