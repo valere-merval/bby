@@ -623,13 +623,13 @@
                },
                "simulator" : {
                   "enum" : [
-                     "VSS",
+                     "VSS_SYNCHRONOUS_RESPONSE",
+                     "VSS_POSTIDENT_ADVICE",
                      "VSS_GOODS_ISSUE",
                      "VSS_HARDWARE",
                      "VSS_ADVICE_OF_RETURN",
                      "VSS_SERIAL_NO_DELIVERY",
                      "VSS_NEGATIVE_ORDER",
-                     "MNP",
                      "WITA",
                      "CASHANDGO",
                      "BSIV2",
@@ -724,6 +724,11 @@
                      "FWTI_BUYOUT"
                   ],
                   "example" : "PRODUCT",
+                  "type" : "string"
+               },
+               "campaignIdentifier" : {
+                  "description" : "The campaign identifier for the basket entry.",
+                  "example" : "007022",
                   "type" : "string"
                },
                "childBasketEntries" : {
@@ -2555,6 +2560,9 @@
                "salutation" : {
                   "$ref" : "#/components/schemas/Lookup"
                },
+               "showMGMTab" : {
+                  "type" : "boolean"
+               },
                "status" : {
                   "$ref" : "#/components/schemas/Status"
                },
@@ -2924,6 +2932,9 @@
                "campaignId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "campaignIdentifier" : {
+                  "type" : "string"
                },
                "discountAmount" : {
                   "type" : "number"
@@ -3308,6 +3319,9 @@
                "floor" : {
                   "type" : "string"
                },
+               "homeId" : {
+                  "type" : "string"
+               },
                "housenumber" : {
                   "type" : "string"
                },
@@ -3587,8 +3601,22 @@
                "requestRefId" : {
                   "type" : "string"
                },
+               "returnAnnounceDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
                "returnDate" : {
                   "format" : "date",
+                  "type" : "string"
+               },
+               "returnObjectId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "returnObjectStatus" : {
+                  "type" : "string"
+               },
+               "returnProcessId" : {
                   "type" : "string"
                },
                "shippingAddress" : {
@@ -4350,6 +4378,14 @@
                      "$ref" : "#/components/schemas/Discount"
                   },
                   "type" : "array"
+               },
+               "growthContingentSService" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "growthStartingContingent" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "highlight" : {
                   "type" : "boolean"
@@ -6858,13 +6894,13 @@
                },
                "simulator" : {
                   "enum" : [
-                     "VSS",
+                     "VSS_SYNCHRONOUS_RESPONSE",
+                     "VSS_POSTIDENT_ADVICE",
                      "VSS_GOODS_ISSUE",
                      "VSS_HARDWARE",
                      "VSS_ADVICE_OF_RETURN",
                      "VSS_SERIAL_NO_DELIVERY",
                      "VSS_NEGATIVE_ORDER",
-                     "MNP",
                      "WITA",
                      "CASHANDGO",
                      "BSIV2",
@@ -7514,6 +7550,17 @@
             },
             "type" : "object"
          },
+         "TransactionRequest" : {
+            "properties" : {
+               "contentIncoming" : {
+                  "type" : "string"
+               },
+               "contentOutgoing" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "TransactionsDataResponse" : {
             "properties" : {
                "date" : {
@@ -7745,6 +7792,14 @@
             },
             "type" : "object"
          },
+         "UpdateFixedTechnicalDataRequest" : {
+            "properties" : {
+               "homeId" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "UpdateFurtherDataRequest" : {
             "properties" : {
                "dataStoringOption" : {
@@ -7772,6 +7827,9 @@
                   "format" : "date",
                   "type" : "string"
                },
+               "msisdn" : {
+                  "type" : "string"
+               },
                "newProvider" : {
                   "type" : "string"
                },
@@ -7782,6 +7840,9 @@
                   "type" : "string"
                },
                "previousCarrier" : {
+                  "type" : "string"
+               },
+               "previousMsisdn" : {
                   "type" : "string"
                },
                "previousProvider" : {
@@ -8038,13 +8099,13 @@
                },
                "simulator" : {
                   "enum" : [
-                     "VSS",
+                     "VSS_SYNCHRONOUS_RESPONSE",
+                     "VSS_POSTIDENT_ADVICE",
                      "VSS_GOODS_ISSUE",
                      "VSS_HARDWARE",
                      "VSS_ADVICE_OF_RETURN",
                      "VSS_SERIAL_NO_DELIVERY",
                      "VSS_NEGATIVE_ORDER",
-                     "MNP",
                      "WITA",
                      "CASHANDGO",
                      "BSIV2",
@@ -8480,6 +8541,9 @@
          },
          "WorkflowReturnCode" : {
             "properties" : {
+               "displayName" : {
+                  "type" : "string"
+               },
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -17000,6 +17064,53 @@
             ]
          }
       },
+      "/service/{serviceId}/fixedTechnicalData" : {
+         "put" : {
+            "operationId" : "updateFixedTechnicalData",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateFixedTechnicalDataRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update the technical Data for an existing Fixed Physical Access ",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/furtherData" : {
          "put" : {
             "operationId" : "updateFurtherData",
@@ -17839,7 +17950,10 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "$ref" : "#/components/schemas/WitaInterfaceSimulationRequest"
+                        "items" : {
+                           "$ref" : "#/components/schemas/WitaInterfaceSimulationRequest"
+                        },
+                        "type" : "array"
                      }
                   }
                },
@@ -19486,6 +19600,43 @@
             ]
          }
       },
+      "/workflowitems/{dWorkflowItemId}/enqueueWfi" : {
+         "post" : {
+            "operationId" : "enqueueWfi",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowItemId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "put workflowitem in queue",
+            "tags" : [
+               "workflowitem-controller"
+            ]
+         }
+      },
       "/workflowitems/{dWorkflowItemId}/history" : {
          "get" : {
             "operationId" : "getHistory",
@@ -19677,6 +19828,55 @@
                }
             ],
             "summary" : "Simulate a return code for the specified workflowitem",
+            "tags" : [
+               "workflowitem-controller"
+            ]
+         }
+      },
+      "/workflowitems/{dWorkflowItemId}/transaction/{transactionId}" : {
+         "put" : {
+            "operationId" : "updateTransaction",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowItemId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "transactionId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TransactionRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all transactions by a workflow item",
             "tags" : [
                "workflowitem-controller"
             ]
