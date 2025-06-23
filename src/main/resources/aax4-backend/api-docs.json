@@ -2534,7 +2534,9 @@
                         "CAMPAIGN_PIGGY",
                         "CAMPAIGN_PIGGY_GREY",
                         "FIXED_ABW_OUT",
-                        "FIXED_ABW_IN"
+                        "FIXED_ABW_IN",
+                        "EMAIL_UNVERIFIED",
+                        "EMAIL_ONE_FACTOR_VERIFIED"
                      ],
                      "type" : "string"
                   },
@@ -11619,7 +11621,9 @@
                               "CAMPAIGN_PIGGY",
                               "CAMPAIGN_PIGGY_GREY",
                               "FIXED_ABW_OUT",
-                              "FIXED_ABW_IN"
+                              "FIXED_ABW_IN",
+                              "EMAIL_UNVERIFIED",
+                              "EMAIL_ONE_FACTOR_VERIFIED"
                            ],
                            "type" : "string"
                         },
