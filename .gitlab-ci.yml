@@ -63,18 +63,16 @@ oasdiff:
   tags:
     - internal
     - $conqa_stage
-  variables:
-    HAS_CHANGES: 'dontknowyet'
   before_script:
     - git remote set-url --push origin "https://oauth2:$AAX4_REPO_ACCESS_TOKEN@git.congstar.net/it-qa/libs/aax4.git"
   script:
     - 'echo "AAX4 backend base url: $aax4_backend_base_url"'
     - chmod +x ./api/oasdiff/1.10.5/linux/oasdiff
     - ./api/oasdiff/1.10.5/linux/oasdiff changelog ./src/main/resources/aax4-backend/api-docs.json "${aax4_backend_base_url}/v3/api-docs" | tee ./api/api-docs-changelog.txt
-    - if [[ -n $(grep '[^[:space:]]' ./api/api-docs-changelog.txt) ]]; then HAS_CHANGES = 'yes'; fi
+    - if [[ -n $(grep '[^[:space:]]' ./api/api-docs-changelog.txt) ]]; then exit 1; fi
   after_script:
     - > 
-      if [[ $HAS_CHANGES == 'dontknowyet' ]]; then
+      if [[ $CI_JOB_STATUS == 'failed' ]]; then
         git config --global user.email "698d60a8.congstar.net@de.teams.ms"
         git config --global user.name "fnu-ci-conqa"
         git branch "auto-update/$CI_JOB_ID"
