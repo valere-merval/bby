@@ -4,10 +4,10 @@
          "AccessOwner" : {
             "properties" : {
                "firstName" : {
-                  "type" : "int"
+                  "type" : "string"
                },
                "lastName" : {
-                  "type" : "int"
+                  "type" : "string"
                },
                "salutation" : {
                   "$ref" : "#/components/schemas/Lookup"
