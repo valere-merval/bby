@@ -74,7 +74,7 @@ oasdiff:
     - if [[ -n $(grep '[^[:space:]]' ./api/api-docs-changelog.txt) ]]; then HAS_CHANGES = 'yes'; fi
   after_script:
     - > 
-      if [[ $HAS_CHANGES == 'dontknowyet' ]]; then
+      if [[ $HAS_CHANGES == 'yes' ]]; then
         git config --global user.email "698d60a8.congstar.net@de.teams.ms"
         git config --global user.name "fnu-ci-conqa"
         git branch "auto-update/$CI_JOB_ID"
