@@ -7555,9 +7555,6 @@
          },
          "TransactionRequest" : {
             "properties" : {
-               "contentIncoming" : {
-                  "type" : "string"
-               },
                "contentOutgoing" : {
                   "type" : "string"
                }
