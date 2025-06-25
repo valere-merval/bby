@@ -2536,7 +2536,8 @@
                         "FIXED_ABW_OUT",
                         "FIXED_ABW_IN",
                         "EMAIL_UNVERIFIED",
-                        "EMAIL_ONE_FACTOR_VERIFIED"
+                        "EMAIL_ONE_FACTOR_VERIFIED",
+                        "EMAIL_INVALID"
                      ],
                      "type" : "string"
                   },
@@ -3251,6 +3252,10 @@
                      "type" : "string"
                   },
                   "type" : "array"
+               },
+               "currentProviderId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "firstAvailablePostponementDate" : {
                   "type" : "string"
@@ -11620,7 +11625,8 @@
                               "FIXED_ABW_OUT",
                               "FIXED_ABW_IN",
                               "EMAIL_UNVERIFIED",
-                              "EMAIL_ONE_FACTOR_VERIFIED"
+                              "EMAIL_ONE_FACTOR_VERIFIED",
+                              "EMAIL_INVALID"
                            ],
                            "type" : "string"
                         },
