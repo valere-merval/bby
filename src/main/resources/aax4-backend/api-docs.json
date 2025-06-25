@@ -626,7 +626,6 @@
                      "VSS_SYNCHRONOUS_RESPONSE",
                      "VSS_POSTIDENT_ADVICE",
                      "VSS_GOODS_ISSUE",
-                     "VSS_HARDWARE",
                      "VSS_ADVICE_OF_RETURN",
                      "VSS_SERIAL_NO_DELIVERY",
                      "VSS_NEGATIVE_ORDER",
@@ -6905,7 +6904,6 @@
                      "VSS_SYNCHRONOUS_RESPONSE",
                      "VSS_POSTIDENT_ADVICE",
                      "VSS_GOODS_ISSUE",
-                     "VSS_HARDWARE",
                      "VSS_ADVICE_OF_RETURN",
                      "VSS_SERIAL_NO_DELIVERY",
                      "VSS_NEGATIVE_ORDER",
@@ -8107,7 +8105,6 @@
                      "VSS_SYNCHRONOUS_RESPONSE",
                      "VSS_POSTIDENT_ADVICE",
                      "VSS_GOODS_ISSUE",
-                     "VSS_HARDWARE",
                      "VSS_ADVICE_OF_RETURN",
                      "VSS_SERIAL_NO_DELIVERY",
                      "VSS_NEGATIVE_ORDER",
@@ -15785,7 +15782,7 @@
             ]
          }
       },
-      "/service/{serviceId}/availableServices/change" : {
+      "/service/{serviceId}/availableServices/change/{findAllSuccessors}" : {
          "get" : {
             "operationId" : "getAvailableServicesForProductChange",
             "parameters" : [
@@ -15796,6 +15793,14 @@
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "findAllSuccessors",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "boolean"
                   }
                }
             ],
