@@ -2644,6 +2644,15 @@
             },
             "type" : "object"
          },
+         "CustomerFixedInformation" : {
+            "properties" : {
+               "returnObjectId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "CustomerItemizedBill" : {
             "properties" : {
                "billName" : {
@@ -5980,6 +5989,10 @@
                "phoneNumber" : {
                   "type" : "string"
                },
+               "serviceId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "serviceType" : {
                   "enum" : [
                      "POSTPAID",
@@ -7490,6 +7503,18 @@
                "status" : {
                   "description" : "The status of the task.",
                   "example" : 0,
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "TerminateOptionRequest" : {
+            "properties" : {
+               "terminationDate" : {
+                  "type" : "string"
+               },
+               "terminationReason" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -10721,6 +10746,43 @@
             ]
          }
       },
+      "/customer/{customerId}/customerFixedInformation" : {
+         "get" : {
+            "operationId" : "getCustomerFixedDetails",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CustomerFixedInformation"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer details",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
       "/customer/{customerId}/customerMessages" : {
          "get" : {
             "operationId" : "getCustomerMessages",
@@ -13304,6 +13366,43 @@
             ]
          }
       },
+      "/product/workflow" : {
+         "get" : {
+            "operationId" : "getProductByWorkflowId",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "workflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/Product"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get product by workflowId",
+            "tags" : [
+               "product-controller"
+            ]
+         }
+      },
       "/product/{msisdn}/{puk}" : {
          "get" : {
             "operationId" : "getProductByMsisdnAndPuk",
@@ -14573,6 +14672,53 @@
             ]
          }
       },
+      "/service/{serviceId}/action/createTerminateOptionWorkflow" : {
+         "post" : {
+            "operationId" : "createTerminateOptionWorkflow",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TerminateOptionRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Create terminate option workflow",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/creditNote" : {
          "get" : {
             "operationId" : "getCreditNoteByServiceId",
@@ -15802,6 +15948,15 @@
                   "schema" : {
                      "type" : "boolean"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "ignoreAvailability",
+                  "required" : false,
+                  "schema" : {
+                     "default" : false,
+                     "type" : "boolean"
+                  }
                }
             ],
             "responses" : {
@@ -15865,6 +16020,43 @@
                }
             ],
             "summary" : "Get all barrings by serviceId",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/bitstreamServiceDetails" : {
+         "post" : {
+            "operationId" : "getBitstreamServiceDetailsByMainContract",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ServiceDetails"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the contract info data of the bitstream access by main contract",
             "tags" : [
                "service-controller"
             ]
