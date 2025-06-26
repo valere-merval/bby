@@ -1124,6 +1124,10 @@
          },
          "CancelFixedRequest" : {
             "properties" : {
+               "cancellationDetail" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "cancellationReason" : {
                   "format" : "int64",
                   "type" : "integer"
