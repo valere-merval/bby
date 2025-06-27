@@ -14271,7 +14271,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Customer adds fixed product",
+            "summary" : "Customer cancels old contract and adds new fixed product",
             "tags" : [
                "service-actions-controller"
             ]
@@ -16030,7 +16030,7 @@
          }
       },
       "/service/{serviceId}/bitstreamServiceDetails" : {
-         "post" : {
+         "get" : {
             "operationId" : "getBitstreamServiceDetailsByMainContract",
             "parameters" : [
                {
