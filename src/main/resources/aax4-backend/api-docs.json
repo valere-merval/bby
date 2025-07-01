@@ -1359,6 +1359,9 @@
                "salesPartnerIdentifier" : {
                   "type" : "string"
                },
+               "suppressSuccessorValidation" : {
+                  "type" : "boolean"
+               },
                "usageLocation" : {
                   "$ref" : "#/components/schemas/Address"
                },
@@ -7531,10 +7534,6 @@
                },
                "terminationDate" : {
                   "type" : "string"
-               },
-               "terminationReason" : {
-                  "format" : "int64",
-                  "type" : "integer"
                }
             },
             "type" : "object"
