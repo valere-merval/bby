@@ -2664,6 +2664,9 @@
                "returnObjectId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "returnProcessId" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -6667,9 +6670,15 @@
                "changeProductDateEditable" : {
                   "type" : "boolean"
                },
+               "errorLabel" : {
+                  "type" : "string"
+               },
                "executeChangeProductDate" : {
                   "format" : "date-time",
                   "type" : "string"
+               },
+               "hasError" : {
+                  "type" : "boolean"
                },
                "projectedEndDate" : {
                   "format" : "date-time",
@@ -7894,6 +7903,14 @@
                   "type" : "string"
                },
                "requestType" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdateWorkflowDataOthersRequest" : {
+            "properties" : {
+               "notes" : {
                   "type" : "string"
                }
             },
@@ -11368,7 +11385,7 @@
             ]
          }
       },
-      "/customer/{customerId}/products/constraints/hideLockedProduct" : {
+      "/customer/{customerId}/services" : {
          "get" : {
             "operationId" : "getCustomerUnlockedProductsByCustomerId",
             "parameters" : [
@@ -11402,7 +11419,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get Customer unlocked products by customer Id",
+            "summary" : "Get all services for specified customer Id",
             "tags" : [
                "customer-products-controller"
             ]
@@ -12148,8 +12165,7 @@
                   "name" : "witaContractNumber",
                   "required" : false,
                   "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
+                     "type" : "string"
                   }
                },
                {
@@ -12181,7 +12197,8 @@
                   "name" : "rtaId",
                   "required" : false,
                   "schema" : {
-                     "type" : "string"
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                },
                {
@@ -19793,6 +19810,54 @@
                }
             ],
             "summary" : "Set the workflow testingflag to given value",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/updateWorkflowDataOthers" : {
+         "put" : {
+            "operationId" : "updateWorkflowDataOthers",
+            "parameters" : [
+               {
+                  "description" : "The workflow which will be updated",
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateWorkflowDataOthersRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Updates others data for a given workflow",
             "tags" : [
                "workflow-controller"
             ]
