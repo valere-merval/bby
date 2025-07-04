@@ -4669,7 +4669,8 @@
                      "RESIGN_RETOURE_FIXED",
                      "ADD_RENT_OPTION",
                      "APOLLO_DATA_TRANSFER",
-                     "TERMINATE_OPTION_FIXED"
+                     "TERMINATE_OPTION_FIXED",
+                     "LBA_UPDATE_LINE_ID"
                   ],
                   "type" : "string"
                },
@@ -15915,6 +15916,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/updateLbaLineId" : {
+         "post" : {
+            "operationId" : "updateLbaLineId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update LBA Line Id",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/availableOptions/add" : {
          "get" : {
             "operationId" : "getAvailableOptionsForAddingOption",
@@ -16257,7 +16295,8 @@
                         "RESIGN_RETOURE_FIXED",
                         "ADD_RENT_OPTION",
                         "APOLLO_DATA_TRANSFER",
-                        "TERMINATE_OPTION_FIXED"
+                        "TERMINATE_OPTION_FIXED",
+                        "LBA_UPDATE_LINE_ID"
                      ],
                      "type" : "string"
                   }
