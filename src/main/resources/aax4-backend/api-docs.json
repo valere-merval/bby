@@ -7612,6 +7612,27 @@
             "properties" : {
                "contentOutgoing" : {
                   "type" : "string"
+               },
+               "transactionStatusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "workflowItemStatusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "TransactionResponse" : {
+            "properties" : {
+               "transactionStatusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "workflowItemStatusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -8369,12 +8390,6 @@
          },
          "WorkflowEntity" : {
             "properties" : {
-               "children" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/WorkflowEntity"
-                  },
-                  "type" : "array"
-               },
                "contractId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -8639,6 +8654,20 @@
             "properties" : {
                "workflowTestingFlag" : {
                   "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
+         "Workflows2ServiceEntry" : {
+            "properties" : {
+               "service" : {
+                  "type" : "string"
+               },
+               "workflows" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/WorkflowEntity"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -10793,6 +10822,15 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "workflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
                }
             ],
             "responses" : {
@@ -11921,13 +11959,10 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "additionalProperties" : {
-                              "items" : {
-                                 "$ref" : "#/components/schemas/WorkflowEntity"
-                              },
-                              "type" : "array"
+                           "items" : {
+                              "$ref" : "#/components/schemas/Workflows2ServiceEntry"
                            },
-                           "type" : "object"
+                           "type" : "array"
                         }
                      }
                   },
@@ -13461,6 +13496,14 @@
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "expanded",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "boolean"
                   }
                }
             ],
@@ -18802,6 +18845,81 @@
             ]
          }
       },
+      "/transaction/{transactionId}" : {
+         "get" : {
+            "operationId" : "getTransactionData",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "transactionId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/TransactionResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "get Transaction by TransactionId",
+            "tags" : [
+               "transaction-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "updateTransaction",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "transactionId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/TransactionRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update Transaction by TransactionId",
+            "tags" : [
+               "transaction-controller"
+            ]
+         }
+      },
       "/user/customers" : {
          "get" : {
             "operationId" : "getLastCustomers",
@@ -20251,55 +20369,6 @@
                }
             ],
             "summary" : "Simulate a return code for the specified workflowitem",
-            "tags" : [
-               "workflowitem-controller"
-            ]
-         }
-      },
-      "/workflowitems/{dWorkflowItemId}/transaction/{transactionId}" : {
-         "put" : {
-            "operationId" : "updateTransaction",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "dWorkflowItemId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               },
-               {
-                  "in" : "path",
-                  "name" : "transactionId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/TransactionRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get all transactions by a workflow item",
             "tags" : [
                "workflowitem-controller"
             ]
