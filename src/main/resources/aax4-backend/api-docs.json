@@ -4729,6 +4729,32 @@
             },
             "type" : "object"
          },
+         "NexnetStatusRecord" : {
+            "properties" : {
+               "contractId" : {
+                  "type" : "string"
+               },
+               "customerId" : {
+                  "type" : "string"
+               },
+               "endDate" : {
+                  "type" : "string"
+               },
+               "service" : {
+                  "type" : "string"
+               },
+               "startDate" : {
+                  "type" : "string"
+               },
+               "status" : {
+                  "type" : "string"
+               },
+               "type" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "OneTimeCharge" : {
             "properties" : {
                "amount" : {
@@ -11270,6 +11296,46 @@
             ]
          }
       },
+      "/customer/{customerId}/nexnetStatusRecord" : {
+         "get" : {
+            "operationId" : "getNexnetStatusRecords",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/NexnetStatusRecord"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get nexnet status records of customer",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
       "/customer/{customerId}/payment" : {
          "get" : {
             "operationId" : "getPaymentAccount",
@@ -17710,6 +17776,43 @@
                }
             ],
             "summary" : "Search for partner organisations",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/physicalAccessDetails" : {
+         "get" : {
+            "operationId" : "getPhysicalAccessDetailsByMainContract",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ServiceDetails"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the contract info data of the physical access by main contract",
             "tags" : [
                "service-controller"
             ]
