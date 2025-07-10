@@ -8936,6 +8936,7 @@
                         "SERVICE",
                         "WORKFLOW",
                         "WORKFLOW_ITEMS",
+                        "WORKFLOW_LIST",
                         "CUSTOMER",
                         "USER"
                      ],
