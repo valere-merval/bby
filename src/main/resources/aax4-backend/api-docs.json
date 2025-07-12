@@ -5936,6 +5936,70 @@
             },
             "type" : "object"
          },
+         "Service2Workflow" : {
+            "properties" : {
+               "bundleId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "cardType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "componentOf" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "contractEndDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "contractId" : {
+                  "type" : "string"
+               },
+               "dserviceId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "endDateBilling" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "isComponent" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "options" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Service2Workflow"
+                  },
+                  "type" : "array"
+               },
+               "serviceGroup" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "serviceName" : {
+                  "type" : "string"
+               },
+               "startDateBilling" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "status" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "terminationDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "type" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "ServiceBalanceDetails" : {
             "properties" : {
                "balanceInitial" : {
@@ -19681,6 +19745,46 @@
                }
             ],
             "summary" : "Flushes time of workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/getServices2Workflow" : {
+         "get" : {
+            "operationId" : "getServices2Workflow",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Service2Workflow"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get services for workflow",
             "tags" : [
                "workflow-controller"
             ]
