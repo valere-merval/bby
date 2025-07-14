@@ -5982,6 +5982,9 @@
                "serviceName" : {
                   "type" : "string"
                },
+               "serviceType" : {
+                  "type" : "string"
+               },
                "startDateBilling" : {
                   "format" : "date-time",
                   "type" : "string"
@@ -8232,6 +8235,21 @@
                   "type" : "array"
                },
                "validationObject" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "WScenarioWithStatus" : {
+            "properties" : {
+               "scenarioStatus" : {
+                  "type" : "string"
+               },
+               "wscenarioId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "wscenarioName" : {
                   "type" : "string"
                }
             },
@@ -13927,6 +13945,46 @@
             "summary" : "Get all fixed products for a specific address",
             "tags" : [
                "products-filtered-controller"
+            ]
+         }
+      },
+      "/scenario/status/{workflowId}" : {
+         "get" : {
+            "operationId" : "getScenariosWithStatusByWorkflowId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "workflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/WScenarioWithStatus"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all scenarios for a given workflow",
+            "tags" : [
+               "scenario-controller"
             ]
          }
       },
@@ -19630,6 +19688,35 @@
                }
             ],
             "summary" : "Get customer recent workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/workflows/all" : {
+         "get" : {
+            "operationId" : "getAllWorkflows",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/WWorkflow"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all existing workflows",
             "tags" : [
                "workflow-controller"
             ]
