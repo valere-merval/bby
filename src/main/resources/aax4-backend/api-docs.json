@@ -6818,6 +6818,10 @@
                   "description" : "The platform, on which the application is running",
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "platformName" : {
+                  "description" : "The platform name, on which the application is running",
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -19693,9 +19697,9 @@
             ]
          }
       },
-      "/workflow/workflows/all" : {
+      "/workflow/workflows/all/active" : {
          "get" : {
-            "operationId" : "getAllWorkflows",
+            "operationId" : "getAllActiveWorkflows",
             "responses" : {
                "200" : {
                   "content" : {
