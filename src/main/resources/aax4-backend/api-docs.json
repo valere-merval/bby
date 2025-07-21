@@ -8508,6 +8508,13 @@
          },
          "WorkflowEntity" : {
             "properties" : {
+               "children" : {
+                  "description" : "subworkflows",
+                  "items" : {
+                     "$ref" : "#/components/schemas/WorkflowEntity"
+                  },
+                  "type" : "array"
+               },
                "contractId" : {
                   "format" : "int64",
                   "type" : "integer"
