@@ -6347,10 +6347,6 @@
                   "format" : "date-time",
                   "type" : "string"
                },
-               "prolongationDate" : {
-                  "format" : "date-time",
-                  "type" : "string"
-               },
                "terminationCancellationDate" : {
                   "format" : "date-time",
                   "type" : "string"
