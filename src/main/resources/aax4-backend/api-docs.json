@@ -497,59 +497,6 @@
             },
             "type" : "object"
          },
-         "ApspInfo" : {
-            "properties" : {
-               "apspCode" : {
-                  "type" : "string"
-               },
-               "dserviceId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "serviceName" : {
-                  "type" : "string"
-               },
-               "sserviceId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "status" : {
-                  "type" : "string"
-               },
-               "validFrom" : {
-                  "format" : "date-time",
-                  "type" : "string"
-               },
-               "validTo" : {
-                  "format" : "date-time",
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
-         "ApspInfoAll" : {
-            "properties" : {
-               "apspDS" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/ApspInfo"
-                  },
-                  "type" : "array"
-               },
-               "apspHermes" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/ApspInfo"
-                  },
-                  "type" : "array"
-               },
-               "apspSDEL" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/ApspInfo"
-                  },
-                  "type" : "array"
-               }
-            },
-            "type" : "object"
-         },
          "AssignData2CommunicationRequest" : {
             "properties" : {
                "serviceIds" : {
@@ -1631,10 +1578,6 @@
                "initiator" : {
                   "type" : "string"
                },
-               "isCritical" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "lastName" : {
                   "type" : "string"
                },
@@ -2437,10 +2380,6 @@
                },
                "initiator" : {
                   "type" : "string"
-               },
-               "isCritical" : {
-                  "format" : "int64",
-                  "type" : "integer"
                },
                "lastName" : {
                   "type" : "string"
@@ -3327,9 +3266,6 @@
                },
                "providerChangeImportData" : {
                   "$ref" : "#/components/schemas/FixedProviderChangeImportData"
-               },
-               "technology" : {
-                  "type" : "string"
                }
             },
             "type" : "object"
@@ -6405,6 +6341,10 @@
                   "type" : "string"
                },
                "mvlzDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "prolongationDate" : {
                   "format" : "date-time",
                   "type" : "string"
                },
@@ -16259,43 +16199,6 @@
             "summary" : "Update LBA Line Id",
             "tags" : [
                "service-actions-controller"
-            ]
-         }
-      },
-      "/service/{serviceId}/apsps" : {
-         "get" : {
-            "operationId" : "getAllAPSPsByServiceIdResponse",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ApspInfoAll"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get all APSPs by serviceId",
-            "tags" : [
-               "service-controller"
             ]
          }
       },
