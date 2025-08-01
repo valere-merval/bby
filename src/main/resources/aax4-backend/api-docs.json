@@ -2313,6 +2313,9 @@
                "customerBillCycle" : {
                   "type" : "string"
                },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
+               },
                "paymentMethodExisting" : {
                   "type" : "boolean"
                },
@@ -2779,6 +2782,9 @@
                },
                "hasAccount" : {
                   "type" : "boolean"
+               },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
                },
                "paypalAccount" : {
                   "$ref" : "#/components/schemas/PaypalAccount"
@@ -3832,6 +3838,9 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
+               },
                "paypalAccount" : {
                   "$ref" : "#/components/schemas/PaypalAccount"
                },
@@ -4378,6 +4387,28 @@
                },
                "usedTotalVolume" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "MpsAccount" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "payer" : {
+                  "type" : "string"
+               },
+               "payerId" : {
+                  "type" : "string"
+               },
+               "paymentHandle" : {
+                  "type" : "string"
+               },
+               "paymentModeId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -6725,6 +6756,9 @@
                "iban" : {
                   "type" : "string"
                },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
+               },
                "mvlz" : {
                   "format" : "date",
                   "type" : "string"
@@ -7257,6 +7291,9 @@
                "endDate" : {
                   "format" : "date",
                   "type" : "string"
+               },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
                },
                "notes" : {
                   "type" : "string"
