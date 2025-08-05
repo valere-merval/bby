@@ -2786,9 +2786,6 @@
                "mpsAccount" : {
                   "$ref" : "#/components/schemas/MpsAccount"
                },
-               "paypalAccount" : {
-                  "$ref" : "#/components/schemas/PaypalAccount"
-               },
                "valid" : {
                   "type" : "boolean"
                }
