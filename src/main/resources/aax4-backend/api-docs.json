@@ -1,6 +1,17 @@
 {
    "components" : {
       "schemas" : {
+         "AAX4Link" : {
+            "properties" : {
+               "linkURL" : {
+                  "type" : "string"
+               },
+               "title" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AccessOwner" : {
             "properties" : {
                "firstName" : {
@@ -12760,6 +12771,35 @@
             "summary" : "Get translations for aax4gui",
             "tags" : [
                "labels-controller"
+            ]
+         }
+      },
+      "/links" : {
+         "get" : {
+            "operationId" : "getCongstarLinks",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AAX4Link"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "retrieve all links for landing page",
+            "tags" : [
+               "links-controller"
             ]
          }
       },
