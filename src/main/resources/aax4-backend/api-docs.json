@@ -1,6 +1,17 @@
 {
    "components" : {
       "schemas" : {
+         "AAX4Link" : {
+            "properties" : {
+               "linkURL" : {
+                  "type" : "string"
+               },
+               "title" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AccessOwner" : {
             "properties" : {
                "firstName" : {
@@ -513,7 +524,7 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "status" : {
+               "statusString" : {
                   "type" : "string"
                },
                "validFrom" : {
@@ -2313,6 +2324,9 @@
                "customerBillCycle" : {
                   "type" : "string"
                },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
+               },
                "paymentMethodExisting" : {
                   "type" : "boolean"
                },
@@ -2780,8 +2794,8 @@
                "hasAccount" : {
                   "type" : "boolean"
                },
-               "paypalAccount" : {
-                  "$ref" : "#/components/schemas/PaypalAccount"
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
                },
                "valid" : {
                   "type" : "boolean"
@@ -3832,6 +3846,9 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
+               },
                "paypalAccount" : {
                   "$ref" : "#/components/schemas/PaypalAccount"
                },
@@ -4378,6 +4395,28 @@
                },
                "usedTotalVolume" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "MpsAccount" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "payer" : {
+                  "type" : "string"
+               },
+               "payerId" : {
+                  "type" : "string"
+               },
+               "paymentHandle" : {
+                  "type" : "string"
+               },
+               "paymentModeId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -6725,6 +6764,9 @@
                "iban" : {
                   "type" : "string"
                },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
+               },
                "mvlz" : {
                   "format" : "date",
                   "type" : "string"
@@ -7257,6 +7299,9 @@
                "endDate" : {
                   "format" : "date",
                   "type" : "string"
+               },
+               "mpsAccount" : {
+                  "$ref" : "#/components/schemas/MpsAccount"
                },
                "notes" : {
                   "type" : "string"
@@ -12726,6 +12771,35 @@
             "summary" : "Get translations for aax4gui",
             "tags" : [
                "labels-controller"
+            ]
+         }
+      },
+      "/links" : {
+         "get" : {
+            "operationId" : "getCongstarLinks",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AAX4Link"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "retrieve all links for landing page",
+            "tags" : [
+               "links-controller"
             ]
          }
       },
