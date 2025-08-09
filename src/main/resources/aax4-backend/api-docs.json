@@ -4774,6 +4774,7 @@
                      "CANCEL_HARDWARE_FIXED",
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
+                     "ADD_AKM_TR",
                      "CANCEL_TERMINATE_FIXED",
                      "RESIGN_RETOURE_FIXED",
                      "ADD_RENT_OPTION",
@@ -6839,6 +6840,9 @@
                "terminationReason" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "wbciId" : {
+                  "type" : "string"
                }
             },
             "required" : [
@@ -16711,6 +16715,7 @@
                         "CANCEL_HARDWARE_FIXED",
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
+                        "ADD_AKM_TR",
                         "CANCEL_TERMINATE_FIXED",
                         "RESIGN_RETOURE_FIXED",
                         "ADD_RENT_OPTION",
