@@ -901,6 +901,10 @@
                   "type" : "array",
                   "uniqueItems" : true
                },
+               "customerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -13937,6 +13941,15 @@
                   "in" : "path",
                   "name" : "productId",
                   "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
