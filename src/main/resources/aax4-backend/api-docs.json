@@ -426,6 +426,34 @@
             },
             "type" : "object"
          },
+         "AdminObjectSetting" : {
+            "properties" : {
+               "client" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "interfaceName" : {
+                  "type" : "string"
+               },
+               "paramName" : {
+                  "type" : "string"
+               },
+               "paramValue" : {
+                  "type" : "string"
+               },
+               "sstNumber" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AllowedAction" : {
             "description" : "Represents an allowed action in a context menu.",
             "properties" : {
@@ -9135,6 +9163,30 @@
             "summary" : "Get Addresses by address input",
             "tags" : [
                "address-controller"
+            ]
+         }
+      },
+      "/admin/objects/settings" : {
+         "get" : {
+            "operationId" : "getAllObjectSettings",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AdminObjectSetting"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "summary" : "Get All Object Settings",
+            "tags" : [
+               "admin-objects-controller"
             ]
          }
       },
