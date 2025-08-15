@@ -426,34 +426,6 @@
             },
             "type" : "object"
          },
-         "AdminObjectSetting" : {
-            "properties" : {
-               "client" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "description" : {
-                  "type" : "string"
-               },
-               "id" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "interfaceName" : {
-                  "type" : "string"
-               },
-               "paramName" : {
-                  "type" : "string"
-               },
-               "paramValue" : {
-                  "type" : "string"
-               },
-               "sstNumber" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
          "AllowedAction" : {
             "description" : "Represents an allowed action in a context menu.",
             "properties" : {
@@ -3066,6 +3038,17 @@
             },
             "type" : "object"
          },
+         "DeviceKey" : {
+            "properties" : {
+               "deviceKey" : {
+                  "type" : "string"
+               },
+               "deviceKeyValue" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "Discount" : {
             "properties" : {
                "campaignId" : {
@@ -3462,6 +3445,9 @@
                "city" : {
                   "type" : "string"
                },
+               "district" : {
+                  "type" : "string"
+               },
                "floor" : {
                   "type" : "string"
                },
@@ -3716,6 +3702,15 @@
                "customerAddressId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "deliveryNoteId" : {
+                  "type" : "string"
+               },
+               "deviceKey" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/DeviceKey"
+                  },
+                  "type" : "array"
                },
                "differentShippingAddress" : {
                   "$ref" : "#/components/schemas/ShippingAddress"
@@ -4594,6 +4589,9 @@
                   "format" : "double",
                   "type" : "number"
                },
+               "serviceCluster" : {
+                  "type" : "string"
+               },
                "serviceId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -4895,6 +4893,34 @@
                   "type" : "string"
                },
                "type" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ObjectSetting" : {
+            "properties" : {
+               "client" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "interfaceName" : {
+                  "type" : "string"
+               },
+               "paramName" : {
+                  "type" : "string"
+               },
+               "paramValue" : {
+                  "type" : "string"
+               },
+               "sstNumber" : {
                   "type" : "string"
                }
             },
@@ -8035,6 +8061,9 @@
                "city" : {
                   "type" : "string"
                },
+               "district" : {
+                  "type" : "string"
+               },
                "housenumber" : {
                   "type" : "string"
                },
@@ -9166,16 +9195,42 @@
             ]
          }
       },
-      "/admin/objects/settings" : {
+      "/admin/objectSettings/" : {
          "get" : {
             "operationId" : "getAllObjectSettings",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "sortBy",
+                  "required" : false,
+                  "schema" : {
+                     "default" : [
+                        "object",
+                        "id"
+                     ],
+                     "items" : {
+                        "type" : "string"
+                     },
+                     "type" : "array"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "ASC",
+                     "type" : "string"
+                  }
+               }
+            ],
             "responses" : {
                "200" : {
                   "content" : {
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/AdminObjectSetting"
+                              "$ref" : "#/components/schemas/ObjectSetting"
                            },
                            "type" : "array"
                         }
@@ -9186,7 +9241,7 @@
             },
             "summary" : "Get All Object Settings",
             "tags" : [
-               "admin-objects-controller"
+               "admin-object-settings-controller"
             ]
          }
       },
