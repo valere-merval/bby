@@ -4633,12 +4633,6 @@
                "telephoneContingent" : {
                   "$ref" : "#/components/schemas/Contingent"
                },
-               "tooltipEarliestChangeMomentAndArt" : {
-                  "type" : "string"
-               },
-               "tooltipHardware" : {
-                  "type" : "string"
-               },
                "winback" : {
                   "type" : "boolean"
                }
@@ -5618,6 +5612,9 @@
                   "type" : "integer"
                },
                "service" : {
+                  "type" : "string"
+               },
+               "serviceCluster" : {
                   "type" : "string"
                },
                "serviceEndDate" : {
