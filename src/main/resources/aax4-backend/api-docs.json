@@ -3040,8 +3040,12 @@
          },
          "DeviceKey" : {
             "properties" : {
-               "deviceKey" : {
+               "deviceKeyType" : {
                   "type" : "string"
+               },
+               "deviceKeyTypeId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "deviceKeyValue" : {
                   "type" : "string"
@@ -3706,7 +3710,7 @@
                "deliveryNoteId" : {
                   "type" : "string"
                },
-               "deviceKey" : {
+               "deviceKeys" : {
                   "items" : {
                      "$ref" : "#/components/schemas/DeviceKey"
                   },
@@ -14141,6 +14145,15 @@
                         "INCLUDE"
                      ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "minContractDuration",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                },
                {
