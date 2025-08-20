@@ -4909,7 +4909,11 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "interfaceName" : {
+               "object" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "objectName" : {
                   "type" : "string"
                },
                "paramName" : {
@@ -4918,7 +4922,7 @@
                "paramValue" : {
                   "type" : "string"
                },
-               "sstNumber" : {
+               "sstnr" : {
                   "type" : "string"
                }
             },
@@ -9196,7 +9200,7 @@
             ]
          }
       },
-      "/admin/objectSettings/" : {
+      "/admin/itos" : {
          "get" : {
             "operationId" : "getAllObjectSettings",
             "parameters" : [
@@ -9221,7 +9225,31 @@
                   "required" : false,
                   "schema" : {
                      "default" : "ASC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 999,
+                     "format" : "int32",
+                     "type" : "integer"
                   }
                }
             ],
@@ -9240,7 +9268,59 @@
                   "description" : "OK"
                }
             },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
             "summary" : "Get All Object Settings",
+            "tags" : [
+               "admin-object-settings-controller"
+            ]
+         }
+      },
+      "/admin/itos/{id}/edit" : {
+         "put" : {
+            "operationId" : "updateObjectSettings",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "id",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ObjectSetting"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update Object Settings",
             "tags" : [
                "admin-object-settings-controller"
             ]
@@ -17268,6 +17348,15 @@
                         "BOOK_UP"
                      ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                }
             ],
