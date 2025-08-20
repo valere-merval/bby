@@ -3907,6 +3907,50 @@
             },
             "type" : "object"
          },
+         "ItosChangeHistory" : {
+            "properties" : {
+               "date" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "jnId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastuser" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "object" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "objectType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "paramDefault" : {
+                  "type" : "string"
+               },
+               "paramName" : {
+                  "type" : "string"
+               },
+               "paramValue" : {
+                  "type" : "string"
+               },
+               "ssntr" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "JwtUser" : {
             "properties" : {
                "password" : {
@@ -4908,6 +4952,12 @@
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "itosChangeHistoryList" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/ItosChangeHistory"
+                  },
+                  "type" : "array"
                },
                "object" : {
                   "format" : "int64",
