@@ -9376,6 +9376,43 @@
             ]
          }
       },
+      "/admin/itos/{itosId}" : {
+         "get" : {
+            "operationId" : "getObjectSettingsById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "itosId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ObjectSetting"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific Object Settings by ID",
+            "tags" : [
+               "admin-object-settings-controller"
+            ]
+         }
+      },
       "/allowedActions/contextMenu/{contextMenuAction}/{entityInstanceId}" : {
          "get" : {
             "operationId" : "getContextMenuAllowedActionsByEntityInstanceId",
