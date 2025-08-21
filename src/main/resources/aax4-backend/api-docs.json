@@ -697,7 +697,8 @@
                      "CASHANDGO",
                      "BSIV2",
                      "BONI4PARTNERS",
-                     "VSS2"
+                     "VSS2",
+                     "RTA"
                   ],
                   "type" : "string"
                }
@@ -7286,7 +7287,8 @@
                      "CASHANDGO",
                      "BSIV2",
                      "BONI4PARTNERS",
-                     "VSS2"
+                     "VSS2",
+                     "RTA"
                   ],
                   "type" : "string"
                },
@@ -8551,7 +8553,8 @@
                      "CASHANDGO",
                      "BSIV2",
                      "BONI4PARTNERS",
-                     "VSS2"
+                     "VSS2",
+                     "RTA"
                   ],
                   "type" : "string"
                }
