@@ -15305,16 +15305,18 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
-               },
-               {
-                  "in" : "query",
-                  "name" : "request",
-                  "required" : true,
-                  "schema" : {
-                     "$ref" : "#/components/schemas/ChangeHardwareFixedRequest"
-                  }
                }
             ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ChangeHardwareFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
             "responses" : {
                "200" : {
                   "content" : {
