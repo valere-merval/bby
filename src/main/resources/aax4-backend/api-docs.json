@@ -1357,6 +1357,17 @@
             },
             "type" : "object"
          },
+         "ChangeHardwareFixedRequest" : {
+            "properties" : {
+               "notes" : {
+                  "type" : "string"
+               },
+               "shippingAddress" : {
+                  "$ref" : "#/components/schemas/ShippingAddress"
+               }
+            },
+            "type" : "object"
+         },
          "ChangeOptionRequest" : {
             "properties" : {
                "discountIds" : {
@@ -4846,6 +4857,7 @@
                      "ADD_MOBILE_CONTRACT",
                      "POSTPONE_FIXED",
                      "CANCEL_FIXED",
+                     "CHANGE_HARDWARE_FIXED",
                      "CANCEL_HARDWARE_FIXED",
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
@@ -8971,6 +8983,9 @@
          },
          "WorkflowReturnCode" : {
             "properties" : {
+               "default" : {
+                  "type" : "boolean"
+               },
                "displayName" : {
                   "type" : "string"
                },
@@ -9329,13 +9344,50 @@
             ]
          }
       },
-      "/admin/itos/{id}/edit" : {
+      "/admin/itos/{itosId}" : {
+         "get" : {
+            "operationId" : "getObjectSettingsById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "itosId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ObjectSetting"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific Object Settings by ID",
+            "tags" : [
+               "admin-object-settings-controller"
+            ]
+         }
+      },
+      "/admin/itos/{itosId}/edit" : {
          "put" : {
             "operationId" : "updateObjectSettings",
             "parameters" : [
                {
                   "in" : "path",
-                  "name" : "id",
+                  "name" : "itosId",
                   "required" : true,
                   "schema" : {
                      "format" : "int64",
@@ -9371,43 +9423,6 @@
                }
             ],
             "summary" : "Update Object Settings",
-            "tags" : [
-               "admin-object-settings-controller"
-            ]
-         }
-      },
-      "/admin/itos/{itosId}" : {
-         "get" : {
-            "operationId" : "getObjectSettingsById",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "itosId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ObjectSetting"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get specific Object Settings by ID",
             "tags" : [
                "admin-object-settings-controller"
             ]
@@ -15275,6 +15290,51 @@
             ]
          }
       },
+      "/service/{serviceId}/action/changeHardwareFixed" : {
+         "post" : {
+            "operationId" : "changeHardwareFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "request",
+                  "required" : true,
+                  "schema" : {
+                     "$ref" : "#/components/schemas/ChangeHardwareFixedRequest"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts change Hardware Process for Fixed hardware",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/changeOption" : {
          "post" : {
             "operationId" : "changeOption",
@@ -17012,6 +17072,7 @@
                         "ADD_MOBILE_CONTRACT",
                         "POSTPONE_FIXED",
                         "CANCEL_FIXED",
+                        "CHANGE_HARDWARE_FIXED",
                         "CANCEL_HARDWARE_FIXED",
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
