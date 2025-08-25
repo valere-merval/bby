@@ -8534,11 +8534,11 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "returnCode" : {
+               "requestDate" : {
+                  "format" : "date-time",
                   "type" : "string"
                },
-               "returnDate" : {
-                  "format" : "date-time",
+               "returnCode" : {
                   "type" : "string"
                },
                "simulator" : {
