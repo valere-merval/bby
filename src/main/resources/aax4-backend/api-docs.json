@@ -11431,6 +11431,43 @@
             ]
          }
       },
+      "/customer/{customerId}/deleteDeviantBillingAddress" : {
+         "delete" : {
+            "operationId" : "deleteDeviantBillingAddress",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Delete deviant billing address by given customerId",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
       "/customer/{customerId}/details" : {
          "get" : {
             "operationId" : "getCustomerDetails",
