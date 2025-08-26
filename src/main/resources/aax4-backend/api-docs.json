@@ -697,7 +697,8 @@
                      "CASHANDGO",
                      "BSIV2",
                      "BONI4PARTNERS",
-                     "VSS2"
+                     "VSS2",
+                     "RTA"
                   ],
                   "type" : "string"
                }
@@ -1353,6 +1354,17 @@
                },
                "title" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ChangeHardwareFixedRequest" : {
+            "properties" : {
+               "notes" : {
+                  "type" : "string"
+               },
+               "shippingAddress" : {
+                  "$ref" : "#/components/schemas/ShippingAddress"
                }
             },
             "type" : "object"
@@ -3040,8 +3052,12 @@
          },
          "DeviceKey" : {
             "properties" : {
-               "deviceKey" : {
+               "deviceKeyType" : {
                   "type" : "string"
+               },
+               "deviceKeyTypeId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "deviceKeyValue" : {
                   "type" : "string"
@@ -3590,6 +3606,23 @@
             },
             "type" : "object"
          },
+         "GetAddOptionResponse" : {
+            "properties" : {
+               "availableOptions" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
+               },
+               "currentOption" : {
+                  "$ref" : "#/components/schemas/Product"
+               },
+               "mainService" : {
+                  "$ref" : "#/components/schemas/Product"
+               }
+            },
+            "type" : "object"
+         },
          "GetChangeOptionAvailableOptionsResponse" : {
             "properties" : {
                "availableOptions" : {
@@ -3706,7 +3739,7 @@
                "deliveryNoteId" : {
                   "type" : "string"
                },
-               "deviceKey" : {
+               "deviceKeys" : {
                   "items" : {
                      "$ref" : "#/components/schemas/DeviceKey"
                   },
@@ -3898,6 +3931,50 @@
                   "type" : "integer"
                },
                "reasonCodeMessage" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ItosChangeHistory" : {
+            "properties" : {
+               "date" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "jnId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastuser" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "object" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "objectType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "paramDefault" : {
+                  "type" : "string"
+               },
+               "paramName" : {
+                  "type" : "string"
+               },
+               "paramValue" : {
+                  "type" : "string"
+               },
+               "ssntr" : {
                   "type" : "string"
                }
             },
@@ -4798,6 +4875,7 @@
                      "ADD_MOBILE_CONTRACT",
                      "POSTPONE_FIXED",
                      "CANCEL_FIXED",
+                     "CHANGE_HARDWARE_FIXED",
                      "CANCEL_HARDWARE_FIXED",
                      "CANCEL_RENT_OPTION",
                      "TERMINATE_FIXED",
@@ -4905,7 +4983,17 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "interfaceName" : {
+               "itosChangeHistoryList" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/ItosChangeHistory"
+                  },
+                  "type" : "array"
+               },
+               "object" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "objectName" : {
                   "type" : "string"
                },
                "paramName" : {
@@ -4914,7 +5002,7 @@
                "paramValue" : {
                   "type" : "string"
                },
-               "sstNumber" : {
+               "sstnr" : {
                   "type" : "string"
                }
             },
@@ -5456,6 +5544,9 @@
          },
          "Product" : {
             "properties" : {
+               "amount" : {
+                  "type" : "number"
+               },
                "billingEndDate" : {
                   "format" : "date-time",
                   "type" : "string"
@@ -7216,7 +7307,8 @@
                      "CASHANDGO",
                      "BSIV2",
                      "BONI4PARTNERS",
-                     "VSS2"
+                     "VSS2",
+                     "RTA"
                   ],
                   "type" : "string"
                },
@@ -8462,11 +8554,11 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "returnCode" : {
+               "requestDate" : {
+                  "format" : "date-time",
                   "type" : "string"
                },
-               "returnDate" : {
-                  "format" : "date-time",
+               "returnCode" : {
                   "type" : "string"
                },
                "simulator" : {
@@ -8481,7 +8573,8 @@
                      "CASHANDGO",
                      "BSIV2",
                      "BONI4PARTNERS",
-                     "VSS2"
+                     "VSS2",
+                     "RTA"
                   ],
                   "type" : "string"
                }
@@ -8913,6 +9006,9 @@
          },
          "WorkflowReturnCode" : {
             "properties" : {
+               "default" : {
+                  "type" : "boolean"
+               },
                "displayName" : {
                   "type" : "string"
                },
@@ -9192,7 +9288,7 @@
             ]
          }
       },
-      "/admin/objectSettings/" : {
+      "/admin/itos" : {
          "get" : {
             "operationId" : "getAllObjectSettings",
             "parameters" : [
@@ -9217,7 +9313,31 @@
                   "required" : false,
                   "schema" : {
                      "default" : "ASC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 999,
+                     "format" : "int32",
+                     "type" : "integer"
                   }
                }
             ],
@@ -9236,7 +9356,96 @@
                   "description" : "OK"
                }
             },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
             "summary" : "Get All Object Settings",
+            "tags" : [
+               "admin-object-settings-controller"
+            ]
+         }
+      },
+      "/admin/itos/{itosId}" : {
+         "get" : {
+            "operationId" : "getObjectSettingsById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "itosId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ObjectSetting"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific Object Settings by ID",
+            "tags" : [
+               "admin-object-settings-controller"
+            ]
+         }
+      },
+      "/admin/itos/{itosId}/edit" : {
+         "put" : {
+            "operationId" : "updateObjectSettings",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "itosId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ObjectSetting"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update Object Settings",
             "tags" : [
                "admin-object-settings-controller"
             ]
@@ -11237,6 +11446,43 @@
                }
             ],
             "summary" : "Get customer messages",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/deleteDeviantBillingAddress" : {
+         "delete" : {
+            "operationId" : "deleteDeviantBillingAddress",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Delete deviant billing address by given customerId",
             "tags" : [
                "customer-details-controller"
             ]
@@ -14145,6 +14391,15 @@
                },
                {
                   "in" : "query",
+                  "name" : "minContractDuration",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
                   "name" : "expanded",
                   "required" : false,
                   "schema" : {
@@ -15090,6 +15345,53 @@
                }
             ],
             "summary" : "Change product based on context",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/changeHardwareFixed" : {
+         "post" : {
+            "operationId" : "changeHardwareFixed",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ChangeHardwareFixedRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts change Hardware Process for Fixed hardware",
             "tags" : [
                "service-actions-controller"
             ]
@@ -16499,7 +16801,7 @@
       },
       "/service/{serviceId}/availableOptions/add" : {
          "get" : {
-            "operationId" : "getAvailableOptionsForAddingOption",
+            "operationId" : "getAvailableOptionsForAddOption",
             "parameters" : [
                {
                   "in" : "path",
@@ -16516,10 +16818,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/Product"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/GetAddOptionResponse"
                         }
                      }
                   },
@@ -16832,6 +17131,7 @@
                         "ADD_MOBILE_CONTRACT",
                         "POSTPONE_FIXED",
                         "CANCEL_FIXED",
+                        "CHANGE_HARDWARE_FIXED",
                         "CANCEL_HARDWARE_FIXED",
                         "CANCEL_RENT_OPTION",
                         "TERMINATE_FIXED",
@@ -17255,6 +17555,15 @@
                         "BOOK_UP"
                      ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                }
             ],
