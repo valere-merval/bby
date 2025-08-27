@@ -679,6 +679,9 @@
                "displayName" : {
                   "type" : "string"
                },
+               "inputReturnCode" : {
+                  "type" : "string"
+               },
                "returnCodes" : {
                   "items" : {
                      "$ref" : "#/components/schemas/WorkflowReturnCode"
@@ -4996,6 +4999,9 @@
                "objectName" : {
                   "type" : "string"
                },
+               "paramDefault" : {
+                  "type" : "string"
+               },
                "paramName" : {
                   "type" : "string"
                },
@@ -5003,6 +5009,17 @@
                   "type" : "string"
                },
                "sstnr" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ObjectSettingUpdateRequest" : {
+            "properties" : {
+               "description" : {
+                  "type" : "string"
+               },
+               "paramValue" : {
                   "type" : "string"
                }
             },
@@ -9422,7 +9439,7 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "$ref" : "#/components/schemas/ObjectSetting"
+                        "$ref" : "#/components/schemas/ObjectSettingUpdateRequest"
                      }
                   }
                },
