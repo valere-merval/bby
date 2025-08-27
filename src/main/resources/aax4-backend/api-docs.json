@@ -3518,6 +3518,10 @@
                "street" : {
                   "type" : "string"
                },
+               "technology" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "witaContractNumber" : {
                   "type" : "string"
                },
