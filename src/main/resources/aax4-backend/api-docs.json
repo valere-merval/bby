@@ -14426,6 +14426,31 @@
                   "schema" : {
                      "type" : "boolean"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerProcess",
+                  "required" : false,
+                  "schema" : {
+                     "enum" : [
+                        "ADD_OPTION",
+                        "CHANGE_OPTION",
+                        "CHANGE_PRODUCT",
+                        "NEW_CONTRACT",
+                        "PROLONGATE_CONTRACT",
+                        "BOOK_UP"
+                     ],
+                     "type" : "string"
+                  }
                }
             ],
             "responses" : {
