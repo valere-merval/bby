@@ -580,6 +580,20 @@
             },
             "type" : "object"
          },
+         "Attachment" : {
+            "properties" : {
+               "content" : {
+                  "type" : "string"
+               },
+               "contentType" : {
+                  "type" : "string"
+               },
+               "fileName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AuthenticationData" : {
             "properties" : {
                "legiPin" : {
@@ -2432,6 +2446,12 @@
                "assignedWorkflows" : {
                   "items" : {
                      "$ref" : "#/components/schemas/DWorkflow"
+                  },
+                  "type" : "array"
+               },
+               "attachments" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Attachment"
                   },
                   "type" : "array"
                },
@@ -18634,6 +18654,52 @@
             "summary" : "Add a new option to a contract (dService)",
             "tags" : [
                "service-options-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/partnerCardDiscountCancelledMessage/{customerId}" : {
+         "get" : {
+            "operationId" : "getPartnerCardDiscountCancelledMessage",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get partner card discount cancel message",
+            "tags" : [
+               "service-controller"
             ]
          }
       },
