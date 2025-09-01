@@ -3928,6 +3928,49 @@
             },
             "type" : "object"
          },
+         "InventoryResponse" : {
+            "properties" : {
+               "article" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "bundleType" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "cardType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "client" : {
+                  "type" : "string"
+               },
+               "iccid" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "importFile" : {
+                  "type" : "string"
+               },
+               "msisdn" : {
+                  "type" : "string"
+               },
+               "productDescription" : {
+                  "type" : "string"
+               },
+               "puk" : {
+                  "type" : "string"
+               },
+               "simType" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "status" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "IsNewProductAllowed" : {
             "properties" : {
                "allowed" : {
@@ -9306,6 +9349,73 @@
             "summary" : "Get Addresses by address input",
             "tags" : [
                "address-controller"
+            ]
+         }
+      },
+      "/admin/inventory" : {
+         "get" : {
+            "operationId" : "getInventoryList",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "iccid",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "msisdn",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 100,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/InventoryResponse"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the list of inventory",
+            "tags" : [
+               "admin-inventory-controller"
             ]
          }
       },
