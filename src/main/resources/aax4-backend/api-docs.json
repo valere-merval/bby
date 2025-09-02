@@ -9381,6 +9381,7 @@
                   "name" : "iccid",
                   "required" : false,
                   "schema" : {
+                     "pattern" : "^[0-9]*$",
                      "type" : "string"
                   }
                },
@@ -9389,6 +9390,7 @@
                   "name" : "msisdn",
                   "required" : false,
                   "schema" : {
+                     "pattern" : "^[0-9]*$",
                      "type" : "string"
                   }
                },
