@@ -3759,6 +3759,9 @@
                "confirmationTransId" : {
                   "type" : "string"
                },
+               "customerAddress" : {
+                  "type" : "string"
+               },
                "customerAddressId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -9401,6 +9404,7 @@
                   "schema" : {
                      "default" : 100,
                      "format" : "int32",
+                     "maximum" : 100,
                      "type" : "integer"
                   }
                },
