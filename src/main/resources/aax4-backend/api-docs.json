@@ -1706,6 +1706,63 @@
             },
             "type" : "object"
          },
+         "CommunicationDetail" : {
+            "properties" : {
+               "assignedServices" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
+               },
+               "assignedWorkflows" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/DWorkflow"
+                  },
+                  "type" : "array"
+               },
+               "attachments" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Attachment"
+                  },
+                  "type" : "array"
+               },
+               "communication" : {
+                  "type" : "string"
+               },
+               "communicationChannel" : {
+                  "type" : "string"
+               },
+               "communicationZipped" : {
+                  "items" : {
+                     "format" : "byte",
+                     "type" : "string"
+                  },
+                  "type" : "array"
+               },
+               "confidential" : {
+                  "type" : "boolean"
+               },
+               "createDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "initiator" : {
+                  "type" : "string"
+               },
+               "subject" : {
+                  "type" : "string"
+               },
+               "ticket" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "ContactData" : {
             "properties" : {
                "emailData" : {
@@ -2446,12 +2503,6 @@
                "assignedWorkflows" : {
                   "items" : {
                      "$ref" : "#/components/schemas/DWorkflow"
-                  },
-                  "type" : "array"
-               },
-               "attachments" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/Attachment"
                   },
                   "type" : "array"
                },
@@ -9747,6 +9798,69 @@
             ]
          }
       },
+      "/basket/calculateAlternativeProduct" : {
+         "post" : {
+            "operationId" : "calculateBasket_1",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "customerProcessMode",
+                  "required" : true,
+                  "schema" : {
+                     "enum" : [
+                        "ADD_OPTION",
+                        "CHANGE_OPTION",
+                        "CHANGE_PRODUCT",
+                        "NEW_CONTRACT",
+                        "PROLONGATE_CONTRACT",
+                        "BOOK_UP"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "oldProduct",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CalculateBasketRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/Basket"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Calculate basket information by selected products, options and hardware",
+            "tags" : [
+               "basket-controller"
+            ]
+         }
+      },
       "/bills/billsAndDunnings/{id}/{type}" : {
          "get" : {
             "operationId" : "getBillAndDunningById",
@@ -9796,6 +9910,128 @@
          "get" : {
             "operationId" : "getPreselectableCampaigns",
             "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "clientId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sServiceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "targetOptionIds",
+                  "required" : false,
+                  "schema" : {
+                     "items" : {
+                        "format" : "int64",
+                        "type" : "integer"
+                     },
+                     "type" : "array"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "targetHardwareId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "installmentPlanId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "process",
+                  "required" : true,
+                  "schema" : {
+                     "enum" : [
+                        "ADD_OPTION",
+                        "CHANGE_OPTION",
+                        "CHANGE_PRODUCT",
+                        "NEW_CONTRACT",
+                        "PROLONGATE_CONTRACT",
+                        "BOOK_UP"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "dServiceId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/CampaignInfoLong"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get preselectable campaigns for various order processes",
+            "tags" : [
+               "campaign-controller"
+            ]
+         }
+      },
+      "/campaigns/preselectableCampaignsforAlternativProduct" : {
+         "get" : {
+            "operationId" : "getPreselectableCampaignsforAlternativProduct",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "oldProduct",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
                {
                   "in" : "query",
                   "name" : "clientId",
@@ -9999,7 +10235,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/Communication"
+                           "$ref" : "#/components/schemas/CommunicationDetail"
                         }
                      }
                   },
@@ -10096,7 +10332,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get customer communication workflows",
+            "summary" : "Resend customer communication",
             "tags" : [
                "communications-controller"
             ]
