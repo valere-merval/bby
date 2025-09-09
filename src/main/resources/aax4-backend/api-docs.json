@@ -713,6 +713,7 @@
                      "WITA",
                      "CASHANDGO",
                      "BSIV2",
+                     "BSI",
                      "BONI4PARTNERS",
                      "VSS2",
                      "RTA"
@@ -1733,11 +1734,8 @@
                   "type" : "string"
                },
                "communicationZipped" : {
-                  "items" : {
-                     "format" : "byte",
-                     "type" : "string"
-                  },
-                  "type" : "array"
+                  "format" : "byte",
+                  "type" : "string"
                },
                "confidential" : {
                   "type" : "boolean"
@@ -7444,6 +7442,7 @@
                      "WITA",
                      "CASHANDGO",
                      "BSIV2",
+                     "BSI",
                      "BONI4PARTNERS",
                      "VSS2",
                      "RTA"
@@ -8710,6 +8709,7 @@
                      "WITA",
                      "CASHANDGO",
                      "BSIV2",
+                     "BSI",
                      "BONI4PARTNERS",
                      "VSS2",
                      "RTA"
@@ -9423,6 +9423,119 @@
             "summary" : "Get Addresses by address input",
             "tags" : [
                "address-controller"
+            ]
+         }
+      },
+      "/admin/campaigns" : {
+         "get" : {
+            "operationId" : "getAllCampaigns",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/ObjectSetting"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all campaigns",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
+      "/admin/campaigns/{campaignId}" : {
+         "get" : {
+            "operationId" : "getObjectSettingsById_1",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ObjectSetting"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific campaign details by ID",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
+      "/admin/campaigns/{campaignId}/edit" : {
+         "put" : {
+            "operationId" : "updateObjectSettings_1",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ObjectSettingUpdateRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update campaign",
+            "tags" : [
+               "admin-campaigns-controller"
             ]
          }
       },
@@ -14610,6 +14723,15 @@
                   "required" : false,
                   "schema" : {
                      "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                }
             ],
