@@ -3149,6 +3149,10 @@
                "discountAmount" : {
                   "type" : "number"
                },
+               "discountDuration" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "discountGroup" : {
                   "enum" : [
                      "ONE_TIME_PRICE",
@@ -3163,10 +3167,6 @@
                },
                "discountInCalculation" : {
                   "type" : "boolean"
-               },
-               "discountIterations" : {
-                  "format" : "int32",
-                  "type" : "integer"
                },
                "discountOneTime" : {
                   "type" : "number"
@@ -3527,6 +3527,12 @@
          },
          "FixedTechnicalServiceData" : {
             "properties" : {
+               "buildingPartAnnex" : {
+                  "type" : "string"
+               },
+               "buildingPartName" : {
+                  "type" : "string"
+               },
                "buildingType" : {
                   "type" : "string"
                },
@@ -8442,6 +8448,16 @@
          },
          "UsageLocation" : {
             "properties" : {
+               "buildingUnitAddition" : {
+                  "type" : "string"
+               },
+               "buildingUnitId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "buildingUnitName" : {
+                  "type" : "string"
+               },
                "city" : {
                   "type" : "string"
                },
