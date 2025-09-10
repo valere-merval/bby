@@ -1086,6 +1086,84 @@
             },
             "type" : "object"
          },
+         "CampaignDetails" : {
+            "properties" : {
+               "aoDetails" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Partner"
+                  },
+                  "type" : "array"
+               },
+               "campaign" : {
+                  "type" : "string"
+               },
+               "changeDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "changedBy" : {
+                  "type" : "string"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "discounts" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Discounts"
+                  },
+                  "type" : "array"
+               },
+               "endDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "filter" : {
+                  "$ref" : "#/components/schemas/Filter"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "identifier" : {
+                  "type" : "string"
+               },
+               "parents" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
+               },
+               "sources" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
+               },
+               "startDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "status" : {
+                  "type" : "string"
+               },
+               "targets" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
+               },
+               "validityPeriod" : {
+                  "type" : "string"
+               },
+               "voDetails" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Partner"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "CampaignInfoLong" : {
             "properties" : {
                "amount" : {
@@ -2740,9 +2818,6 @@
                "salutation" : {
                   "$ref" : "#/components/schemas/Lookup"
                },
-               "showMGMTab" : {
-                  "type" : "boolean"
-               },
                "status" : {
                   "$ref" : "#/components/schemas/Status"
                },
@@ -3235,6 +3310,32 @@
             },
             "type" : "object"
          },
+         "Discounts" : {
+            "properties" : {
+               "description" : {
+                  "type" : "string"
+               },
+               "discountAmount" : {
+                  "type" : "number"
+               },
+               "discountTypeString" : {
+                  "type" : "string"
+               },
+               "durationInMonths" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "inherited" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "showDiscountText" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "DocumentDetails" : {
             "properties" : {
                "documentId" : {
@@ -3414,6 +3515,32 @@
                "signUpId" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "Filter" : {
+            "properties" : {
+               "client" : {
+                  "type" : "string"
+               },
+               "contractList" : {
+                  "type" : "boolean"
+               },
+               "customerList" : {
+                  "type" : "boolean"
+               },
+               "customerProcess" : {
+                  "type" : "string"
+               },
+               "mnp" : {
+                  "type" : "boolean"
+               },
+               "partnerCard" : {
+                  "type" : "boolean"
+               },
+               "triggerCampaign" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -3625,51 +3752,6 @@
          "FraenkEmailSMSValidationResponse" : {
             "properties" : {
                "workflowId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               }
-            },
-            "type" : "object"
-         },
-         "FriendRecruitmentDto" : {
-            "properties" : {
-               "contractRecruited" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "contractRecruiter" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "customerIdRecruited" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "customerIdRecruiter" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "entity" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "entryDate" : {
-                  "type" : "string"
-               },
-               "id" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "note" : {
-                  "type" : "string"
-               },
-               "processDate" : {
-                  "type" : "string"
-               },
-               "startDate" : {
-                  "type" : "string"
-               },
-               "status" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -5430,6 +5512,20 @@
                },
                "unpaged" : {
                   "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
+         "Partner" : {
+            "properties" : {
+               "channel" : {
+                  "type" : "string"
+               },
+               "mainPartner" : {
+                  "type" : "string"
+               },
+               "subPartner" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -9473,7 +9569,7 @@
       },
       "/admin/campaigns/{campaignId}" : {
          "get" : {
-            "operationId" : "getObjectSettingsById_1",
+            "operationId" : "getCampaignDetails",
             "parameters" : [
                {
                   "in" : "path",
@@ -9490,7 +9586,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/ObjectSetting"
+                           "$ref" : "#/components/schemas/CampaignDetails"
                         }
                      }
                   },
@@ -12082,46 +12178,6 @@
                }
             ],
             "summary" : "Get customer documents",
-            "tags" : [
-               "customer-details-controller"
-            ]
-         }
-      },
-      "/customer/{customerId}/friendRecruitments" : {
-         "get" : {
-            "operationId" : "getCustomerFriendRecruitments",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "customerId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/FriendRecruitmentDto"
-                           },
-                           "type" : "array"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get customer friend recruitments",
             "tags" : [
                "customer-details-controller"
             ]
@@ -14745,6 +14801,15 @@
                   "in" : "query",
                   "name" : "customerId",
                   "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "clientId",
+                  "required" : true,
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
