@@ -1248,6 +1248,37 @@
             },
             "type" : "object"
          },
+         "CampaignList" : {
+            "properties" : {
+               "campaign" : {
+                  "type" : "string"
+               },
+               "campaignStatus" : {
+                  "type" : "string"
+               },
+               "client" : {
+                  "type" : "string"
+               },
+               "control" : {
+                  "type" : "string"
+               },
+               "customerProcess" : {
+                  "type" : "string"
+               },
+               "endDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "identifier" : {
+                  "type" : "string"
+               },
+               "startDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CancelAndAddAlternativeFixedRequest" : {
             "properties" : {
                "calculateBasketRequest" : {
@@ -9547,7 +9578,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/ObjectSetting"
+                              "$ref" : "#/components/schemas/CampaignList"
                            },
                            "type" : "array"
                         }
