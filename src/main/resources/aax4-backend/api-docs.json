@@ -1259,22 +1259,28 @@
                "client" : {
                   "type" : "string"
                },
-               "control" : {
-                  "type" : "string"
+               "contractList" : {
+                  "type" : "boolean"
+               },
+               "customerList" : {
+                  "type" : "boolean"
                },
                "customerProcess" : {
                   "type" : "string"
                },
                "endDate" : {
-                  "format" : "date-time",
+                  "format" : "date",
                   "type" : "string"
                },
                "identifier" : {
                   "type" : "string"
                },
                "startDate" : {
-                  "format" : "date-time",
+                  "format" : "date",
                   "type" : "string"
+               },
+               "triggerCampaign" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
