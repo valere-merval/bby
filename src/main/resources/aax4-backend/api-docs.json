@@ -3691,12 +3691,6 @@
          },
          "FixedTechnicalServiceData" : {
             "properties" : {
-               "buildingPartAnnex" : {
-                  "type" : "string"
-               },
-               "buildingPartName" : {
-                  "type" : "string"
-               },
                "buildingType" : {
                   "type" : "string"
                },
@@ -8581,16 +8575,6 @@
          },
          "UsageLocation" : {
             "properties" : {
-               "buildingUnitAddition" : {
-                  "type" : "string"
-               },
-               "buildingUnitId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "buildingUnitName" : {
-                  "type" : "string"
-               },
                "city" : {
                   "type" : "string"
                },
