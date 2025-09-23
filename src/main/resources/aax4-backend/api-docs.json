@@ -2541,9 +2541,6 @@
                },
                "paymentMethodExisting" : {
                   "type" : "boolean"
-               },
-               "paypalAccount" : {
-                  "$ref" : "#/components/schemas/PaypalAccount"
                }
             },
             "type" : "object"
@@ -3372,12 +3369,10 @@
                   "type" : "integer"
                },
                "inherited" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "boolean"
                },
                "showDiscountText" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -4122,9 +4117,6 @@
                },
                "mpsAccount" : {
                   "$ref" : "#/components/schemas/MpsAccount"
-               },
-               "paypalAccount" : {
-                  "$ref" : "#/components/schemas/PaypalAccount"
                },
                "topUpAmount" : {
                   "type" : "string"
@@ -5595,24 +5587,6 @@
                   "type" : "string"
                },
                "userName" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
-         "PaypalAccount" : {
-            "properties" : {
-               "id" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "payer" : {
-                  "type" : "string"
-               },
-               "payerId" : {
-                  "type" : "string"
-               },
-               "paymentHandle" : {
                   "type" : "string"
                }
             },
@@ -7207,9 +7181,6 @@
                "notes" : {
                   "type" : "string"
                },
-               "paypalAccount" : {
-                  "$ref" : "#/components/schemas/PaypalAccount"
-               },
                "phoneNumbers" : {
                   "items" : {
                      "type" : "string"
@@ -7760,9 +7731,6 @@
                },
                "notes" : {
                   "type" : "string"
-               },
-               "paypalAccount" : {
-                  "$ref" : "#/components/schemas/PaypalAccount"
                },
                "repetitive" : {
                   "type" : "boolean"
@@ -21971,6 +21939,43 @@
                }
             ],
             "summary" : "Reprocess Failed Workflowitem",
+            "tags" : [
+               "workflowitem-controller"
+            ]
+         }
+      },
+      "/workflowitems/{dWorkflowItemId}/setToOpen" : {
+         "post" : {
+            "operationId" : "setWorkflowitemToOpen",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowItemId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Set the Workflowitem to status open, depending on the status model",
             "tags" : [
                "workflowitem-controller"
             ]
