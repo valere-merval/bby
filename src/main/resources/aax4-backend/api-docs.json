@@ -1109,6 +1109,12 @@
                "changedBy" : {
                   "type" : "string"
                },
+               "couponCodes" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/CouponCode"
+                  },
+                  "type" : "array"
+               },
                "description" : {
                   "type" : "string"
                },
@@ -2077,6 +2083,33 @@
          "ContractTakeoverResponse" : {
             "properties" : {
                "signupId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "CouponCode" : {
+            "properties" : {
+               "amount" : {
+                  "type" : "string"
+               },
+               "availableAmount" : {
+                  "type" : "string"
+               },
+               "code" : {
+                  "type" : "string"
+               },
+               "createDate" : {
+                  "type" : "string"
+               },
+               "partner" : {
+                  "type" : "string"
+               },
+               "redeemed" : {
+                  "type" : "string"
+               },
+               "tranche" : {
                   "format" : "int64",
                   "type" : "integer"
                }
