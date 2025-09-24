@@ -3392,14 +3392,13 @@
                   "type" : "string"
                },
                "discountAmount" : {
-                  "type" : "number"
+                  "type" : "string"
                },
                "discountTypeString" : {
                   "type" : "string"
                },
                "durationInMonths" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "string"
                },
                "inherited" : {
                   "type" : "boolean"
@@ -4714,8 +4713,12 @@
                },
                "status" : {
                   "description" : "Only include transactions with this status",
-                  "format" : "int64",
-                  "type" : "integer"
+                  "items" : {
+                     "description" : "Only include transactions with this status",
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
                },
                "transactionId" : {
                   "description" : "To filter for a specific transaction by id",
@@ -13955,8 +13958,11 @@
                   "name" : "status",
                   "required" : true,
                   "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
+                     "items" : {
+                        "format" : "int64",
+                        "type" : "integer"
+                     },
+                     "type" : "array"
                   }
                },
                {
