@@ -9597,6 +9597,21 @@
       "/admin/campaigns" : {
          "get" : {
             "operationId" : "getAllCampaigns",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "status",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "ACTIVE",
+                     "enum" : [
+                        "ACTIVE",
+                        "ALL"
+                     ],
+                     "type" : "string"
+                  }
+               }
+            ],
             "responses" : {
                "200" : {
                   "content" : {
