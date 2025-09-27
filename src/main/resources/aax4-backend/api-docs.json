@@ -1138,6 +1138,12 @@
                "identifier" : {
                   "type" : "string"
                },
+               "listDetails" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/ListDetail"
+                  },
+                  "type" : "array"
+               },
                "parents" : {
                   "items" : {
                      "$ref" : "#/components/schemas/Product"
@@ -4374,6 +4380,34 @@
          "LegitimationWorkflowResponse" : {
             "properties" : {
                "workflowId" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ListDetail" : {
+            "properties" : {
+               "filename" : {
+                  "type" : "string"
+               },
+               "importDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "importStatus" : {
+                  "type" : "string"
+               },
+               "result" : {
+                  "type" : "string"
+               },
+               "statusMessage" : {
+                  "type" : "string"
+               },
+               "uploadDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "username" : {
                   "type" : "string"
                }
             },
