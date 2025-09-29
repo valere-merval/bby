@@ -9640,7 +9640,7 @@
                   "name" : "status",
                   "required" : false,
                   "schema" : {
-                     "default" : "ACTIVE",
+                     "default" : "ALL",
                      "enum" : [
                         "ACTIVE",
                         "ALL"
