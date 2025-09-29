@@ -6455,6 +6455,9 @@
                "contactReasonId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "critical" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
