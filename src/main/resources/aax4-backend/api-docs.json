@@ -4646,6 +4646,35 @@
             },
             "type" : "object"
          },
+         "MonitoringSignupInfo" : {
+            "properties" : {
+               "errorMessage" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastUser" : {
+                  "type" : "string"
+               },
+               "orderDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "processDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "signupSource" : {
+                  "type" : "string"
+               },
+               "signupType" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "MonitoringTransactionIdAndErrorMessage" : {
             "properties" : {
                "errorCode" : {
@@ -5409,6 +5438,52 @@
             "properties" : {
                "notes" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "PageMonitoringSignupInfo" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/MonitoringSignupInfo"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/Sort"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -14161,6 +14236,89 @@
                }
             ],
             "summary" : "Reset transactions and their respective workflow items so they can be processed again",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         }
+      },
+      "/monitoring/signups" : {
+         "get" : {
+            "operationId" : "getMonitoringSignups",
+            "parameters" : [
+               {
+                  "description" : "Only include signups with this status",
+                  "in" : "query",
+                  "name" : "status",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : true,
+                  "schema" : {
+                     "enum" : [
+                        "ORDER_DT",
+                        "SIGNUP_TYPE",
+                        "PROCESS_DT",
+                        "LAST_USER",
+                        "SIGNUP_SOURCE"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "If results should be sorted in descending or ascending order",
+                  "in" : "query",
+                  "name" : "descendingOrder",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 20,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/PageMonitoringSignupInfo"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get information about the signups for the specified status",
             "tags" : [
                "monitoring-interfaces-controller"
             ]
