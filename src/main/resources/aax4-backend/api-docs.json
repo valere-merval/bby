@@ -13632,14 +13632,6 @@
                },
                {
                   "in" : "query",
-                  "name" : "landlineContractNumber",
-                  "required" : false,
-                  "schema" : {
-                     "type" : "string"
-                  }
-               },
-               {
-                  "in" : "query",
                   "name" : "page",
                   "required" : false,
                   "schema" : {
@@ -21688,6 +21680,117 @@
                }
             ],
             "summary" : "Set the stopable Workflowitems",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/simulateIdentPositive" : {
+         "put" : {
+            "operationId" : "simulateIdentPositive",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "simulate Ident positive",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/simulatePrepaidLegitimationPositive" : {
+         "put" : {
+            "operationId" : "simulatePrepaidLegitimationPositive",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "simulate Prepaid Legitimation positive",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/simulateVssPositive" : {
+         "put" : {
+            "operationId" : "simulateVssPositive",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "simulate VSS positive",
             "tags" : [
                "workflow-controller"
             ]
