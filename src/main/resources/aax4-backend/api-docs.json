@@ -5442,6 +5442,52 @@
             },
             "type" : "object"
          },
+         "PageCampaignList" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/CampaignList"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/Sort"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "PageMonitoringSignupInfo" : {
             "properties" : {
                "content" : {
@@ -9715,12 +9761,129 @@
                   "name" : "status",
                   "required" : false,
                   "schema" : {
-                     "default" : "ALL",
+                     "default" : "ACTIVE",
                      "enum" : [
                         "ACTIVE",
                         "ALL"
                      ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns, if ... TBD",
+                  "in" : "query",
+                  "name" : "searchField",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns of given client",
+                  "in" : "query",
+                  "name" : "client",
+                  "required" : false,
+                  "schema" : {
+                     "enum" : [
+                        "CONGSTAR",
+                        "JA_MOBILE",
+                        "PENNY",
+                        "FRAENK"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns of given customer process",
+                  "in" : "query",
+                  "name" : "customerProcess",
+                  "required" : false,
+                  "schema" : {
+                     "enum" : [
+                        "ADD_OPTION",
+                        "CHANGE_OPTION",
+                        "CHANGE_PRODUCT",
+                        "NEW_CONTRACT",
+                        "PROLONGATE_CONTRACT",
+                        "BOOK_UP"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns being active on this date",
+                  "in" : "query",
+                  "name" : "date",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date-time",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns marked with the given control",
+                  "in" : "query",
+                  "name" : "controlFlag",
+                  "required" : false,
+                  "schema" : {
+                     "enum" : [
+                        "TRIGGER",
+                        "CONTRACT_LIST",
+                        "CUSTOMER_LIST"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "IDENTIFIER",
+                     "enum" : [
+                        "IDENTIFIER",
+                        "CAMPAIGN",
+                        "CLIENT",
+                        "CUSTOMER_PROCESS",
+                        "START_DT",
+                        "END_DT",
+                        "STATUS"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DESC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 20,
+                     "format" : "int32",
+                     "type" : "integer"
                   }
                }
             ],
@@ -9729,10 +9892,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/CampaignList"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/PageCampaignList"
                         }
                      }
                   },
