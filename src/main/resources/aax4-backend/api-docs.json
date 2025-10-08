@@ -4716,6 +4716,9 @@
                "isParentTransaction" : {
                   "type" : "boolean"
                },
+               "lastUsernameWfi" : {
+                  "type" : "string"
+               },
                "object" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -4764,6 +4767,10 @@
                "excludeErrorMessage" : {
                   "description" : "Negates the search for errorMessage",
                   "type" : "boolean"
+               },
+               "lastUsernameWfi" : {
+                  "description" : "last_user of workflowitem",
+                  "type" : "string"
                },
                "objectType" : {
                   "description" : "To filter for a specific objectType",
@@ -9845,10 +9852,10 @@
                         "IDENTIFIER",
                         "CAMPAIGN",
                         "CLIENT",
-                        "CUSTOMER_PROCESS",
-                        "START_DT",
-                        "END_DT",
-                        "STATUS"
+                        "CUSTOMERPROCESS",
+                        "STARTDATE",
+                        "ENDDATE",
+                        "CAMPAIGNSTATUS"
                      ],
                      "type" : "string"
                   }
@@ -14293,6 +14300,15 @@
                   }
                },
                {
+                  "description" : "last_user name of workflowitem",
+                  "in" : "query",
+                  "name" : "lastUsernameWfi",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
                   "description" : "Sort results by this criteria",
                   "in" : "query",
                   "name" : "orderCriteria",
@@ -14301,7 +14317,8 @@
                      "enum" : [
                         "ID",
                         "START_DT",
-                        "PROCESS_DT"
+                        "PROCESS_DT",
+                        "LAST_USER_WFI"
                      ],
                      "type" : "string"
                   }
