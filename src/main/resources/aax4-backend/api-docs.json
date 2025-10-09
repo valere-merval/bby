@@ -4675,6 +4675,20 @@
             },
             "type" : "object"
          },
+         "MonitoringSignupsPutRequest" : {
+            "properties" : {
+               "signupIds" : {
+                  "description" : "Only reset signups with these ids",
+                  "items" : {
+                     "description" : "Only reset signups with these ids",
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "MonitoringTransactionIdAndErrorMessage" : {
             "properties" : {
                "errorCode" : {
@@ -14493,6 +14507,68 @@
             ]
          }
       },
+      "/monitoring/signups/resetAll" : {
+         "put" : {
+            "operationId" : "resetAllSignups",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Reset all erroneous signups so they can be processed again",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         }
+      },
+      "/monitoring/signups/resetSpecific" : {
+         "put" : {
+            "operationId" : "resetSpecificSignups",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/MonitoringSignupsPutRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Reset specific signups so they can be processed again",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         }
+      },
       "/nationalities/{nationalityId}/prepaid/identifications" : {
          "get" : {
             "operationId" : "getPrepaidIdentificationMethods",
@@ -21894,6 +21970,43 @@
                }
             ],
             "summary" : "simulate Ident positive",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/simulatePostIdNotification" : {
+         "put" : {
+            "operationId" : "simulatePostIdNotification",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "simulate PostId Notification",
             "tags" : [
                "workflow-controller"
             ]
