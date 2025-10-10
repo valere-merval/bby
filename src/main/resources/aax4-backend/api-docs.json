@@ -299,6 +299,9 @@
                "notes" : {
                   "type" : "string"
                },
+               "shippingAddress" : {
+                  "$ref" : "#/components/schemas/Address"
+               },
                "startDate" : {
                   "format" : "date",
                   "type" : "string"
