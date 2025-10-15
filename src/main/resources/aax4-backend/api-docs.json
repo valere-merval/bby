@@ -3515,6 +3515,21 @@
             },
             "type" : "object"
          },
+         "EditCampaignRequest" : {
+            "properties" : {
+               "endDate" : {
+                  "type" : "string"
+               },
+               "startDate" : {
+                  "type" : "string"
+               },
+               "status" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "EmailData" : {
             "properties" : {
                "email" : {
@@ -4158,6 +4173,9 @@
                },
                "mpsAccount" : {
                   "$ref" : "#/components/schemas/MpsAccount"
+               },
+               "paymentMode" : {
+                  "$ref" : "#/components/schemas/Lookup"
                },
                "topUpAmount" : {
                   "type" : "string"
@@ -9983,35 +10001,18 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
-               },
-               {
-                  "in" : "query",
-                  "name" : "status",
-                  "required" : false,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               },
-               {
-                  "in" : "query",
-                  "name" : "startDate",
-                  "required" : false,
-                  "schema" : {
-                     "format" : "date-time",
-                     "type" : "string"
-                  }
-               },
-               {
-                  "in" : "query",
-                  "name" : "endDate",
-                  "required" : false,
-                  "schema" : {
-                     "format" : "date-time",
-                     "type" : "string"
-                  }
                }
             ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/EditCampaignRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
             "responses" : {
                "200" : {
                   "content" : {
