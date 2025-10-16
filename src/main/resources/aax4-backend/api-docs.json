@@ -9826,13 +9826,8 @@
                   "name" : "client",
                   "required" : false,
                   "schema" : {
-                     "enum" : [
-                        "CONGSTAR",
-                        "JA_MOBILE",
-                        "PENNY",
-                        "FRAENK"
-                     ],
-                     "type" : "string"
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                },
                {
@@ -9841,14 +9836,6 @@
                   "name" : "customerProcess",
                   "required" : false,
                   "schema" : {
-                     "enum" : [
-                        "ADD_OPTION",
-                        "CHANGE_OPTION",
-                        "CHANGE_PRODUCT",
-                        "NEW_CONTRACT",
-                        "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
-                     ],
                      "type" : "string"
                   }
                },
