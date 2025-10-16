@@ -2186,6 +2186,30 @@
             },
             "type" : "object"
          },
+         "CouponCodeGenerationRequest" : {
+            "properties" : {
+               "couponCodePattern" : {
+                  "type" : "string"
+               },
+               "numberOfSpecificity" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "quantityPerSpecificity" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "salesPartnerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "tranche" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "CreateCustomerContactData" : {
             "properties" : {
                "email" : {
@@ -3047,6 +3071,9 @@
                },
                "mpsAccount" : {
                   "$ref" : "#/components/schemas/MpsAccount"
+               },
+               "paymentMode" : {
+                  "$ref" : "#/components/schemas/Lookup"
                },
                "valid" : {
                   "type" : "boolean"
@@ -10018,6 +10045,53 @@
                }
             ],
             "summary" : "Update campaign",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
+      "/admin/campaigns/{campaignId}/generateCouponCodes" : {
+         "post" : {
+            "operationId" : "generateCouponCodes",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CouponCodeGenerationRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Generate coupon codes",
             "tags" : [
                "admin-campaigns-controller"
             ]
