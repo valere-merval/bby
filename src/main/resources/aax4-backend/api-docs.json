@@ -1106,7 +1106,6 @@
                   "type" : "string"
                },
                "changeDate" : {
-                  "format" : "date-time",
                   "type" : "string"
                },
                "changedBy" : {
@@ -1128,7 +1127,6 @@
                   "type" : "array"
                },
                "endDate" : {
-                  "format" : "date-time",
                   "type" : "string"
                },
                "filter" : {
@@ -1160,7 +1158,6 @@
                   "type" : "array"
                },
                "startDate" : {
-                  "format" : "date-time",
                   "type" : "string"
                },
                "status" : {
@@ -4193,13 +4190,6 @@
                },
                "cclientPermission" : {
                   "$ref" : "#/components/schemas/ClientPermission"
-               },
-               "corrections" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "mpsAccount" : {
-                  "$ref" : "#/components/schemas/MpsAccount"
                },
                "paymentMode" : {
                   "$ref" : "#/components/schemas/Lookup"
