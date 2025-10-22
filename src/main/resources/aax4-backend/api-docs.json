@@ -5300,7 +5300,8 @@
                      "APOLLO_DATA_TRANSFER",
                      "TERMINATE_OPTION_FIXED",
                      "LBA_UPDATE_LINE_ID",
-                     "SIMULATE_HARDWARE_RETURN_FIXED"
+                     "SIMULATE_HARDWARE_RETURN_FIXED",
+                     "RELOCATE_CONTRACT_FIXED"
                   ],
                   "type" : "string"
                },
@@ -5953,7 +5954,8 @@
                      "PROLONGATE_CONTRACT",
                      "NEW_CONTRACT",
                      "CONTRACT_TAKEOVER",
-                     "PROVIDER_CHANGE"
+                     "PROVIDER_CHANGE",
+                     "MOVE_CONTRACT_FIXED"
                   ],
                   "type" : "string"
                },
@@ -14609,7 +14611,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Reset all erroneous signups so they can be processed again",
+            "summary" : "Reset erroneous signups so they can be processed again",
             "tags" : [
                "monitoring-interfaces-controller"
             ]
@@ -14871,7 +14873,8 @@
                         "PROLONGATE_CONTRACT",
                         "NEW_CONTRACT",
                         "CONTRACT_TAKEOVER",
-                        "PROVIDER_CHANGE"
+                        "PROVIDER_CHANGE",
+                        "MOVE_CONTRACT_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -14935,7 +14938,8 @@
                         "PROLONGATE_CONTRACT",
                         "NEW_CONTRACT",
                         "CONTRACT_TAKEOVER",
-                        "PROVIDER_CHANGE"
+                        "PROVIDER_CHANGE",
+                        "MOVE_CONTRACT_FIXED"
                      ],
                      "type" : "string"
                   }
@@ -18406,7 +18410,8 @@
                         "APOLLO_DATA_TRANSFER",
                         "TERMINATE_OPTION_FIXED",
                         "LBA_UPDATE_LINE_ID",
-                        "SIMULATE_HARDWARE_RETURN_FIXED"
+                        "SIMULATE_HARDWARE_RETURN_FIXED",
+                        "RELOCATE_CONTRACT_FIXED"
                      ],
                      "type" : "string"
                   }
