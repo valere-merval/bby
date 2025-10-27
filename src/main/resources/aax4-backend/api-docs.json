@@ -2183,6 +2183,18 @@
             },
             "type" : "object"
          },
+         "CouponCodeGenerationPartner" : {
+            "properties" : {
+               "orgId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "orgName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CouponCodeGenerationRequest" : {
             "properties" : {
                "couponCodePattern" : {
@@ -3767,6 +3779,18 @@
                   "type" : "string"
                },
                "witaBusinessCase" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "FixedRentData" : {
+            "properties" : {
+               "hasRent" : {
+                  "type" : "boolean"
+               },
+               "rentSServiceId" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -10089,6 +10113,46 @@
             ]
          }
       },
+      "/admin/campaigns/{campaignId}/relatedSalesPartners" : {
+         "get" : {
+            "operationId" : "getRelatedSalesPartners",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/CouponCodeGenerationPartner"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific campaign details by ID",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
       "/admin/inventory" : {
          "get" : {
             "operationId" : "getInventoryList",
@@ -12616,6 +12680,52 @@
                }
             ],
             "summary" : "Get customer documents",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/fixedRentData/{mainServiceId}" : {
+         "get" : {
+            "operationId" : "getFixedRentData",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "mainServiceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/FixedRentData"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get fixed rent information",
             "tags" : [
                "customer-details-controller"
             ]
