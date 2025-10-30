@@ -18560,6 +18560,73 @@
             ]
          }
       },
+      "/service/{serviceId}/availableServices/relocate/{findAllSuccessors}" : {
+         "post" : {
+            "operationId" : "getAvailableServicesForRelocateContract",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "findAllSuccessors",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "ignoreAvailability",
+                  "required" : false,
+                  "schema" : {
+                     "default" : false,
+                     "type" : "boolean"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/SimpleAddress"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/MrcProduct"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get available services for relocate service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/barrings" : {
          "get" : {
             "operationId" : "getAllBarringsByServiceId",
