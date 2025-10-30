@@ -286,6 +286,46 @@
             },
             "type" : "object"
          },
+         "AddNewRelocationFixedOrderRequest" : {
+            "properties" : {
+               "customerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "installationContactAreaCode" : {
+                  "type" : "string"
+               },
+               "installationContactCli" : {
+                  "type" : "string"
+               },
+               "newProductId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "optionId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "relocationAddress" : {
+                  "$ref" : "#/components/schemas/Address"
+               },
+               "startDtRequested" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "vfzId" : {
+                  "type" : "string"
+               },
+               "vviId" : {
+                  "type" : "string"
+               },
+               "vviRead" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "AddOptionRequest" : {
             "properties" : {
                "addOptionPermissions" : {
@@ -6305,6 +6345,10 @@
                   "format" : "int32",
                   "type" : "integer"
                },
+               "startDeliveryDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
                "status" : {
                   "$ref" : "#/components/schemas/ProductStatus"
                },
@@ -8085,6 +8129,9 @@
                      "VVI_ERROR",
                      "NO_CUSTOMER_EMAIL"
                   ],
+                  "type" : "string"
+               },
+               "vviId" : {
                   "type" : "string"
                },
                "vzfId" : {
@@ -16078,6 +16125,53 @@
                }
             ],
             "summary" : "add  new dataPass",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/addNewFixedRelocationOrder" : {
+         "post" : {
+            "operationId" : "addNewRelocationFixedOrder",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/AddNewRelocationFixedOrderRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Triggers the creation of a relocaton signup",
             "tags" : [
                "service-actions-controller"
             ]
