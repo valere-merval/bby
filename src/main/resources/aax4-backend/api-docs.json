@@ -2259,6 +2259,17 @@
             },
             "type" : "object"
          },
+         "CouponCodesList" : {
+            "properties" : {
+               "code" : {
+                  "type" : "string"
+               },
+               "status" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CreateCustomerContactData" : {
             "properties" : {
                "email" : {
@@ -5571,6 +5582,52 @@
                "content" : {
                   "items" : {
                      "$ref" : "#/components/schemas/CampaignList"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/Sort"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "PageCouponCodesList" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/CouponCodesList"
                   },
                   "type" : "array"
                },
@@ -10029,6 +10086,90 @@
             ]
          }
       },
+      "/admin/campaigns/couponCodes" : {
+         "get" : {
+            "operationId" : "getAllCouponCodes",
+            "parameters" : [
+               {
+                  "description" : "Only include coupon codes for given tranche",
+                  "in" : "query",
+                  "name" : "tranche",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "CODE",
+                     "enum" : [
+                        "CODE",
+                        "STATUS"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DESC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 50,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/PageCouponCodesList"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all coupon codes",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
       "/admin/campaigns/{campaignId}" : {
          "get" : {
             "operationId" : "getCampaignDetails",
@@ -10533,7 +10674,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -10587,7 +10729,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -10752,7 +10895,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -10874,7 +11018,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -14965,7 +15110,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -15769,7 +15915,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -16726,7 +16873,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -18322,7 +18470,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -19016,7 +19165,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -20073,6 +20223,46 @@
             ]
          }
       },
+      "/service/{serviceId}/rentHardware" : {
+         "get" : {
+            "operationId" : "getRentHardwareByServiceId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Product"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get standalone rent-hardware by ServiceId",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/retryMnpIn" : {
          "get" : {
             "operationId" : "getRetryMnpInfo",
@@ -20188,7 +20378,8 @@
                         "CHANGE_PRODUCT",
                         "NEW_CONTRACT",
                         "PROLONGATE_CONTRACT",
-                        "BOOK_UP"
+                        "BOOK_UP",
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
