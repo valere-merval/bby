@@ -313,15 +313,15 @@
                   "format" : "date",
                   "type" : "string"
                },
-               "vfzId" : {
-                  "type" : "string"
-               },
                "vviId" : {
                   "type" : "string"
                },
                "vviRead" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "vzfId" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -6066,7 +6066,7 @@
                      "NEW_CONTRACT",
                      "CONTRACT_TAKEOVER",
                      "PROVIDER_CHANGE",
-                     "MOVE_CONTRACT_FIXED"
+                     "RELOCATE"
                   ],
                   "type" : "string"
                },
@@ -15167,7 +15167,7 @@
                         "NEW_CONTRACT",
                         "CONTRACT_TAKEOVER",
                         "PROVIDER_CHANGE",
-                        "MOVE_CONTRACT_FIXED"
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -15232,7 +15232,7 @@
                         "NEW_CONTRACT",
                         "CONTRACT_TAKEOVER",
                         "PROVIDER_CHANGE",
-                        "MOVE_CONTRACT_FIXED"
+                        "RELOCATE"
                      ],
                      "type" : "string"
                   }
@@ -18560,7 +18560,7 @@
             ]
          }
       },
-      "/service/{serviceId}/availableServices/relocate/{findAllSuccessors}" : {
+      "/service/{serviceId}/availableServices/relocate" : {
          "post" : {
             "operationId" : "getAvailableServicesForRelocateContract",
             "parameters" : [
@@ -18571,14 +18571,6 @@
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
-                  }
-               },
-               {
-                  "in" : "path",
-                  "name" : "findAllSuccessors",
-                  "required" : true,
-                  "schema" : {
-                     "type" : "boolean"
                   }
                },
                {
