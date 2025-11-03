@@ -9588,6 +9588,9 @@
          },
          "WorkflowItemTransaction" : {
             "properties" : {
+               "canBeSetToStatusReadyForInterface" : {
+                  "type" : "boolean"
+               },
                "contentIncoming" : {
                   "type" : "string"
                },
@@ -10211,6 +10214,88 @@
             ]
          }
       },
+      "/admin/campaigns/{campaignId}/download/contractList" : {
+         "get" : {
+            "operationId" : "getContractListCsv",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "format" : "byte",
+                              "type" : "string"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get contract list csv file",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
+      "/admin/campaigns/{campaignId}/download/customerList" : {
+         "get" : {
+            "operationId" : "getCustomerListCsv",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "format" : "byte",
+                              "type" : "string"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get customer list csv file",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
       "/admin/campaigns/{campaignId}/edit" : {
          "put" : {
             "operationId" : "editCampaign",
@@ -10339,7 +10424,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get specific campaign details by ID",
+            "summary" : "Get related sales partners",
             "tags" : [
                "admin-campaigns-controller"
             ]
