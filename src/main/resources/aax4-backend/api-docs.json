@@ -9653,6 +9653,10 @@
                },
                "status" : {
                   "type" : "string"
+               },
+               "transactionStatusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
