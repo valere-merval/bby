@@ -18688,7 +18688,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/MrcProduct"
+                              "$ref" : "#/components/schemas/Product"
                            },
                            "type" : "array"
                         }
