@@ -1185,6 +1185,10 @@
                   },
                   "type" : "array"
                },
+               "numberOfActiveContractsOrCustomersOnTheList" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "parents" : {
                   "items" : {
                      "$ref" : "#/components/schemas/Product"
@@ -18688,7 +18692,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/Product"
+                              "$ref" : "#/components/schemas/MrcProduct"
                            },
                            "type" : "array"
                         }
