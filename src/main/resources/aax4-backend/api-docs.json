@@ -4655,6 +4655,10 @@
          },
          "MnpData" : {
             "properties" : {
+               "communicationProviderType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "mnpDate" : {
                   "enum" : [
                      "VTEN",
@@ -18692,7 +18696,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/MrcProduct"
+                              "$ref" : "#/components/schemas/Product"
                            },
                            "type" : "array"
                         }
