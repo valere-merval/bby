@@ -288,6 +288,13 @@
          },
          "AddNewRelocationFixedOrderRequest" : {
             "properties" : {
+               "allDiscountIds" : {
+                  "items" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  },
+                  "type" : "array"
+               },
                "customerId" : {
                   "format" : "int64",
                   "type" : "integer"
