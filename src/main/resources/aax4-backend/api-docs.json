@@ -4662,7 +4662,7 @@
          },
          "MnpData" : {
             "properties" : {
-               "communicationProviderType" : {
+               "communicationProvider" : {
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -9670,6 +9670,12 @@
                   "type" : "string"
                },
                "status" : {
+                  "type" : "string"
+               },
+               "subsystemIncoming" : {
+                  "type" : "string"
+               },
+               "subsystemOutgoing" : {
                   "type" : "string"
                },
                "transactionStatusId" : {
