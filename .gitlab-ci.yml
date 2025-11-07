@@ -5,7 +5,6 @@ include:
   - project: 'it-qa/gitlab-ci-templates'
     file: '.gitleaks.yml'
 
-
 stages:
   - build
   
