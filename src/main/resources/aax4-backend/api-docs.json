@@ -288,12 +288,8 @@
          },
          "AddNewRelocationFixedOrderRequest" : {
             "properties" : {
-               "allDiscountIds" : {
-                  "items" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  },
-                  "type" : "array"
+               "basketRequest" : {
+                  "$ref" : "#/components/schemas/CalculateBasketRequest"
                },
                "customerId" : {
                   "format" : "int64",
