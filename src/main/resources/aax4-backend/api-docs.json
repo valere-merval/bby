@@ -8638,6 +8638,9 @@
                "contentOutgoing" : {
                   "type" : "string"
                },
+               "subsystemOutgoing" : {
+                  "type" : "string"
+               },
                "transactionStatusId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -21631,6 +21634,68 @@
             "summary" : "update Transaction by TransactionId",
             "tags" : [
                "transaction-controller"
+            ]
+         }
+      },
+      "/user/customTheme" : {
+         "get" : {
+            "operationId" : "getCustomTheme",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "gets set custom theme of user",
+            "tags" : [
+               "user-controller"
+            ]
+         }
+      },
+      "/user/customTheme/{theme}" : {
+         "put" : {
+            "operationId" : "setThemeForUser",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "theme",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get last accessed customers for logged in user",
+            "tags" : [
+               "user-controller"
             ]
          }
       },
