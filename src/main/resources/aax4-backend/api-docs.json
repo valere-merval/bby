@@ -10275,6 +10275,56 @@
             ]
          }
       },
+      "/admin/campaigns/{campaignId}/download/couponCodesList/{tranche}" : {
+         "get" : {
+            "operationId" : "getCouponCodesListCsv",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "tranche",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "format" : "byte",
+                              "type" : "string"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get coupon codes list csv file",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
       "/admin/campaigns/{campaignId}/download/customerList" : {
          "get" : {
             "operationId" : "getCustomerListCsv",
@@ -10405,6 +10455,52 @@
                }
             ],
             "summary" : "Generate coupon codes",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
+      "/admin/campaigns/{campaignId}/invalidateCouponCodes/{tranche}" : {
+         "put" : {
+            "operationId" : "invalidateCouponCodes",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "tranche",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Invalidate coupon codes (only those not have been redeemed) of a tranche",
             "tags" : [
                "admin-campaigns-controller"
             ]
@@ -21657,7 +21753,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "gets set custom theme of user",
+            "summary" : "Gets custom theme of user",
             "tags" : [
                "user-controller"
             ]
@@ -21693,7 +21789,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get last accessed customers for logged in user",
+            "summary" : "Sets custom theme for user",
             "tags" : [
                "user-controller"
             ]
