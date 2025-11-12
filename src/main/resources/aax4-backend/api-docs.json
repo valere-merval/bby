@@ -4013,6 +4013,28 @@
             },
             "type" : "object"
          },
+         "GetOntConfig" : {
+            "properties" : {
+               "homeId" : {
+                  "type" : "string"
+               },
+               "lineTestDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "modemId" : {
+                  "type" : "string"
+               },
+               "registrationDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "status" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "GetRetryMnpResponse" : {
             "properties" : {
                "availableProviders" : {
@@ -5565,6 +5587,17 @@
                },
                "toDt" : {
                   "format" : "date",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "OntRegistrationOrSwitchRequest" : {
+            "properties" : {
+               "modemId" : {
+                  "type" : "string"
+               },
+               "oldModemId" : {
                   "type" : "string"
                }
             },
@@ -17591,6 +17624,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/getOntConfig" : {
+         "get" : {
+            "operationId" : "getOntConfig",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/GetOntConfig"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the ont config data",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/initialTopUp" : {
          "get" : {
             "operationId" : "getInitialTopUpByServiceId",
@@ -18002,6 +18072,53 @@
                }
             ],
             "summary" : "submit MnpOptIn Information",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/setOntRegistrationOrSwitch" : {
+         "post" : {
+            "operationId" : "setOntRegistrationOrSwitch",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/OntRegistrationOrSwitchRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Calls setHomeId operation",
             "tags" : [
                "service-actions-controller"
             ]
@@ -19508,6 +19625,44 @@
                }
             ],
             "summary" : "Get associated components (options and hardware) for a specific service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/contractId" : {
+         "get" : {
+            "operationId" : "getContractId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "format" : "int64",
+                           "type" : "integer"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the main contract Id of a service",
             "tags" : [
                "service-controller"
             ]
