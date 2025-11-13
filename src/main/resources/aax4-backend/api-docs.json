@@ -3718,6 +3718,9 @@
                "accessOwnerSurname" : {
                   "type" : "string"
                },
+               "fixedOntData" : {
+                  "$ref" : "#/components/schemas/FixedOntData"
+               },
                "lbaConfigData" : {
                   "$ref" : "#/components/schemas/LbaConfigData"
                },
@@ -3760,6 +3763,27 @@
                },
                "providerChange" : {
                   "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
+         "FixedOntData" : {
+            "properties" : {
+               "changeDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "currentLineTestStatus" : {
+                  "type" : "string"
+               },
+               "currentModemId" : {
+                  "type" : "string"
+               },
+               "ontDataTable" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/OntDataRow"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -5557,6 +5581,37 @@
                },
                "toDt" : {
                   "format" : "date",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "OntDataRow" : {
+            "properties" : {
+               "changeDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "homeId" : {
+                  "type" : "string"
+               },
+               "lineTestStatus" : {
+                  "type" : "string"
+               },
+               "message" : {
+                  "type" : "string"
+               },
+               "modemId" : {
+                  "type" : "string"
+               },
+               "oldModemId" : {
+                  "type" : "string"
+               },
+               "registrationStatus" : {
+                  "type" : "string"
+               },
+               "requestDate" : {
+                  "format" : "date-time",
                   "type" : "string"
                }
             },
