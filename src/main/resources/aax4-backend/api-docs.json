@@ -1508,36 +1508,6 @@
             },
             "type" : "object"
          },
-         "ChangeBankDataAsPerRequest" : {
-            "properties" : {
-               "bic" : {
-                  "type" : "string"
-               },
-               "changeDate" : {
-                  "format" : "date",
-                  "type" : "string"
-               },
-               "iban" : {
-                  "type" : "string"
-               },
-               "notes" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
-         "ChangeBankDataAsPerResponse" : {
-            "properties" : {
-               "message" : {
-                  "type" : "string"
-               },
-               "workflowId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               }
-            },
-            "type" : "object"
-         },
          "ChangeBarringData" : {
             "properties" : {
                "enabled" : {
@@ -9875,53 +9845,6 @@
                }
             ],
             "summary" : "Change a customer's billing address",
-            "tags" : [
-               "account-controller"
-            ]
-         }
-      },
-      "/accounts/{accountId}/changeBankDataAsPer" : {
-         "post" : {
-            "operationId" : "changeBankDatAsPer",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "accountId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/ChangeBankDataAsPerRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ChangeBankDataAsPerResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Change a customer's bank data at a specified date",
             "tags" : [
                "account-controller"
             ]
