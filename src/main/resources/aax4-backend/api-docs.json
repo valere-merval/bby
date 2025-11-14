@@ -5394,7 +5394,8 @@
                      "LBA_UPDATE_LINE_ID",
                      "SIMULATE_HARDWARE_RETURN_FIXED",
                      "ONT_REGISTRATION_OR_SWITCH",
-                     "RELOCATE_CONTRACT_FIXED"
+                     "RELOCATE_CONTRACT_FIXED",
+                     "CANCEL_RELOCATE_CONTRACT_FIXED"
                   ],
                   "type" : "string"
                },
@@ -19115,7 +19116,8 @@
                         "LBA_UPDATE_LINE_ID",
                         "SIMULATE_HARDWARE_RETURN_FIXED",
                         "ONT_REGISTRATION_OR_SWITCH",
-                        "RELOCATE_CONTRACT_FIXED"
+                        "RELOCATE_CONTRACT_FIXED",
+                        "CANCEL_RELOCATE_CONTRACT_FIXED"
                      ],
                      "type" : "string"
                   }
