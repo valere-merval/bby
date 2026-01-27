@@ -23092,6 +23092,43 @@
             ]
          }
       },
+      "/workflow/{dWorkflowId}/refreshRtaState" : {
+         "put" : {
+            "operationId" : "refreshRtaState",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "refresh RTA State",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
       "/workflow/{dWorkflowId}/resetWorkflow" : {
          "put" : {
             "operationId" : "resetWorkflow",
