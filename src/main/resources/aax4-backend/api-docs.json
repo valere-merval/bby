@@ -6557,6 +6557,9 @@
                "terminationDate" : {
                   "format" : "date-time",
                   "type" : "string"
+               },
+               "tkgRelocationAvailable" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -22918,6 +22921,43 @@
                }
             ],
             "summary" : "Flushes time of workflows",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/getRtaLink" : {
+         "get" : {
+            "operationId" : "getRtaLink",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "get RTA Link",
             "tags" : [
                "workflow-controller"
             ]
