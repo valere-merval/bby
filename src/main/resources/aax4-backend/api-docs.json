@@ -937,6 +937,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "sortOrder" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "totalOneTime" : {
                   "type" : "number"
                },
@@ -1077,6 +1081,24 @@
                },
                "volume" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "BuildingUnitsModel" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "productList" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -1689,6 +1711,10 @@
                      "$ref" : "#/components/schemas/RecurringCharge"
                   },
                   "type" : "array"
+               },
+               "sortOrder" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "totalOneTime" : {
                   "type" : "number"
@@ -4263,6 +4289,9 @@
                "model" : {
                   "type" : "string"
                },
+               "modemId" : {
+                  "type" : "string"
+               },
                "serialNo" : {
                   "type" : "string"
                }
@@ -4548,6 +4577,20 @@
                },
                "username" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "LocationModel" : {
+            "properties" : {
+               "buildingUnits" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/BuildingUnitsModel"
+                  },
+                  "type" : "array"
+               },
+               "productClusterModel" : {
+                  "$ref" : "#/components/schemas/ProductClusterModel"
                }
             },
             "type" : "object"
@@ -5209,12 +5252,19 @@
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
                      "FIXED_TECHNICAL_SERVICE",
-                     "FIXED_RENT_OPTION"
+                     "FIXED_RENT_OPTION",
+                     "DOCSIS",
+                     "FTTX",
+                     "DSL_BROADBAND_ACCESS",
+                     "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
                },
                "smsContingent" : {
                   "$ref" : "#/components/schemas/Contingent"
+               },
+               "technology" : {
+                  "type" : "string"
                },
                "telephoneContingent" : {
                   "$ref" : "#/components/schemas/Contingent"
@@ -5382,6 +5432,7 @@
                      "SHOW_WORKFLOWS",
                      "SET_PARTNER_CARD",
                      "ADD_MOBILE_CONTRACT",
+                     "ADD_FIXED_CONTRACT",
                      "POSTPONE_FIXED",
                      "CANCEL_FIXED",
                      "CHANGE_HARDWARE_FIXED",
@@ -6461,7 +6512,11 @@
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
                      "FIXED_TECHNICAL_SERVICE",
-                     "FIXED_RENT_OPTION"
+                     "FIXED_RENT_OPTION",
+                     "DOCSIS",
+                     "FTTX",
+                     "DSL_BROADBAND_ACCESS",
+                     "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
                },
@@ -6496,9 +6551,23 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "technology" : {
+                  "type" : "string"
+               },
                "terminationDate" : {
                   "format" : "date-time",
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "ProductClusterModel" : {
+            "properties" : {
+               "productList" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -6536,7 +6605,11 @@
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
                      "FIXED_TECHNICAL_SERVICE",
-                     "FIXED_RENT_OPTION"
+                     "FIXED_RENT_OPTION",
+                     "DOCSIS",
+                     "FTTX",
+                     "DSL_BROADBAND_ACCESS",
+                     "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
                }
@@ -7094,7 +7167,11 @@
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
                      "FIXED_TECHNICAL_SERVICE",
-                     "FIXED_RENT_OPTION"
+                     "FIXED_RENT_OPTION",
+                     "DOCSIS",
+                     "FTTX",
+                     "DSL_BROADBAND_ACCESS",
+                     "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
                },
@@ -7255,7 +7332,11 @@
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
                      "FIXED_TECHNICAL_SERVICE",
-                     "FIXED_RENT_OPTION"
+                     "FIXED_RENT_OPTION",
+                     "DOCSIS",
+                     "FTTX",
+                     "DSL_BROADBAND_ACCESS",
+                     "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
                }
@@ -7940,7 +8021,11 @@
                      "FIXED",
                      "FIXED_BROADBAND_ACCESS",
                      "FIXED_TECHNICAL_SERVICE",
-                     "FIXED_RENT_OPTION"
+                     "FIXED_RENT_OPTION",
+                     "DOCSIS",
+                     "FTTX",
+                     "DSL_BROADBAND_ACCESS",
+                     "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
                }
@@ -8110,6 +8195,9 @@
                   "type" : "integer"
                }
             },
+            "type" : "object"
+         },
+         "StreamingResponseBody" : {
             "type" : "object"
          },
          "SubmitBarring" : {
@@ -9033,6 +9121,16 @@
          },
          "UsageLocation" : {
             "properties" : {
+               "buildingUnitAnnex" : {
+                  "type" : "string"
+               },
+               "buildingUnitId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "buildingUnitName" : {
+                  "type" : "string"
+               },
                "city" : {
                   "type" : "string"
                },
@@ -9648,6 +9746,7 @@
                      "DISABLED",
                      "WARNING",
                      "MANUAL",
+                     "OPEN",
                      "DUE"
                   ],
                   "type" : "string"
@@ -10212,6 +10311,131 @@
             ]
          }
       },
+      "/admin/campaigns/download" : {
+         "get" : {
+            "operationId" : "getCampaignListCsv",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "status",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "ACTIVE",
+                     "enum" : [
+                        "ACTIVE",
+                        "ALL"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns according to search field (campaign id / identifier / name)",
+                  "in" : "query",
+                  "name" : "searchField",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns of given client",
+                  "in" : "query",
+                  "name" : "client",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns of given customer process",
+                  "in" : "query",
+                  "name" : "customerProcess",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns being active on this date",
+                  "in" : "query",
+                  "name" : "date",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date-time",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include campaigns marked with the given control",
+                  "in" : "query",
+                  "name" : "controlFlag",
+                  "required" : false,
+                  "schema" : {
+                     "enum" : [
+                        "TRIGGER",
+                        "CONTRACT_LIST",
+                        "CUSTOMER_LIST"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "IDENTIFIER",
+                     "enum" : [
+                        "IDENTIFIER",
+                        "CAMPAIGN",
+                        "CLIENT",
+                        "CUSTOMERPROCESS",
+                        "STARTDATE",
+                        "ENDDATE",
+                        "CAMPAIGNSTATUS"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DESC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/StreamingResponseBody"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get campaign list as csv file",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
       "/admin/campaigns/{campaignId}" : {
          "get" : {
             "operationId" : "getCampaignDetails",
@@ -10268,11 +10492,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "format" : "byte",
-                              "type" : "string"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/StreamingResponseBody"
                         }
                      }
                   },
@@ -10318,11 +10538,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "format" : "byte",
-                              "type" : "string"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/StreamingResponseBody"
                         }
                      }
                   },
@@ -10359,11 +10575,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "format" : "byte",
-                              "type" : "string"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/StreamingResponseBody"
                         }
                      }
                   },
@@ -10556,6 +10768,61 @@
                }
             ],
             "summary" : "Get related sales partners",
+            "tags" : [
+               "admin-campaigns-controller"
+            ]
+         }
+      },
+      "/admin/campaigns/{campaignId}/uploadList" : {
+         "post" : {
+            "operationId" : "uploadListCsv",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "multipart/form-data" : {
+                     "schema" : {
+                        "properties" : {
+                           "file" : {
+                              "format" : "binary",
+                              "type" : "string"
+                           }
+                        },
+                        "required" : [
+                           "file"
+                        ],
+                        "type" : "object"
+                     }
+                  }
+               }
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Upload contract and customer list csv file",
             "tags" : [
                "admin-campaigns-controller"
             ]
@@ -12611,7 +12878,6 @@
                               "INFO_PHONE",
                               "DATA_ANALYSIS_FLAG",
                               "UWG_FLAG",
-                              "DISAGREED_MAILING",
                               "CONTACT_BLACKLIST"
                            ],
                            "type" : "string"
@@ -16079,7 +16345,11 @@
                            "FIXED",
                            "FIXED_BROADBAND_ACCESS",
                            "FIXED_TECHNICAL_SERVICE",
-                           "FIXED_RENT_OPTION"
+                           "FIXED_RENT_OPTION",
+                           "DOCSIS",
+                           "FTTX",
+                           "DSL_BROADBAND_ACCESS",
+                           "DSL_EMAIL_SERVICE"
                         ],
                         "type" : "string"
                      },
@@ -16186,10 +16456,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/Product"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/LocationModel"
                         }
                      }
                   },
@@ -16573,7 +16840,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "string"
+                           "$ref" : "#/components/schemas/SignupResponse"
                         }
                      }
                   },
@@ -17269,6 +17536,43 @@
                }
             ],
             "summary" : "Change product",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/changeVoipRadiusUser" : {
+         "post" : {
+            "operationId" : "changeUser",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CreateWorkflowProcedureResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts the workflow for changing Radius and VoIP Login",
             "tags" : [
                "service-actions-controller"
             ]
@@ -19103,6 +19407,7 @@
                         "SHOW_WORKFLOWS",
                         "SET_PARTNER_CARD",
                         "ADD_MOBILE_CONTRACT",
+                        "ADD_FIXED_CONTRACT",
                         "POSTPONE_FIXED",
                         "CANCEL_FIXED",
                         "CHANGE_HARDWARE_FIXED",
@@ -23480,6 +23785,43 @@
                }
             ],
             "summary" : "Mark workflowItem as obsolete",
+            "tags" : [
+               "workflowitem-controller"
+            ]
+         }
+      },
+      "/workflowitems/{dWorkflowItemId}/removeWorkflowitemStopflag" : {
+         "post" : {
+            "operationId" : "removeWorkflowitemStopflag",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowItemId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Removes the stopflag from this workflowitems",
             "tags" : [
                "workflowitem-controller"
             ]
