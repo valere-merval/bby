@@ -1122,6 +1122,13 @@
                   },
                   "type" : "array"
                },
+               "isTkgRelocation" : {
+                  "type" : "boolean"
+               },
+               "oldProduct" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "prepaidActivation" : {
                   "type" : "boolean"
                },
@@ -5448,7 +5455,8 @@
                      "LBA_UPDATE_LINE_ID",
                      "SIMULATE_HARDWARE_RETURN_FIXED",
                      "ONT_REGISTRATION_OR_SWITCH",
-                     "RELOCATE_CONTRACT_FIXED"
+                     "RELOCATE_CONTRACT_FIXED",
+                     "REQUEST_ACCESS_REFERENCE"
                   ],
                   "type" : "string"
                },
@@ -18172,6 +18180,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/referenceNumber" : {
+         "post" : {
+            "operationId" : "requestReferenceNumber",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Request the reference number and start workflow",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/removeMnpOptIn" : {
          "post" : {
             "operationId" : "removeMnpOptIn",
@@ -19426,7 +19471,8 @@
                         "LBA_UPDATE_LINE_ID",
                         "SIMULATE_HARDWARE_RETURN_FIXED",
                         "ONT_REGISTRATION_OR_SWITCH",
-                        "RELOCATE_CONTRACT_FIXED"
+                        "RELOCATE_CONTRACT_FIXED",
+                        "REQUEST_ACCESS_REFERENCE"
                      ],
                      "type" : "string"
                   }
