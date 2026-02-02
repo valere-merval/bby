@@ -1137,6 +1137,10 @@
                      "$ref" : "#/components/schemas/PreselectableCampaign"
                   },
                   "type" : "array"
+               },
+               "startDtRequested" : {
+                  "format" : "date",
+                  "type" : "string"
                }
             },
             "type" : "object"
