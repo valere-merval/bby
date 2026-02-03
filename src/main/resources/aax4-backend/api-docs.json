@@ -316,6 +316,9 @@
                   "format" : "date",
                   "type" : "string"
                },
+               "tkgServiceSelected" : {
+                  "type" : "boolean"
+               },
                "vviId" : {
                   "type" : "string"
                },
@@ -3836,6 +3839,23 @@
                },
                "phoneNumberAsReferenceSufficient" : {
                   "type" : "boolean"
+               },
+               "previousOwnerCompanyName" : {
+                  "type" : "string"
+               },
+               "previousOwnerCustomerType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "previousOwnerFirstName" : {
+                  "type" : "string"
+               },
+               "previousOwnerLastName" : {
+                  "type" : "string"
+               },
+               "previousOwnerSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "providerId" : {
                   "format" : "int64",
@@ -9036,6 +9056,28 @@
                },
                "prevTenantSurname" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdateFixedProviderChangeImportPreviousOwnerRequest" : {
+            "properties" : {
+               "previousOwnerCompanyName" : {
+                  "type" : "string"
+               },
+               "previousOwnerCustomerType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "previousOwnerFirstName" : {
+                  "type" : "string"
+               },
+               "previousOwnerLastName" : {
+                  "type" : "string"
+               },
+               "previousOwnerSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -20615,6 +20657,53 @@
                }
             ],
             "summary" : "update provider change fields for an existing Fixed Access Service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/fixedProviderChangeImportPreviousOwner" : {
+         "put" : {
+            "operationId" : "updateFixedProviderChangeImportPreviousOwner",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateFixedProviderChangeImportPreviousOwnerRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update previous owner of provider change import Fixed Access Service",
             "tags" : [
                "service-controller"
             ]
