@@ -9087,6 +9087,13 @@
                "isReferencePhoneNumberRequired" : {
                   "type" : "boolean"
                },
+               "providerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "providerName" : {
+                  "type" : "string"
+               },
                "referencedPhoneNumberCLI" : {
                   "type" : "string"
                },
