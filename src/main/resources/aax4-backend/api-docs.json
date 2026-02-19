@@ -15390,6 +15390,53 @@
                   }
                },
                {
+                  "description" : "To filter for a specific signup by id",
+                  "in" : "query",
+                  "name" : "signupId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "description" : "Only include signups, if their error messages contain this specified string",
+                  "in" : "query",
+                  "name" : "errorMessage",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Negates the search for errorMessage",
+                  "in" : "query",
+                  "name" : "excludeErrorMessage",
+                  "required" : false,
+                  "schema" : {
+                     "default" : false,
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "description" : "Only include signups, if their type contains this specified string",
+                  "in" : "query",
+                  "name" : "signupType",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Only include signups, if their last_user name contains specified string",
+                  "in" : "query",
+                  "name" : "lastUsername",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
                   "in" : "query",
                   "name" : "page",
                   "required" : false,
