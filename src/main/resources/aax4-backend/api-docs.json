@@ -4025,6 +4025,23 @@
             },
             "type" : "object"
          },
+         "Function2Role" : {
+            "properties" : {
+               "function" : {
+                  "type" : "string"
+               },
+               "functionDescription" : {
+                  "type" : "string"
+               },
+               "role" : {
+                  "type" : "string"
+               },
+               "roleDescription" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "GetAddOptionResponse" : {
             "properties" : {
                "availableOptions" : {
@@ -9754,6 +9771,9 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "editData" : {
+                  "type" : "boolean"
+               },
                "optional" : {
                   "type" : "string"
                },
@@ -11122,6 +11142,58 @@
             "summary" : "Update Object Settings",
             "tags" : [
                "admin-object-settings-controller"
+            ]
+         }
+      },
+      "/admin/user/rolesandfunctionsmock" : {
+         "get" : {
+            "operationId" : "getRolesAndFunctionsMock",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Temporary mock",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
+      "/admin/user/usermock" : {
+         "get" : {
+            "operationId" : "getUserMock",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Temporary mock",
+            "tags" : [
+               "user-management-controller"
             ]
          }
       },
@@ -22460,6 +22532,35 @@
             "summary" : "Get last accessed customers for logged in user",
             "tags" : [
                "user-controller"
+            ]
+         }
+      },
+      "/user/functions2Roles" : {
+         "get" : {
+            "operationId" : "getFunctions2Roles",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Function2Role"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all active mappings from functions to roles",
+            "tags" : [
+               "user-role-controller"
             ]
          }
       },
