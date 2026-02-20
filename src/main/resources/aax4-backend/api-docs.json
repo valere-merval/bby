@@ -11145,32 +11145,6 @@
             ]
          }
       },
-      "/admin/user/rolesandfunctionsmock" : {
-         "get" : {
-            "operationId" : "getRolesAndFunctionsMock",
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "type" : "string"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Temporary mock",
-            "tags" : [
-               "user-management-controller"
-            ]
-         }
-      },
       "/admin/user/usermock" : {
          "get" : {
             "operationId" : "getUserMock",
