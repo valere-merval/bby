@@ -4909,6 +4909,32 @@
             },
             "type" : "object"
          },
+         "MonitoringSignupsFilterRequest" : {
+            "properties" : {
+               "errorMessage" : {
+                  "description" : "Only include signups, if their error messages contain this specified string",
+                  "type" : "string"
+               },
+               "excludeErrorMessage" : {
+                  "description" : "Negates the search for errorMessage",
+                  "type" : "boolean"
+               },
+               "lastUser" : {
+                  "description" : "Only include signups, if their last_user name contains specified string",
+                  "type" : "string"
+               },
+               "signupId" : {
+                  "description" : "To filter for a specific signup by id",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "signupType" : {
+                  "description" : "Only include signups, if their type contains this specified string",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "MonitoringSignupsPutRequest" : {
             "properties" : {
                "signupIds" : {
@@ -15529,6 +15555,16 @@
       "/monitoring/signups/resetAll" : {
          "put" : {
             "operationId" : "resetAllSignups",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/MonitoringSignupsFilterRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
             "responses" : {
                "200" : {
                   "content" : {
