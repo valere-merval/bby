@@ -6598,6 +6598,9 @@
                "showContextMenu" : {
                   "type" : "boolean"
                },
+               "showServiceDisplayName" : {
+                  "type" : "string"
+               },
                "simType" : {
                   "$ref" : "#/components/schemas/Lookup"
                },
