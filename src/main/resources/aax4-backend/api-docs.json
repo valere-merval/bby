@@ -770,7 +770,8 @@
                      "BSI",
                      "BONI4PARTNERS",
                      "VSS2",
-                     "RTA"
+                     "RTA",
+                     "WITA_ESS"
                   ],
                   "type" : "string"
                }
@@ -8199,7 +8200,8 @@
                      "BSI",
                      "BONI4PARTNERS",
                      "VSS2",
-                     "RTA"
+                     "RTA",
+                     "WITA_ESS"
                   ],
                   "type" : "string"
                },
@@ -9511,7 +9513,8 @@
                      "BSI",
                      "BONI4PARTNERS",
                      "VSS2",
-                     "RTA"
+                     "RTA",
+                     "WITA_ESS"
                   ],
                   "type" : "string"
                }
@@ -14757,6 +14760,14 @@
                {
                   "in" : "query",
                   "name" : "billNumber",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "paypalUserName",
                   "required" : false,
                   "schema" : {
                      "type" : "string"
