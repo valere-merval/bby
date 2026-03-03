@@ -1349,6 +1349,79 @@
             },
             "type" : "object"
          },
+         "CampaignKipConfiguration" : {
+            "properties" : {
+               "campaign" : {
+                  "type" : "string"
+               },
+               "campaignId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "changeDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "createDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "kipId" : {
+                  "type" : "string"
+               },
+               "lastUser" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "campaign",
+               "campaignId",
+               "changeDate",
+               "createDate",
+               "id",
+               "kipId",
+               "lastUser"
+            ],
+            "type" : "object"
+         },
+         "CampaignKipConfigurationPage" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/CampaignKipConfiguration"
+                  },
+                  "type" : "array"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "required" : [
+               "content",
+               "numberOfElements",
+               "size",
+               "totalElements",
+               "totalPages"
+            ],
+            "type" : "object"
+         },
          "CampaignList" : {
             "properties" : {
                "campaign" : {
@@ -3633,6 +3706,22 @@
                   "type" : "integer"
                }
             },
+            "type" : "object"
+         },
+         "EditOrCreateCampaignKipConfigurationRequest" : {
+            "properties" : {
+               "campaignId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "kipId" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "campaignId",
+               "kipId"
+            ],
             "type" : "object"
          },
          "EmailData" : {
@@ -7037,6 +7126,18 @@
             },
             "type" : "object"
          },
+         "SelectItem" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "label" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "SendSecurityCodeRequest" : {
             "properties" : {
                "contactValue" : {
@@ -10195,6 +10296,199 @@
             "summary" : "Get Addresses by address input",
             "tags" : [
                "address-controller"
+            ]
+         }
+      },
+      "/admin/campaign-kip-configurations" : {
+         "get" : {
+            "operationId" : "getAllCampaignKipConfigurations",
+            "parameters" : [
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "ID",
+                     "enum" : [
+                        "ID",
+                        "KIPID",
+                        "CAMPAIGNID",
+                        "CAMPAIGN",
+                        "CREATEDATE",
+                        "CHANGEDATE",
+                        "LASTUSER"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DESC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 20,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CampaignKipConfigurationPage"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all campaign-kip configurations",
+            "tags" : [
+               "admin-campaign-kip-configurations-controller"
+            ]
+         },
+         "post" : {
+            "operationId" : "createCampaignKipConfiguration",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/EditOrCreateCampaignKipConfigurationRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CampaignKipConfiguration"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Create campaign-kip configuration",
+            "tags" : [
+               "admin-campaign-kip-configurations-controller"
+            ]
+         }
+      },
+      "/admin/campaign-kip-configurations/{campaignId}/edit" : {
+         "put" : {
+            "operationId" : "editCampaignKipConfiguration",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/EditOrCreateCampaignKipConfigurationRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CampaignKipConfiguration"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update campaign-kip configuration",
+            "tags" : [
+               "admin-campaign-kip-configurations-controller"
+            ]
+         }
+      },
+      "/admin/campaign-kip-configurations/{campaignKipConfigurationId}" : {
+         "delete" : {
+            "operationId" : "deleteCampaignKipConfiguration",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "campaignKipConfigurationId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "summary" : "Delete campaign kip configuration",
+            "tags" : [
+               "admin-campaign-kip-configurations-controller"
             ]
          }
       },
@@ -16678,6 +16972,45 @@
             "summary" : "Get all fixed products for a specific address",
             "tags" : [
                "products-filtered-controller"
+            ]
+         }
+      },
+      "/resource/campaigns" : {
+         "get" : {
+            "operationId" : "getCampaignsAsSelectItems",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "filter",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/SelectItem"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all campaigns as select items",
+            "tags" : [
+               "resource-controller"
             ]
          }
       },
