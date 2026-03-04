@@ -1388,40 +1388,6 @@
             ],
             "type" : "object"
          },
-         "CampaignKipConfigurationPage" : {
-            "properties" : {
-               "content" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/CampaignKipConfiguration"
-                  },
-                  "type" : "array"
-               },
-               "numberOfElements" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               },
-               "size" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               },
-               "totalElements" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "totalPages" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               }
-            },
-            "required" : [
-               "content",
-               "numberOfElements",
-               "size",
-               "totalElements",
-               "totalPages"
-            ],
-            "type" : "object"
-         },
          "CampaignList" : {
             "properties" : {
                "campaign" : {
@@ -5593,7 +5559,6 @@
                      "SIMULATE_KBD",
                      "CHANGE_HOMESPOT_LOCATION",
                      "SHOW_DATA_ACCESS_HISTORY",
-                     "SHOW_WORKFLOWS",
                      "SET_PARTNER_CARD",
                      "ADD_MOBILE_CONTRACT",
                      "ADD_FIXED_CONTRACT",
@@ -6048,6 +6013,94 @@
                   "type" : "integer"
                }
             },
+            "type" : "object"
+         },
+         "PageResponseCampaignKipConfiguration" : {
+            "properties" : {
+               "content" : {
+                  "description" : "The actual list of data",
+                  "items" : {
+                     "$ref" : "#/components/schemas/CampaignKipConfiguration"
+                  },
+                  "type" : "array"
+               },
+               "last" : {
+                  "description" : "Whether this is the last page",
+                  "type" : "boolean"
+               },
+               "pageNumber" : {
+                  "description" : "The current page number (0-indexed)",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageSize" : {
+                  "description" : "The requested page size",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "totalElements" : {
+                  "description" : "Total number of elements across all pages",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "description" : "Total number of pages",
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "required" : [
+               "content",
+               "last",
+               "pageNumber",
+               "pageSize",
+               "totalElements",
+               "totalPages"
+            ],
+            "type" : "object"
+         },
+         "PageResponseSelectItem" : {
+            "properties" : {
+               "content" : {
+                  "description" : "The actual list of data",
+                  "items" : {
+                     "$ref" : "#/components/schemas/SelectItem"
+                  },
+                  "type" : "array"
+               },
+               "last" : {
+                  "description" : "Whether this is the last page",
+                  "type" : "boolean"
+               },
+               "pageNumber" : {
+                  "description" : "The current page number (0-indexed)",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageSize" : {
+                  "description" : "The requested page size",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "totalElements" : {
+                  "description" : "Total number of elements across all pages",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "description" : "Total number of pages",
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "required" : [
+               "content",
+               "last",
+               "pageNumber",
+               "pageSize",
+               "totalElements",
+               "totalPages"
+            ],
             "type" : "object"
          },
          "PageSearchResponse" : {
@@ -7127,6 +7180,7 @@
             "type" : "object"
          },
          "SelectItem" : {
+            "description" : "The actual list of data",
             "properties" : {
                "id" : {
                   "format" : "int64",
@@ -10361,7 +10415,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/CampaignKipConfigurationPage"
+                           "$ref" : "#/components/schemas/PageResponseCampaignKipConfiguration"
                         }
                      }
                   },
@@ -16982,9 +17036,30 @@
                {
                   "in" : "query",
                   "name" : "filter",
-                  "required" : true,
+                  "required" : false,
                   "schema" : {
+                     "default" : "",
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 1000,
+                     "format" : "int32",
+                     "type" : "integer"
                   }
                }
             ],
@@ -16993,10 +17068,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/SelectItem"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/PageResponseSelectItem"
                         }
                      }
                   },
@@ -17009,6 +17081,43 @@
                }
             ],
             "summary" : "Get all campaigns as select items",
+            "tags" : [
+               "resource-controller"
+            ]
+         }
+      },
+      "/resource/campaigns/{id}" : {
+         "get" : {
+            "operationId" : "getCampaignAsSelectItemById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "id",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SelectItem"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get campaign as select item by ID",
             "tags" : [
                "resource-controller"
             ]
@@ -19981,7 +20090,6 @@
                         "SIMULATE_KBD",
                         "CHANGE_HOMESPOT_LOCATION",
                         "SHOW_DATA_ACCESS_HISTORY",
-                        "SHOW_WORKFLOWS",
                         "SET_PARTNER_CARD",
                         "ADD_MOBILE_CONTRACT",
                         "ADD_FIXED_CONTRACT",
