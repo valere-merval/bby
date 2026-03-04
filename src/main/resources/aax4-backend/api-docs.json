@@ -3862,6 +3862,9 @@
                },
                "providerChange" : {
                   "type" : "boolean"
+               },
+               "relocationContract" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -6349,6 +6352,9 @@
          },
          "PostponeFixedRequest" : {
             "properties" : {
+               "postponeTermination" : {
+                  "type" : "boolean"
+               },
                "requestedDate" : {
                   "type" : "string"
                }
