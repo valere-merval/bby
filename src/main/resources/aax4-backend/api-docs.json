@@ -6106,6 +6106,50 @@
             ],
             "type" : "object"
          },
+         "PageResponseTaskListEntryDto" : {
+            "properties" : {
+               "content" : {
+                  "description" : "The actual list of data",
+                  "items" : {
+                     "$ref" : "#/components/schemas/TaskListEntryDto"
+                  },
+                  "type" : "array"
+               },
+               "last" : {
+                  "description" : "Whether this is the last page",
+                  "type" : "boolean"
+               },
+               "pageNumber" : {
+                  "description" : "The current page number (0-indexed)",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageSize" : {
+                  "description" : "The requested page size",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "totalElements" : {
+                  "description" : "Total number of elements across all pages",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "description" : "Total number of pages",
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "required" : [
+               "content",
+               "last",
+               "pageNumber",
+               "pageSize",
+               "totalElements",
+               "totalPages"
+            ],
+            "type" : "object"
+         },
          "PageSearchResponse" : {
             "properties" : {
                "content" : {
@@ -6157,52 +6201,6 @@
                "content" : {
                   "items" : {
                      "$ref" : "#/components/schemas/TaskListDescriptionDto"
-                  },
-                  "type" : "array"
-               },
-               "empty" : {
-                  "type" : "boolean"
-               },
-               "first" : {
-                  "type" : "boolean"
-               },
-               "last" : {
-                  "type" : "boolean"
-               },
-               "number" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               },
-               "numberOfElements" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               },
-               "pageable" : {
-                  "$ref" : "#/components/schemas/PageableObject"
-               },
-               "size" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               },
-               "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
-               },
-               "totalElements" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "totalPages" : {
-                  "format" : "int32",
-                  "type" : "integer"
-               }
-            },
-            "type" : "object"
-         },
-         "PageTaskListEntryDto" : {
-            "properties" : {
-               "content" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/TaskListEntryDto"
                   },
                   "type" : "array"
                },
@@ -6414,7 +6412,8 @@
                      "NEW_CONTRACT",
                      "CONTRACT_TAKEOVER",
                      "PROVIDER_CHANGE",
-                     "RELOCATE"
+                     "RELOCATE",
+                     "SEPA_PAYMENT"
                   ],
                   "type" : "string"
                },
@@ -8748,9 +8747,13 @@
                   "type" : "array"
                },
                "taskListEntries" : {
-                  "$ref" : "#/components/schemas/PageTaskListEntryDto"
+                  "$ref" : "#/components/schemas/PageResponseTaskListEntryDto"
                }
             },
+            "required" : [
+               "taskListActions",
+               "taskListEntries"
+            ],
             "type" : "object"
          },
          "TaskListEntryActionDto" : {
@@ -8771,6 +8774,11 @@
                   "type" : "integer"
                }
             },
+            "required" : [
+               "count",
+               "description",
+               "orderStatusConfigActionId"
+            ],
             "type" : "object"
          },
          "TaskListEntryDto" : {
@@ -8793,6 +8801,10 @@
                },
                "lastReturnCode" : {
                   "description" : "The return code of a workflow",
+                  "type" : "string"
+               },
+               "login" : {
+                  "description" : "The last user who modified this entry",
                   "type" : "string"
                },
                "notes" : {
@@ -8824,6 +8836,13 @@
                   "type" : "integer"
                }
             },
+            "required" : [
+               "entityId",
+               "orderStatusConfigId",
+               "relEntity",
+               "status",
+               "taskListEntryId"
+            ],
             "type" : "object"
          },
          "TaskListEntryRequest_Create" : {
@@ -16205,18 +16224,22 @@
                },
                {
                   "in" : "query",
-                  "name" : "serviceContext",
+                  "name" : "serviceContexts",
                   "required" : false,
                   "schema" : {
-                     "enum" : [
-                        "CHANGE_PRODUCT",
-                        "PROLONGATE_CONTRACT",
-                        "NEW_CONTRACT",
-                        "CONTRACT_TAKEOVER",
-                        "PROVIDER_CHANGE",
-                        "RELOCATE"
-                     ],
-                     "type" : "string"
+                     "items" : {
+                        "enum" : [
+                           "CHANGE_PRODUCT",
+                           "PROLONGATE_CONTRACT",
+                           "NEW_CONTRACT",
+                           "CONTRACT_TAKEOVER",
+                           "PROVIDER_CHANGE",
+                           "RELOCATE",
+                           "SEPA_PAYMENT"
+                        ],
+                        "type" : "string"
+                     },
+                     "type" : "array"
                   }
                }
             ],
@@ -16273,15 +16296,19 @@
                   "name" : "serviceContext",
                   "required" : false,
                   "schema" : {
-                     "enum" : [
-                        "CHANGE_PRODUCT",
-                        "PROLONGATE_CONTRACT",
-                        "NEW_CONTRACT",
-                        "CONTRACT_TAKEOVER",
-                        "PROVIDER_CHANGE",
-                        "RELOCATE"
-                     ],
-                     "type" : "string"
+                     "items" : {
+                        "enum" : [
+                           "CHANGE_PRODUCT",
+                           "PROLONGATE_CONTRACT",
+                           "NEW_CONTRACT",
+                           "CONTRACT_TAKEOVER",
+                           "PROVIDER_CHANGE",
+                           "RELOCATE",
+                           "SEPA_PAYMENT"
+                        ],
+                        "type" : "string"
+                     },
+                     "type" : "array"
                   }
                }
             ],
@@ -22601,7 +22628,8 @@
                      "enum" : [
                         "DUE_DATE",
                         "RELATED_OBJECT",
-                        "LAST_RETURN_CODE"
+                        "LAST_RETURN_CODE",
+                        "NOTES"
                      ],
                      "type" : "string"
                   }
