@@ -5581,7 +5581,9 @@
                      "SIMULATE_HARDWARE_RETURN_FIXED",
                      "ONT_REGISTRATION_OR_SWITCH",
                      "RELOCATE_CONTRACT_FIXED",
-                     "REQUEST_ACCESS_REFERENCE"
+                     "REQUEST_ACCESS_REFERENCE",
+                     "LBA_ONT_OUT_ACTIVATE",
+                     "LBA_ONT_OUT_DEACTIVATE"
                   ],
                   "type" : "string"
                },
@@ -17400,6 +17402,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/activateLbaOntOut" : {
+         "post" : {
+            "operationId" : "activateLbaOntOut",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Activate Lba Ont Ou",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/addDataPass/{dataPassServiceId}" : {
          "post" : {
             "operationId" : "addNewDataPass",
@@ -18458,6 +18497,43 @@
                }
             ],
             "summary" : "Submit credit note by serviceId",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/deactivateLbaOntOut" : {
+         "post" : {
+            "operationId" : "deactivateLbaOntOut",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Deactivate Lba Ont Out",
             "tags" : [
                "service-actions-controller"
             ]
@@ -20142,7 +20218,9 @@
                         "SIMULATE_HARDWARE_RETURN_FIXED",
                         "ONT_REGISTRATION_OR_SWITCH",
                         "RELOCATE_CONTRACT_FIXED",
-                        "REQUEST_ACCESS_REFERENCE"
+                        "REQUEST_ACCESS_REFERENCE",
+                        "LBA_ONT_OUT_ACTIVATE",
+                        "LBA_ONT_OUT_DEACTIVATE"
                      ],
                      "type" : "string"
                   }
