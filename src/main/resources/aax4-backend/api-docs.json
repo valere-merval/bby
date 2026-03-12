@@ -3776,6 +3776,30 @@
             },
             "type" : "object"
          },
+         "FaultClearanceQuickCheck" : {
+            "properties" : {
+               "allChecksOkay" : {
+                  "type" : "boolean"
+               },
+               "bitstreamAccessActive" : {
+                  "type" : "boolean"
+               },
+               "internetAccessActive" : {
+                  "type" : "boolean"
+               },
+               "lbaActive" : {
+                  "type" : "boolean"
+               },
+               "startDt" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "startDtReached" : {
+                  "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
          "Filter" : {
             "properties" : {
                "client" : {
@@ -20983,6 +21007,43 @@
                }
             ],
             "summary" : "Get service events",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/faultClearance/quickCheck" : {
+         "get" : {
+            "operationId" : "getFaultClearanceQuickCheckByAccessService",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/FaultClearanceQuickCheck"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the fault clearance quick check data from the access service",
             "tags" : [
                "service-controller"
             ]
