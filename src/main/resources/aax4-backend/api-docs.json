@@ -17390,6 +17390,53 @@
             ]
          }
       },
+      "/service/options/{optionId}/changeOption" : {
+         "post" : {
+            "operationId" : "changeOption",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "optionId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/ChangeOptionRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ChangeOptionResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Change option",
+            "tags" : [
+               "service-options-controller"
+            ]
+         }
+      },
       "/service/prepaid/activate" : {
          "post" : {
             "operationId" : "activePrepaid",
@@ -18187,53 +18234,6 @@
                }
             ],
             "summary" : "Starts change Hardware Process for Fixed hardware",
-            "tags" : [
-               "service-actions-controller"
-            ]
-         }
-      },
-      "/service/{serviceId}/action/changeOption" : {
-         "post" : {
-            "operationId" : "changeOption",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/ChangeOptionRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ChangeOptionResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Change option",
             "tags" : [
                "service-actions-controller"
             ]
