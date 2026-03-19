@@ -4470,8 +4470,7 @@
                   "$ref" : "#/components/schemas/Lookup"
                },
                "cardType" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "$ref" : "#/components/schemas/Lookup"
                },
                "client" : {
                   "type" : "string"
@@ -4537,8 +4536,7 @@
                   "type" : "integer"
                },
                "lastuser" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "string"
                },
                "object" : {
                   "format" : "int64",
@@ -10240,8 +10238,9 @@
       }
    },
    "info" : {
-      "title" : "OpenAPI definition",
-      "version" : "v0"
+      "description" : "Welcome to the documentation of the CoRestservice API used in AAX",
+      "title" : "CoRestservice API",
+      "version" : "3.0.0"
    },
    "openapi" : "3.0.1",
    "paths" : {
@@ -11683,7 +11682,7 @@
                }
             },
             "tags" : [
-               "jwt-authentication-controller"
+               "authentication-controller"
             ]
          }
       },
