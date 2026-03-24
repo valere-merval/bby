@@ -4503,6 +4503,19 @@
             },
             "type" : "object"
          },
+         "InventoryUpdateRequest" : {
+            "properties" : {
+               "article" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "status" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "IsNewProductAllowed" : {
             "properties" : {
                "allowed" : {
@@ -11386,6 +11399,88 @@
                }
             ],
             "summary" : "Get the list of inventory",
+            "tags" : [
+               "admin-inventory-controller"
+            ]
+         }
+      },
+      "/admin/inventory/{inventoryId}" : {
+         "get" : {
+            "operationId" : "getObjectSettingsById_1",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "inventoryId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/InventoryResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific Inventory Settings by ID",
+            "tags" : [
+               "admin-inventory-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "updateInventoryById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "inventoryId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/InventoryUpdateRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update inventory fields by ID",
             "tags" : [
                "admin-inventory-controller"
             ]
@@ -19983,6 +20078,15 @@
                   "schema" : {
                      "default" : false,
                      "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "startDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
                   }
                }
             ],
