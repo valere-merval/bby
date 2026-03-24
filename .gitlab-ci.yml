@@ -35,7 +35,7 @@ variables:
   aax4_backend_base_url: 'https://cc4.nicotuadev.de/co-restservice'
 
 # Jobs
-image:  git.congstar.net:5050/it-qa/hub/maven:3.9.8-jdk-21
+image:  git.congstar.net:5050/it-qa/hub/maven:3.9.12-jdk-25
 
 compile:
   stage: build
