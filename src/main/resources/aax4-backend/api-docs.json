@@ -4110,6 +4110,10 @@
                "homeId" : {
                   "type" : "string"
                },
+               "householdCount" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "housenumber" : {
                   "type" : "string"
                },
@@ -4666,6 +4670,72 @@
                   "type" : "string"
                },
                "ssntr" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "JobScheduler" : {
+            "properties" : {
+               "comments" : {
+                  "type" : "string"
+               },
+               "dbJob" : {
+                  "type" : "string"
+               },
+               "disabled" : {
+                  "type" : "string"
+               },
+               "enabled" : {
+                  "type" : "string"
+               },
+               "failureCnt" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "jobAction" : {
+                  "type" : "string"
+               },
+               "jobName" : {
+                  "type" : "string"
+               },
+               "jobType" : {
+                  "type" : "string"
+               },
+               "lastRunDuration" : {
+                  "type" : "string"
+               },
+               "lastStartDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "nextRunDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "repeatInterval" : {
+                  "type" : "string"
+               },
+               "retryCnt" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "runCount" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "startDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "state" : {
+                  "type" : "string"
+               },
+               "storedProc" : {
                   "type" : "string"
                }
             },
@@ -9393,7 +9463,6 @@
             },
             "required" : [
                "instCity",
-               "instSalutation",
                "instStreet",
                "instZip"
             ],
@@ -9426,7 +9495,6 @@
             },
             "required" : [
                "lineOwnerCity",
-               "lineOwnerSalutation",
                "lineOwnerStreet",
                "lineOwnerZip"
             ],
@@ -16181,6 +16249,35 @@
                }
             ],
             "summary" : "Reset transactions and their respective workflow items so they can be processed again",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         }
+      },
+      "/monitoring/jobs" : {
+         "get" : {
+            "operationId" : "getAllJobSchedulers",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/JobScheduler"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all job schedulers",
             "tags" : [
                "monitoring-interfaces-controller"
             ]
