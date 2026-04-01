@@ -288,6 +288,9 @@
          },
          "AddNewRelocationFixedOrderRequest" : {
             "properties" : {
+               "adjustMasterData" : {
+                  "type" : "boolean"
+               },
                "basketRequest" : {
                   "$ref" : "#/components/schemas/CalculateBasketRequest"
                },
@@ -543,21 +546,6 @@
                      "type" : "string"
                   },
                   "type" : "array"
-               }
-            },
-            "type" : "object"
-         },
-         "ApiResponse" : {
-            "description" : "Standard API Response format",
-            "properties" : {
-               "message" : {
-                  "description" : "Message describing the result",
-                  "type" : "string"
-               },
-               "status" : {
-                  "description" : "HTTP status code of the response",
-                  "format" : "int32",
-                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -3338,6 +3326,27 @@
             },
             "type" : "object"
          },
+         "DataAccessHistoryEntry" : {
+            "description" : "The actual list of data",
+            "properties" : {
+               "createDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
+               "lastUser" : {
+                  "type" : "string"
+               },
+               "notes" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "createDate",
+               "lastUser",
+               "notes"
+            ],
+            "type" : "object"
+         },
          "DateResultList" : {
             "properties" : {
                "AdditionalDates" : {
@@ -3576,6 +3585,91 @@
                   "type" : "string"
                },
                "shortName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "DslAccessData" : {
+            "properties" : {
+               "carrierId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "extorderno" : {
+                  "type" : "string"
+               },
+               "instBuildingType" : {
+                  "type" : "string"
+               },
+               "instCity" : {
+                  "type" : "string"
+               },
+               "instFirstName" : {
+                  "type" : "string"
+               },
+               "instHouseNumber" : {
+                  "type" : "string"
+               },
+               "instLastName" : {
+                  "type" : "string"
+               },
+               "instSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "instStreet" : {
+                  "type" : "string"
+               },
+               "instZip" : {
+                  "type" : "string"
+               },
+               "lineOwnerCity" : {
+                  "type" : "string"
+               },
+               "lineOwnerFirstName" : {
+                  "type" : "string"
+               },
+               "lineOwnerHouseNumber" : {
+                  "type" : "string"
+               },
+               "lineOwnerLastName" : {
+                  "type" : "string"
+               },
+               "lineOwnerSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lineOwnerStreet" : {
+                  "type" : "string"
+               },
+               "lineOwnerZip" : {
+                  "type" : "string"
+               },
+               "newCarrier" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "precoordExportId" : {
+                  "type" : "string"
+               },
+               "radiusAccount1" : {
+                  "type" : "string"
+               },
+               "witaProduct" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "DslChangeProviderExportRequest" : {
+            "properties" : {
+               "newCarrier" : {
+                  "format" : "int64",
+                  "nullable" : true,
+                  "type" : "integer"
+               },
+               "precoordExportId" : {
                   "type" : "string"
                }
             },
@@ -3889,6 +3983,9 @@
                },
                "relocationContract" : {
                   "type" : "boolean"
+               },
+               "terminationDate" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -4498,7 +4595,7 @@
                   "$ref" : "#/components/schemas/Lookup"
                },
                "status" : {
-                  "type" : "string"
+                  "$ref" : "#/components/schemas/Lookup"
                }
             },
             "type" : "object"
@@ -6099,6 +6196,50 @@
             ],
             "type" : "object"
          },
+         "PageResponseDataAccessHistoryEntry" : {
+            "properties" : {
+               "content" : {
+                  "description" : "The actual list of data",
+                  "items" : {
+                     "$ref" : "#/components/schemas/DataAccessHistoryEntry"
+                  },
+                  "type" : "array"
+               },
+               "last" : {
+                  "description" : "Whether this is the last page",
+                  "type" : "boolean"
+               },
+               "pageNumber" : {
+                  "description" : "The current page number (0-indexed)",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageSize" : {
+                  "description" : "The requested page size",
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "totalElements" : {
+                  "description" : "Total number of elements across all pages",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "description" : "Total number of pages",
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "required" : [
+               "content",
+               "last",
+               "pageNumber",
+               "pageSize",
+               "totalElements",
+               "totalPages"
+            ],
+            "type" : "object"
+         },
          "PageResponseSelectItem" : {
             "properties" : {
                "content" : {
@@ -6339,6 +6480,16 @@
                   "type" : "string"
                },
                "userName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "PasswordValidationResponse" : {
+            "description" : "Response from password validation",
+            "properties" : {
+               "message" : {
+                  "description" : "Message describing the result",
                   "type" : "string"
                }
             },
@@ -7532,6 +7683,9 @@
             "properties" : {
                "client" : {
                   "$ref" : "#/components/schemas/Client"
+               },
+               "dslAccessData" : {
+                  "$ref" : "#/components/schemas/DslAccessData"
                },
                "fixedAccessData" : {
                   "$ref" : "#/components/schemas/FixedAccessData"
@@ -9209,6 +9363,86 @@
             },
             "type" : "object"
          },
+         "UpdateDslInstallationAddressRequest" : {
+            "properties" : {
+               "buildingType" : {
+                  "type" : "string"
+               },
+               "instCity" : {
+                  "type" : "string"
+               },
+               "instFirstName" : {
+                  "type" : "string"
+               },
+               "instHouseNumber" : {
+                  "type" : "string"
+               },
+               "instLastName" : {
+                  "type" : "string"
+               },
+               "instSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "instStreet" : {
+                  "type" : "string"
+               },
+               "instZip" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "instCity",
+               "instSalutation",
+               "instStreet",
+               "instZip"
+            ],
+            "type" : "object"
+         },
+         "UpdateDslLineOwnerRequest" : {
+            "properties" : {
+               "lineOwnerCity" : {
+                  "type" : "string"
+               },
+               "lineOwnerFirstName" : {
+                  "type" : "string"
+               },
+               "lineOwnerHouseNumber" : {
+                  "type" : "string"
+               },
+               "lineOwnerLastName" : {
+                  "type" : "string"
+               },
+               "lineOwnerSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lineOwnerStreet" : {
+                  "type" : "string"
+               },
+               "lineOwnerZip" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "lineOwnerCity",
+               "lineOwnerSalutation",
+               "lineOwnerStreet",
+               "lineOwnerZip"
+            ],
+            "type" : "object"
+         },
+         "UpdateDslTechnicalDetailsRequest" : {
+            "properties" : {
+               "extOrderNo" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "extOrderNo"
+            ],
+            "type" : "object"
+         },
          "UpdateEmailRequest" : {
             "properties" : {
                "customerId" : {
@@ -9435,6 +9669,19 @@
                   "type" : "string"
                },
                "requestType" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdateServiceEventDatesRequest" : {
+            "properties" : {
+               "startCurrentDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "startPlannedDate" : {
+                  "format" : "date-time",
                   "type" : "string"
                }
             },
@@ -9705,6 +9952,9 @@
          },
          "WitaInterfaceSimulationRequest" : {
             "properties" : {
+               "additionalParameter" : {
+                  "type" : "string"
+               },
                "dWorkflowItemId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -11364,7 +11614,6 @@
                   "name" : "iccid",
                   "required" : false,
                   "schema" : {
-                     "pattern" : "^[0-9]*$",
                      "type" : "string"
                   }
                },
@@ -11373,7 +11622,6 @@
                   "name" : "msisdn",
                   "required" : false,
                   "schema" : {
-                     "pattern" : "^[0-9]*$",
                      "type" : "string"
                   }
                }
@@ -11406,7 +11654,7 @@
       },
       "/admin/inventory/{inventoryId}" : {
          "get" : {
-            "operationId" : "getObjectSettingsById_1",
+            "operationId" : "getInventoryById",
             "parameters" : [
                {
                   "in" : "path",
@@ -15295,6 +15543,38 @@
                },
                {
                   "in" : "query",
+                  "name" : "zipInstAddr",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "cityInstAddr",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "streetInstAddr",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "houseNumberInstAddr",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
                   "name" : "page",
                   "required" : false,
                   "schema" : {
@@ -16206,7 +16486,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/ApiResponse"
+                           "$ref" : "#/components/schemas/PasswordValidationResponse"
                         }
                      }
                   },
@@ -16214,7 +16494,7 @@
                }
             },
             "tags" : [
-               "password-controller"
+               "core-ui-password-controller"
             ]
          }
       },
@@ -16236,7 +16516,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/ApiResponse"
+                           "$ref" : "#/components/schemas/PasswordValidationResponse"
                         }
                      }
                   },
@@ -16244,7 +16524,7 @@
                }
             },
             "tags" : [
-               "password-controller"
+               "core-ui-password-controller"
             ]
          }
       },
@@ -18592,6 +18872,91 @@
                }
             ],
             "summary" : "Submit credit note by serviceId",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/dataAccessHistory" : {
+         "get" : {
+            "operationId" : "getDataAccessHistory",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "description" : "Sort results by this criteria",
+                  "in" : "query",
+                  "name" : "orderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "CREATEDATE",
+                     "enum" : [
+                        "CREATEDATE",
+                        "LASTUSER",
+                        "NOTES"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DESC",
+                     "enum" : [
+                        "ASC",
+                        "DESC"
+                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 20,
+                     "format" : "int32",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/PageResponseDataAccessHistoryEntry"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get Data Access History for a D_Service",
             "tags" : [
                "service-actions-controller"
             ]
@@ -21055,6 +21420,166 @@
             ]
          }
       },
+      "/service/{serviceId}/dslChangeProviderExport" : {
+         "put" : {
+            "operationId" : "dslChangeProviderExport",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/DslChangeProviderExportRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Change provider export of a dsl service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/dslInstallationAddress" : {
+         "put" : {
+            "operationId" : "updateDslInstallationAddress",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateDslInstallationAddressRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update installation address of a dsl service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/dslLineOwner" : {
+         "put" : {
+            "operationId" : "updateDslLineOwner",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateDslLineOwnerRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update line owner of a dsl service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/dslTechnicalDetails" : {
+         "put" : {
+            "operationId" : "updateDslTechnicalDetails",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateDslTechnicalDetailsRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update technical details of a dsl service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/events" : {
          "get" : {
             "operationId" : "getServiceEvents",
@@ -22095,6 +22620,46 @@
                }
             ],
             "summary" : "Get possible change date for service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/serviceEventDates" : {
+         "put" : {
+            "operationId" : "updateServiceEventDates",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateServiceEventDatesRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update service event dates of a dsl service",
             "tags" : [
                "service-controller"
             ]
@@ -23184,7 +23749,7 @@
             ],
             "summary" : "Gets custom theme of user",
             "tags" : [
-               "user-controller"
+               "core-ui-user-controller"
             ]
          }
       },
@@ -23220,7 +23785,7 @@
             ],
             "summary" : "Sets custom theme for user",
             "tags" : [
-               "user-controller"
+               "core-ui-user-controller"
             ]
          }
       },
@@ -23312,7 +23877,7 @@
             },
             "summary" : "Get all roles and related functions of user",
             "tags" : [
-               "user-role-controller"
+               "core-ui-user-controller"
             ]
          }
       },
