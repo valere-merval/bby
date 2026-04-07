@@ -1106,6 +1106,9 @@
             },
             "type" : "object"
          },
+         "CSVUploadResult" : {
+            "type" : "object"
+         },
          "CalculateBasketRequest" : {
             "properties" : {
                "basketRequestItems" : {
@@ -11673,6 +11676,95 @@
             ]
          }
       },
+      "/admin/csv/importTypes" : {
+         "get" : {
+            "operationId" : "getImportTypes",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "enum" : [
+                                 "C_ONT_DEVICE_INFORMATION"
+                              ],
+                              "type" : "string"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Returns importTypes",
+            "tags" : [
+               "admin-csv-file-upload-controller"
+            ]
+         }
+      },
+      "/admin/csv/uplods" : {
+         "post" : {
+            "operationId" : "upload",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "importTypes",
+                  "required" : true,
+                  "schema" : {
+                     "enum" : [
+                        "C_ONT_DEVICE_INFORMATION"
+                     ],
+                     "type" : "string"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "multipart/form-data" : {
+                     "schema" : {
+                        "properties" : {
+                           "file" : {
+                              "format" : "binary",
+                              "type" : "string"
+                           }
+                        },
+                        "required" : [
+                           "file"
+                        ],
+                        "type" : "object"
+                     }
+                  }
+               }
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CSVUploadResult"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Upload csv file to import",
+            "tags" : [
+               "admin-csv-file-upload-controller"
+            ]
+         }
+      },
       "/admin/inventory" : {
          "get" : {
             "operationId" : "getInventoryList",
@@ -12004,7 +12096,8 @@
                         "WORKFLOW_ITEMS",
                         "WORKFLOW_LIST",
                         "CUSTOMER",
-                        "USER"
+                        "USER",
+                        "JOB_SCHEDULER"
                      ],
                      "type" : "string"
                   }
