@@ -1107,6 +1107,20 @@
             "type" : "object"
          },
          "CSVUploadResult" : {
+            "properties" : {
+               "allCount" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "ignorierteCounter" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "insertCounter" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
             "type" : "object"
          },
          "CalculateBasketRequest" : {
@@ -4533,6 +4547,38 @@
             },
             "type" : "object"
          },
+         "ImportTypeDTO" : {
+            "properties" : {
+               "delimiter" : {
+                  "type" : "string"
+               },
+               "escapeChar" : {
+                  "type" : "string"
+               },
+               "header" : {
+                  "type" : "string"
+               },
+               "ignoreFirstRow" : {
+                  "type" : "boolean"
+               },
+               "importTypes" : {
+                  "enum" : [
+                     "C_ONT_DEVICE_INFORMATION"
+                  ],
+                  "type" : "string"
+               },
+               "quoteChar" : {
+                  "type" : "string"
+               },
+               "tableName" : {
+                  "type" : "string"
+               },
+               "uniqueColumn" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "InitialTopUpRequest" : {
             "properties" : {
                "amount" : {
@@ -4742,6 +4788,23 @@
                   "type" : "string"
                }
             },
+            "type" : "object"
+         },
+         "JobToggleRequest" : {
+            "properties" : {
+               "jobId" : {
+                  "description" : "Technical Job ID",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "status" : {
+                  "description" : "Job execution status, TRUE for ON, FALSE for OFF",
+                  "type" : "boolean"
+               }
+            },
+            "required" : [
+               "jobId"
+            ],
             "type" : "object"
          },
          "JwtUser" : {
@@ -11685,10 +11748,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "enum" : [
-                                 "C_ONT_DEVICE_INFORMATION"
-                              ],
-                              "type" : "string"
+                              "$ref" : "#/components/schemas/ImportTypeDTO"
                            },
                            "type" : "array"
                         }
@@ -16371,6 +16431,77 @@
                }
             ],
             "summary" : "Get all job schedulers",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "toggleJob",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/JobToggleRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Enable or disable a DB job by ID",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         }
+      },
+      "/monitoring/jobs/{jobId}" : {
+         "put" : {
+            "operationId" : "executeJob",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Run job schedulers by ID",
             "tags" : [
                "monitoring-interfaces-controller"
             ]
