@@ -11768,12 +11768,12 @@
             ]
          }
       },
-      "/admin/csv/uplods" : {
+      "/admin/csv/uploads/{importTypes}" : {
          "post" : {
-            "operationId" : "upload",
+            "operationId" : "csvUpload",
             "parameters" : [
                {
-                  "in" : "query",
+                  "in" : "path",
                   "name" : "importTypes",
                   "required" : true,
                   "schema" : {
