@@ -7908,6 +7908,9 @@
                      "DSL_EMAIL_SERVICE"
                   ],
                   "type" : "string"
+               },
+               "voIpData" : {
+                  "$ref" : "#/components/schemas/VoIPData"
                }
             },
             "type" : "object"
@@ -10038,6 +10041,36 @@
                },
                "validationObject" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "VoIPData" : {
+            "properties" : {
+               "areaCode" : {
+                  "type" : "string"
+               },
+               "cli" : {
+                  "type" : "string"
+               },
+               "dataStoringOption" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "exported" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "itemizedBillFormat" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "sipUsername" : {
+                  "type" : "string"
+               },
+               "toBeExported" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -16176,6 +16209,47 @@
                }
             ],
             "summary" : "Get all adjustment reasons",
+            "tags" : [
+               "lookups-controller"
+            ]
+         }
+      },
+      "/lookups/terminationReason2Service" : {
+         "get" : {
+            "operationId" : "getTerminationReason2Service",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "serviceId",
+                  "required" : false,
+                  "schema" : {
+                     "default" : 0,
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Lookup"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get Termination reasons, when service 110 or 2000 then only the termination Reason has been added in Mapping",
             "tags" : [
                "lookups-controller"
             ]
