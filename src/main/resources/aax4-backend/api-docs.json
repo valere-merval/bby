@@ -759,7 +759,8 @@
                      "BONI4PARTNERS",
                      "VSS2",
                      "RTA",
-                     "WITA_ESS"
+                     "WITA_ESS",
+                     "CBSI_TARDIS"
                   ],
                   "type" : "string"
                }
@@ -8691,7 +8692,8 @@
                      "BONI4PARTNERS",
                      "VSS2",
                      "RTA",
-                     "WITA_ESS"
+                     "WITA_ESS",
+                     "CBSI_TARDIS"
                   ],
                   "type" : "string"
                },
@@ -10148,7 +10150,8 @@
                      "BONI4PARTNERS",
                      "VSS2",
                      "RTA",
-                     "WITA_ESS"
+                     "WITA_ESS",
+                     "CBSI_TARDIS"
                   ],
                   "type" : "string"
                }
