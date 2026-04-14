@@ -650,6 +650,21 @@
             },
             "type" : "object"
          },
+         "AvailableServiceBarringOption" : {
+            "properties" : {
+               "barringName" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "locked" : {
+                  "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
          "BankAccount" : {
             "properties" : {
                "accountHolder" : {
@@ -3882,6 +3897,18 @@
          "ExchangeSimDataResponse" : {
             "properties" : {
                "signUpId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "ExistingBarring" : {
+            "properties" : {
+               "barring" : {
+                  "type" : "string"
+               },
+               "id" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -7328,6 +7355,17 @@
             },
             "type" : "object"
          },
+         "RemoveVoipBarringsRequest" : {
+            "properties" : {
+               "barrings" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/UpdatedBarring"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "ResetCscPasswordRequest" : {
             "properties" : {
                "communicationMode" : {
@@ -8423,6 +8461,17 @@
                "status" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "SetVoipBarringsRequest" : {
+            "properties" : {
+               "barrings" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/UpdatedBarring"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -9826,8 +9875,37 @@
             },
             "type" : "object"
          },
+         "UpdateVoIPDataPrivacySettingsRequest" : {
+            "properties" : {
+               "dataStoringOption" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "itemizedBillFormat" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "required" : [
+               "dataStoringOption",
+               "itemizedBillFormat"
+            ],
+            "type" : "object"
+         },
          "UpdateWorkflowDataOthersRequest" : {
             "properties" : {
+               "notes" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdatedBarring" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "notes" : {
                   "type" : "string"
                }
@@ -18533,6 +18611,46 @@
             ]
          }
       },
+      "/service/{serviceId}/action/availableBarrings" : {
+         "get" : {
+            "operationId" : "getAvailableCarrierServiceBarringsByServiceId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AvailableServiceBarringOption"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get active barrings",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/availableMultiSimTypes" : {
          "get" : {
             "operationId" : "getAvailableMultiSimTypes",
@@ -19525,6 +19643,46 @@
             ]
          }
       },
+      "/service/{serviceId}/action/existingBarrings" : {
+         "get" : {
+            "operationId" : "getExistingServiceBarringsByServiceId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/ExistingBarring"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get active barrings",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/getOntConfig" : {
          "get" : {
             "operationId" : "getOntConfig",
@@ -19639,6 +19797,57 @@
                }
             ],
             "summary" : "Perform an initial top up for a prepaid customer by serviceId",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/lockVoip" : {
+         "post" : {
+            "operationId" : "lockVoip",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/SetVoipBarringsRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "format" : "int64",
+                              "type" : "integer"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Locks 1 or more Voips for a service",
             "tags" : [
                "service-actions-controller"
             ]
@@ -20591,6 +20800,57 @@
                }
             ],
             "summary" : "Request one time or recurring top ups for a customer",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/action/unlockVoip" : {
+         "post" : {
+            "operationId" : "unlockVoip",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/RemoveVoipBarringsRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "format" : "int64",
+                              "type" : "integer"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Unlocks 1 or more Voips for a service",
             "tags" : [
                "service-actions-controller"
             ]
@@ -23225,6 +23485,46 @@
                }
             ],
             "summary" : "Get all data usage by serviceId",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/voipDataPrivacySettings" : {
+         "put" : {
+            "operationId" : "updateVoipDataPrivacySettings",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateVoIPDataPrivacySettingsRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update data privacy settings for a VoIP service",
             "tags" : [
                "service-controller"
             ]
