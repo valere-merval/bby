@@ -5879,7 +5879,8 @@
                      "RELOCATE_CONTRACT_FIXED",
                      "REQUEST_ACCESS_REFERENCE",
                      "LBA_ONT_OUT_ACTIVATE",
-                     "LBA_ONT_OUT_DEACTIVATE"
+                     "LBA_ONT_OUT_DEACTIVATE",
+                     "GUIDED_DIAGNOSIS"
                   ],
                   "type" : "string"
                },
@@ -7461,6 +7462,23 @@
                   "type" : "string"
                }
             },
+            "type" : "object"
+         },
+         "SJobRequest" : {
+            "properties" : {
+               "jobId" : {
+                  "description" : "Technical Job ID",
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "schedule" : {
+                  "description" : "Job execution schedule and recurrence settings",
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "jobId"
+            ],
             "type" : "object"
          },
          "SalesOrder" : {
@@ -9873,23 +9891,6 @@
                   "type" : "string"
                }
             },
-            "type" : "object"
-         },
-         "UpdateVoIPDataPrivacySettingsRequest" : {
-            "properties" : {
-               "dataStoringOption" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "itemizedBillFormat" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               }
-            },
-            "required" : [
-               "dataStoringOption",
-               "itemizedBillFormat"
-            ],
             "type" : "object"
          },
          "UpdateWorkflowDataOthersRequest" : {
@@ -16625,7 +16626,78 @@
             ]
          }
       },
+      "/monitoring/jobs/schedule" : {
+         "put" : {
+            "operationId" : "updateJobSchedule",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/SJobRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update job schedule a DB job by ID",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         }
+      },
       "/monitoring/jobs/{jobId}" : {
+         "get" : {
+            "operationId" : "getJobScheduler",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/JobScheduler"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific job scheduler",
+            "tags" : [
+               "monitoring-interfaces-controller"
+            ]
+         },
          "put" : {
             "operationId" : "executeJob",
             "parameters" : [
@@ -16644,7 +16716,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "string"
+                           "$ref" : "#/components/schemas/MessageResponse"
                         }
                      }
                   },
@@ -16656,7 +16728,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Run job schedulers by ID",
+            "summary" : "Run job schedulers a DB job by ID",
             "tags" : [
                "monitoring-interfaces-controller"
             ]
@@ -20392,6 +20464,52 @@
             ]
          }
       },
+      "/service/{serviceId}/action/startDiagnosis/{contextId}" : {
+         "post" : {
+            "operationId" : "startDiagnosis",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "contextId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SignupResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get Data Access History for a D_Service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/stopCredit" : {
          "get" : {
             "operationId" : "getStopCredit",
@@ -21347,7 +21465,8 @@
                         "RELOCATE_CONTRACT_FIXED",
                         "REQUEST_ACCESS_REFERENCE",
                         "LBA_ONT_OUT_ACTIVATE",
-                        "LBA_ONT_OUT_DEACTIVATE"
+                        "LBA_ONT_OUT_DEACTIVATE",
+                        "GUIDED_DIAGNOSIS"
                      ],
                      "type" : "string"
                   }
@@ -23485,46 +23604,6 @@
                }
             ],
             "summary" : "Get all data usage by serviceId",
-            "tags" : [
-               "service-controller"
-            ]
-         }
-      },
-      "/service/{serviceId}/voipDataPrivacySettings" : {
-         "put" : {
-            "operationId" : "updateVoipDataPrivacySettings",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/UpdateVoIPDataPrivacySettingsRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Update data privacy settings for a VoIP service",
             "tags" : [
                "service-controller"
             ]
