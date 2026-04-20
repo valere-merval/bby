@@ -3,7 +3,7 @@ include:
   - project: 'it-qa/gitlab-ci-templates'
     file: '.docu.yml'
   - project: 'it-qa/gitlab-ci-templates'
-    file: '.gitleaks.yml'
+    file: '.secrets.yml'
 
 stages:
   - build
@@ -40,7 +40,7 @@ image:  git.congstar.net:5050/it-qa/hub/maven:3.9.12-jdk-25
 compile:
   stage: build
   rules:
-    - if: $coin == null
+    - if: $coin == null && $CI_PIPELINE_SOURCE != 'schedule'
   tags:
     - external
     - $conqa_stage
@@ -61,7 +61,7 @@ oasdiff:
     entrypoint: [""]
   dependencies: []
   rules:
-    - if: $coin != null
+    - if: $coin != null && $CI_PIPELINE_SOURCE != 'schedule'
   tags:
     - internal
     - $conqa_stage
