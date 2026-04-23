@@ -538,6 +538,66 @@
             },
             "type" : "object"
          },
+         "AllowedActionCategoryResponse" : {
+            "properties" : {
+               "allowedActions" : {
+                  "description" : "List of allowed actions in flat format",
+                  "items" : {
+                     "$ref" : "#/components/schemas/AllowedActionResponse"
+                  },
+                  "type" : "array"
+               },
+               "label" : {
+                  "description" : "The label of the category",
+                  "example" : "common.sidebar.title.GENERAL",
+                  "type" : "string"
+               },
+               "title" : {
+                  "description" : "The title of the category",
+                  "example" : "GENERAL",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "AllowedActionResponse" : {
+            "description" : "Represents an allowed action in a context menu.",
+            "properties" : {
+               "action" : {
+                  "description" : "The action name as a string.",
+                  "example" : "REQUEST_PUK",
+                  "type" : "string"
+               },
+               "category" : {
+                  "description" : "The category of the action as a string.",
+                  "example" : "BARRINGS",
+                  "type" : "string"
+               },
+               "disabled" : {
+                  "description" : "Indicates if the action is disabled.",
+                  "example" : false,
+                  "type" : "boolean"
+               },
+               "disabledReason" : {
+                  "description" : "Reason why the action is disabled, if applicable.",
+                  "example" : "<b><u>Vertragsdaten&nbsp;löschen&nbsp;nicht&nbsp;möglich</u></b><br>Aktueller&nbsp;Vertragsstatus&nbsp;erlaubt&nbsp;nicht&nbsp;das&nbsp;Löschen",
+                  "nullable" : true,
+                  "type" : "string"
+               },
+               "hideInContextMenu" : {
+                  "description" : "Indicates if the Action should be hidden and only show up in the detail page",
+                  "example" : false,
+                  "type" : "boolean"
+               },
+               "id" : {
+                  "description" : "The ID of the action.",
+                  "example" : 2674455674,
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "AllowedPostponementDateList" : {
             "properties" : {
                "allowedDates" : {
@@ -4136,6 +4196,9 @@
          },
          "FixedTechnicalServiceData" : {
             "properties" : {
+               "appointmentSelectionLink" : {
+                  "type" : "string"
+               },
                "buildingPartId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -4396,6 +4459,21 @@
             },
             "type" : "object"
          },
+         "HJobGuiActionResponse" : {
+            "properties" : {
+               "action" : {
+                  "type" : "string"
+               },
+               "changeDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "lastUser" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "Hardware" : {
             "properties" : {
                "installmentPlanId" : {
@@ -4591,7 +4669,7 @@
                },
                "importTypes" : {
                   "enum" : [
-                     "C_ONT_DEVICE_INFORMATION"
+                     "BROADBAND_DEVICE_INFORMATION"
                   ],
                   "type" : "string"
                },
@@ -11893,7 +11971,7 @@
                   "required" : true,
                   "schema" : {
                      "enum" : [
-                        "C_ONT_DEVICE_INFORMATION"
+                        "BROADBAND_DEVICE_INFORMATION"
                      ],
                      "type" : "string"
                   }
@@ -12256,13 +12334,13 @@
             ]
          }
       },
-      "/allowedActions/contextMenu/{contextMenuAction}/{entityInstanceId}" : {
+      "/allowedActions/{context}" : {
          "get" : {
-            "operationId" : "getContextMenuAllowedActionsByEntityInstanceId",
+            "operationId" : "getAllowedActionsByContext",
             "parameters" : [
                {
                   "in" : "path",
-                  "name" : "contextMenuAction",
+                  "name" : "context",
                   "required" : true,
                   "schema" : {
                      "enum" : [
@@ -12278,9 +12356,9 @@
                   }
                },
                {
-                  "in" : "path",
-                  "name" : "entityInstanceId",
-                  "required" : true,
+                  "in" : "query",
+                  "name" : "id",
+                  "required" : false,
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
@@ -12293,7 +12371,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/AllowedActionCategory"
+                              "$ref" : "#/components/schemas/AllowedActionCategoryResponse"
                            },
                            "type" : "array"
                         }
@@ -12307,7 +12385,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get allowed actions for context menu by id and process",
+            "summary" : "Get allowed actions for by context and id",
             "tags" : [
                "allowed-actions-controller"
             ]
@@ -16588,7 +16666,7 @@
             ],
             "summary" : "Get all job schedulers",
             "tags" : [
-               "monitoring-interfaces-controller"
+               "monitoring-job-controller"
             ]
          },
          "put" : {
@@ -16622,7 +16700,7 @@
             ],
             "summary" : "Enable or disable a DB job by ID",
             "tags" : [
-               "monitoring-interfaces-controller"
+               "monitoring-job-controller"
             ]
          }
       },
@@ -16658,7 +16736,7 @@
             ],
             "summary" : "Update job schedule a DB job by ID",
             "tags" : [
-               "monitoring-interfaces-controller"
+               "monitoring-job-controller"
             ]
          }
       },
@@ -16695,7 +16773,7 @@
             ],
             "summary" : "Get specific job scheduler",
             "tags" : [
-               "monitoring-interfaces-controller"
+               "monitoring-job-controller"
             ]
          },
          "put" : {
@@ -16730,7 +16808,47 @@
             ],
             "summary" : "Run job schedulers a DB job by ID",
             "tags" : [
-               "monitoring-interfaces-controller"
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/jobs/{jobId}/history" : {
+         "get" : {
+            "operationId" : "getJobHistory",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/HJobGuiActionResponse"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get job history a DB job by ID",
+            "tags" : [
+               "monitoring-job-controller"
             ]
          }
       },
@@ -26466,6 +26584,10 @@
       {
          "description" : "Provides endpoint to coupon code data",
          "name" : "coupon-code-controller"
+      },
+      {
+         "description" : "Provides endpoints to monitor DB jobs",
+         "name" : "monitoring-job-controller"
       },
       {
          "description" : "Provides endpoint to get settings for the current environment",
