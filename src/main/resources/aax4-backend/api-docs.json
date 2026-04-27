@@ -478,66 +478,6 @@
             },
             "type" : "object"
          },
-         "AllowedAction" : {
-            "description" : "Represents an allowed action in a context menu.",
-            "properties" : {
-               "action" : {
-                  "description" : "The action name as a string.",
-                  "example" : "REQUEST_PUK",
-                  "type" : "string"
-               },
-               "category" : {
-                  "description" : "The category of the action as a string.",
-                  "example" : "BARRINGS",
-                  "type" : "string"
-               },
-               "disabled" : {
-                  "description" : "Indicates if the action is disabled.",
-                  "example" : false,
-                  "type" : "boolean"
-               },
-               "disabledReason" : {
-                  "description" : "Reason why the action is disabled, if applicable.",
-                  "example" : "<b><u>Vertragsdaten&nbsp;löschen&nbsp;nicht&nbsp;möglich</u></b><br>Aktueller&nbsp;Vertragsstatus&nbsp;erlaubt&nbsp;nicht&nbsp;das&nbsp;Löschen",
-                  "nullable" : true,
-                  "type" : "string"
-               },
-               "hideInContextMenu" : {
-                  "description" : "Indicates if the Action should be hidden and only show up in the detail page",
-                  "example" : false,
-                  "type" : "boolean"
-               },
-               "id" : {
-                  "description" : "The ID of the action.",
-                  "example" : 2674455674,
-                  "format" : "int64",
-                  "type" : "integer"
-               }
-            },
-            "type" : "object"
-         },
-         "AllowedActionCategory" : {
-            "properties" : {
-               "allowedActions" : {
-                  "description" : "List of allowed actions in flat format",
-                  "items" : {
-                     "$ref" : "#/components/schemas/AllowedAction"
-                  },
-                  "type" : "array"
-               },
-               "label" : {
-                  "description" : "The label of the category",
-                  "example" : "common.sidebar.title.GENERAL",
-                  "type" : "string"
-               },
-               "title" : {
-                  "description" : "The title of the category",
-                  "example" : "GENERAL",
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
          "AllowedActionCategoryResponse" : {
             "properties" : {
                "allowedActions" : {
@@ -3543,6 +3483,20 @@
             },
             "type" : "object"
          },
+         "DiagnosisMeasurement" : {
+            "properties" : {
+               "measurement" : {
+                  "type" : "string"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "value" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "Discount" : {
             "properties" : {
                "campaignId" : {
@@ -3971,6 +3925,17 @@
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "FaultClearanceDiagnoses" : {
+            "properties" : {
+               "diagnoses" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/GuidedDiagnosis"
+                  },
+                  "type" : "array"
                }
             },
             "type" : "object"
@@ -4455,6 +4420,35 @@
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "GuidedDiagnosis" : {
+            "properties" : {
+               "contextTypeId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "contextTypeName" : {
+                  "type" : "string"
+               },
+               "createDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "measurements" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/DiagnosisMeasurement"
+                  },
+                  "type" : "array"
+               },
+               "referenceNumber" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "sourceName" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -5843,6 +5837,15 @@
                   "format" : "double",
                   "type" : "number"
                },
+               "nbaRecommendationAction" : {
+                  "enum" : [
+                     "PRODUCT_CHANGE",
+                     "CONTRACT_EXTENSION",
+                     "ADD_FIXED_CONTRACT",
+                     "ADD_MOBILE_CONTRACT"
+                  ],
+                  "type" : "string"
+               },
                "partnerCard" : {
                   "type" : "boolean"
                },
@@ -5852,115 +5855,6 @@
                "score" : {
                   "format" : "double",
                   "type" : "number"
-               },
-               "serviceActionEnum" : {
-                  "enum" : [
-                     "ADD_OPTION",
-                     "ADJUST_BALANCE",
-                     "ADD_MULTI_SIM",
-                     "TERMINATE_DSL",
-                     "ADD_VOIP",
-                     "NEW_HARDWARE",
-                     "ADD_PORTED_NUMBER",
-                     "TERMINATE_POSTPAID",
-                     "TERMINATE_OPTION",
-                     "CONTRACT_TAKEOVER",
-                     "CONTRACT_EXTENSION",
-                     "MOBILE_BARRING_ACTIONS",
-                     "MOBILE_UNBARRING_ACTIONS",
-                     "CANCEL_DSL",
-                     "SET_LOCK_DATES",
-                     "CANCEL_POSTPAID",
-                     "ACTIVATION_PREPAID",
-                     "TERMINATE_PREPAID",
-                     "TERMINATE_OLD_PREPAID",
-                     "HAS_CONTINUED_SIM_EXCHANGE",
-                     "HAS_ACTIVE_SIM_EXCHANGE",
-                     "CONTINUE_SIM_EXCHANGE",
-                     "EXCHANGE_SIM_POSTPAID_AAX",
-                     "EXCHANGE_SIM_PREPAID_AAX",
-                     "CLEAR_MNP_OPT_IN",
-                     "SET_MNP_OPT_IN",
-                     "RETRY_MNP_IN_REQEUEST",
-                     "CONTINUE_WITH_CONGSTAR_NUMBER",
-                     "PRODUCT_CHANGE",
-                     "OPTION_CHANGE",
-                     "FAIR_FLAT_OPTION_CHANGE",
-                     "CANCEL_OPTION",
-                     "CANCEL_PRODUCT_CHANGE",
-                     "PROLONGATE_OPTION",
-                     "REQUEST_PUK",
-                     "CANCEL_PREPAID",
-                     "START_BEWEISSICHERUNG",
-                     "STOP_BEWEISSICHERUNG",
-                     "CANCEL_TERMINATION",
-                     "CREDIT",
-                     "SUBSEQUENT_CHARGING",
-                     "BOOK_UP_CAMPAIGNS",
-                     "WITHOUT_PREPAID_LEGITIMATION",
-                     "WF_10026",
-                     "GET_BALANCE",
-                     "WF_10009",
-                     "WF_10008",
-                     "WF_10025",
-                     "REQUEST_BALANCE_DISBURSEMENT",
-                     "WF_10172",
-                     "RELOCATION",
-                     "ADD_PAID_VOIP",
-                     "ADD_NUMBER_FTTX",
-                     "LOCK_RADIUS",
-                     "UNLOCK_RADIUS",
-                     "UNLOCK_RADIUS_LOGON",
-                     "LOCK_VOIP",
-                     "UNLOCK_VOIP",
-                     "CHANGE_USER",
-                     "CHANGE_BANDWIDTH",
-                     "CANCEL_OPTION_TERMINATION",
-                     "CANCEL_OPTION_FOR_MOBILE",
-                     "CANCEL_OPTION_CHANGE",
-                     "CANCEL_CABLE",
-                     "CANCEL_HANDY",
-                     "CANCEL_HANDY_FOR_PRODUCT_CHANGE_OR_PROLONGATION",
-                     "SPECIAL_TERMINATION_FOR_MIGRATION",
-                     "CANCEL_INSTALLMENT_PLAN",
-                     "CANCEL_INSTALLMENT_PLAN_FOR_PRODUCT_CHANGE",
-                     "CANCEL_PRODUCT_PROLONGATION",
-                     "TERMINATE_VOIP",
-                     "TERMINATE_PAID_VOIP",
-                     "TERMINATE_EMAIL_ALIAS",
-                     "TERMINATE_NUMBER_FTTX",
-                     "E_SIM_STATUS",
-                     "STOP_CREDIT",
-                     "REACTIVATION_ORDER",
-                     "SIMULATE_ACTIVATION_VIA_VAS",
-                     "SIMULATE_KBD",
-                     "CHANGE_HOMESPOT_LOCATION",
-                     "SHOW_DATA_ACCESS_HISTORY",
-                     "SET_PARTNER_CARD",
-                     "ADD_MOBILE_CONTRACT",
-                     "ADD_FIXED_CONTRACT",
-                     "POSTPONE_FIXED",
-                     "CANCEL_FIXED",
-                     "CHANGE_HARDWARE_FIXED",
-                     "CANCEL_HARDWARE_FIXED",
-                     "CANCEL_RENT_OPTION",
-                     "TERMINATE_FIXED",
-                     "ADD_AKM_TR",
-                     "CANCEL_TERMINATE_FIXED",
-                     "RESIGN_RETOURE_FIXED",
-                     "ADD_RENT_OPTION",
-                     "APOLLO_DATA_TRANSFER",
-                     "TERMINATE_OPTION_FIXED",
-                     "LBA_UPDATE_LINE_ID",
-                     "SIMULATE_HARDWARE_RETURN_FIXED",
-                     "ONT_REGISTRATION_OR_SWITCH",
-                     "RELOCATE_CONTRACT_FIXED",
-                     "REQUEST_ACCESS_REFERENCE",
-                     "LBA_ONT_OUT_ACTIVATE",
-                     "LBA_ONT_OUT_DEACTIVATE",
-                     "GUIDED_DIAGNOSIS"
-                  ],
-                  "type" : "string"
                },
                "tags" : {
                   "items" : {
@@ -10581,7 +10475,7 @@
             "properties" : {
                "allowedActionCategories" : {
                   "items" : {
-                     "$ref" : "#/components/schemas/AllowedActionCategory"
+                     "$ref" : "#/components/schemas/WorkflowItemAllowedActionCategory"
                   },
                   "type" : "array"
                },
@@ -10666,6 +10560,66 @@
                   "type" : "integer"
                },
                "wworkflowItemName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "WorkflowItemAllowedAction" : {
+            "description" : "Represents an allowed action in a context menu.",
+            "properties" : {
+               "action" : {
+                  "description" : "The action name as a string.",
+                  "example" : "REQUEST_PUK",
+                  "type" : "string"
+               },
+               "category" : {
+                  "description" : "The category of the action as a string.",
+                  "example" : "BARRINGS",
+                  "type" : "string"
+               },
+               "disabled" : {
+                  "description" : "Indicates if the action is disabled.",
+                  "example" : false,
+                  "type" : "boolean"
+               },
+               "disabledReason" : {
+                  "description" : "Reason why the action is disabled, if applicable.",
+                  "example" : "<b><u>Vertragsdaten&nbsp;löschen&nbsp;nicht&nbsp;möglich</u></b><br>Aktueller&nbsp;Vertragsstatus&nbsp;erlaubt&nbsp;nicht&nbsp;das&nbsp;Löschen",
+                  "nullable" : true,
+                  "type" : "string"
+               },
+               "hideInContextMenu" : {
+                  "description" : "Indicates if the Action should be hidden and only show up in the detail page",
+                  "example" : false,
+                  "type" : "boolean"
+               },
+               "id" : {
+                  "description" : "The ID of the action.",
+                  "example" : 2674455674,
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "WorkflowItemAllowedActionCategory" : {
+            "properties" : {
+               "allowedActions" : {
+                  "description" : "List of allowed actions in flat format",
+                  "items" : {
+                     "$ref" : "#/components/schemas/WorkflowItemAllowedAction"
+                  },
+                  "type" : "array"
+               },
+               "label" : {
+                  "description" : "The label of the category",
+                  "example" : "common.sidebar.title.GENERAL",
+                  "type" : "string"
+               },
+               "title" : {
+                  "description" : "The title of the category",
+                  "example" : "GENERAL",
                   "type" : "string"
                }
             },
@@ -18761,46 +18715,6 @@
             ]
          }
       },
-      "/service/{serviceId}/action/allowedActions" : {
-         "get" : {
-            "operationId" : "context",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/AllowedActionCategory"
-                           },
-                           "type" : "array"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get allowed actions for specified service",
-            "tags" : [
-               "service-actions-controller"
-            ]
-         }
-      },
       "/service/{serviceId}/action/availableBarrings" : {
          "get" : {
             "operationId" : "getAvailableCarrierServiceBarringsByServiceId",
@@ -22507,6 +22421,52 @@
                }
             ],
             "summary" : "Get service events",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/faultClearance/allDiagnoses/{contextId}" : {
+         "get" : {
+            "operationId" : "getFaultClearanceDiagnosesByAccessServiceAndContextId",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "contextId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/FaultClearanceDiagnoses"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all diagnoses of the access service by context",
             "tags" : [
                "service-controller"
             ]
