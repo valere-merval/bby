@@ -3491,6 +3491,15 @@
                "name" : {
                   "type" : "string"
                },
+               "rating" : {
+                  "enum" : [
+                     "RED",
+                     "YELLOW",
+                     "GREEN",
+                     "NON_RATING"
+                  ],
+                  "type" : "string"
+               },
                "value" : {
                   "type" : "string"
                }
@@ -4435,6 +4444,9 @@
                },
                "createDt" : {
                   "format" : "date-time",
+                  "type" : "string"
+               },
+               "displayName" : {
                   "type" : "string"
                },
                "measurements" : {
