@@ -1014,6 +1014,13 @@
                   "type" : "array",
                   "uniqueItems" : true
                },
+               "optionSelections" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/OptionSelection"
+                  },
+                  "type" : "array",
+                  "uniqueItems" : true
+               },
                "serviceId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -3500,6 +3507,9 @@
                   ],
                   "type" : "string"
                },
+               "ratingInfo" : {
+                  "type" : "string"
+               },
                "value" : {
                   "type" : "string"
                }
@@ -4227,6 +4237,9 @@
                "positionTae" : {
                   "type" : "string"
                },
+               "proceedWithoutHomeId" : {
+                  "type" : "boolean"
+               },
                "radiusIdentifier" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -4904,19 +4917,11 @@
          },
          "JobToggleRequest" : {
             "properties" : {
-               "jobId" : {
-                  "description" : "Technical Job ID",
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "status" : {
+               "enabled" : {
                   "description" : "Job execution status, TRUE for ON, FALSE for OFF",
                   "type" : "boolean"
                }
             },
-            "required" : [
-               "jobId"
-            ],
             "type" : "object"
          },
          "JwtUser" : {
@@ -6098,6 +6103,19 @@
             },
             "type" : "object"
          },
+         "OptionSelection" : {
+            "properties" : {
+               "optionId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "simType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "OutpaymentForInactiveCustomerRequest" : {
             "properties" : {
                "bic" : {
@@ -6150,7 +6168,7 @@
                   "type" : "integer"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "totalElements" : {
                   "format" : "int64",
@@ -6196,7 +6214,7 @@
                   "type" : "integer"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "totalElements" : {
                   "format" : "int64",
@@ -6242,7 +6260,7 @@
                   "type" : "integer"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "totalElements" : {
                   "format" : "int64",
@@ -6288,7 +6306,7 @@
                   "type" : "integer"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "totalElements" : {
                   "format" : "int64",
@@ -6510,7 +6528,7 @@
                   "type" : "integer"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "totalElements" : {
                   "format" : "int64",
@@ -6556,7 +6574,7 @@
                   "type" : "integer"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "totalElements" : {
                   "format" : "int64",
@@ -6587,7 +6605,7 @@
                   "type" : "boolean"
                },
                "sort" : {
-                  "$ref" : "#/components/schemas/Sort"
+                  "$ref" : "#/components/schemas/SortObject"
                },
                "unpaged" : {
                   "type" : "boolean"
@@ -6858,6 +6876,12 @@
          },
          "Product" : {
             "properties" : {
+               "allowedSimTypes" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Lookup"
+                  },
+                  "type" : "array"
+               },
                "amount" : {
                   "type" : "number"
                },
@@ -7450,19 +7474,11 @@
          },
          "SJobRequest" : {
             "properties" : {
-               "jobId" : {
-                  "description" : "Technical Job ID",
-                  "format" : "int64",
-                  "type" : "integer"
-               },
                "schedule" : {
                   "description" : "Job execution schedule and recurrence settings",
                   "type" : "string"
                }
             },
-            "required" : [
-               "jobId"
-            ],
             "type" : "object"
          },
          "SalesOrder" : {
@@ -8763,7 +8779,7 @@
             },
             "type" : "object"
          },
-         "Sort" : {
+         "SortObject" : {
             "properties" : {
                "empty" : {
                   "type" : "boolean"
@@ -9745,6 +9761,14 @@
                },
                "prevTenantSurname" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdateFixedProcessDataRequest" : {
+            "properties" : {
+               "proceedWithoutHomeId" : {
+                  "type" : "boolean"
                }
             },
             "type" : "object"
@@ -16630,77 +16654,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get all job schedulers",
-            "tags" : [
-               "monitoring-job-controller"
-            ]
-         },
-         "put" : {
-            "operationId" : "toggleJob",
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/JobToggleRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/MessageResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Enable or disable a DB job by ID",
-            "tags" : [
-               "monitoring-job-controller"
-            ]
-         }
-      },
-      "/monitoring/jobs/schedule" : {
-         "put" : {
-            "operationId" : "updateJobSchedule",
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/SJobRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/MessageResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Update job schedule a DB job by ID",
+            "summary" : "Retrieve all database jobs which are configured for the current platform",
             "tags" : [
                "monitoring-job-controller"
             ]
@@ -16737,42 +16691,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get specific job scheduler",
-            "tags" : [
-               "monitoring-job-controller"
-            ]
-         },
-         "put" : {
-            "operationId" : "executeJob",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "jobId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/MessageResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Run job schedulers a DB job by ID",
+            "summary" : "Retrieve all relevant information on a specific database job",
             "tags" : [
                "monitoring-job-controller"
             ]
@@ -16812,7 +16731,138 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get job history a DB job by ID",
+            "summary" : "Retrieve the history of database job. An entry specifies for a timestamp which settings have been there for the job up to this timestamp",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/jobs/{jobId}/run" : {
+         "put" : {
+            "operationId" : "executeJob",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Run a specific database job. The call will return an error in case the job is already running",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/jobs/{jobId}/schedule" : {
+         "put" : {
+            "operationId" : "updateJobSchedule",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/SJobRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update the schedule interval for a specific job. If the schedule provided is not valid, an according oracle message will be returned",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/jobs/{jobId}/status" : {
+         "put" : {
+            "operationId" : "toggleJob",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/JobToggleRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Change the status of a specific database job.  Pass \"true\" to enable the job and \"false\" to disable it",
             "tags" : [
                "monitoring-job-controller"
             ]
@@ -22850,6 +22900,53 @@
             ]
          }
       },
+      "/service/{serviceId}/fixedProcessData" : {
+         "put" : {
+            "operationId" : "updateFixedProcessData",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateFixedProcessDataRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update the process data for an existing Fixed Physical Access ",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/fixedProviderChange" : {
          "put" : {
             "operationId" : "updateFixedProviderChange",
@@ -26558,7 +26655,7 @@
          "name" : "coupon-code-controller"
       },
       {
-         "description" : "Provides endpoints to monitor DB jobs",
+         "description" : "Provides endpoints to monitor jobs",
          "name" : "monitoring-job-controller"
       },
       {
