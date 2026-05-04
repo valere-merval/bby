@@ -216,6 +216,10 @@
                "installationAddress" : {
                   "$ref" : "#/components/schemas/UsageLocation"
                },
+               "offerDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "paymentData" : {
                   "$ref" : "#/components/schemas/BankData"
                },
@@ -2457,6 +2461,10 @@
                },
                "mainAddress" : {
                   "$ref" : "#/components/schemas/Address"
+               },
+               "offerDate" : {
+                  "format" : "date",
+                  "type" : "string"
                },
                "paymentData" : {
                   "$ref" : "#/components/schemas/BankData"
