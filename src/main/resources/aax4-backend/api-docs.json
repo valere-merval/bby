@@ -775,7 +775,8 @@
                      "VSS2",
                      "RTA",
                      "WITA_ESS",
-                     "CBSI_TARDIS"
+                     "CBSI_TARDIS",
+                     "DHL_RETURN"
                   ],
                   "type" : "string"
                }
@@ -8760,7 +8761,8 @@
                      "VSS2",
                      "RTA",
                      "WITA_ESS",
-                     "CBSI_TARDIS"
+                     "CBSI_TARDIS",
+                     "DHL_RETURN"
                   ],
                   "type" : "string"
                },
@@ -10238,7 +10240,8 @@
                      "VSS2",
                      "RTA",
                      "WITA_ESS",
-                     "CBSI_TARDIS"
+                     "CBSI_TARDIS",
+                     "DHL_RETURN"
                   ],
                   "type" : "string"
                }
@@ -12660,6 +12663,15 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
+                  }
                }
             ],
             "responses" : {
@@ -12782,6 +12794,15 @@
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
                   }
                }
             ],
