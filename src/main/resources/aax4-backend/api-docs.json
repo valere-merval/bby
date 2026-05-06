@@ -2777,6 +2777,49 @@
             },
             "type" : "object"
          },
+         "CronJobScheduler" : {
+            "properties" : {
+               "description" : {
+                  "type" : "string"
+               },
+               "duration" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "interval" : {
+                  "type" : "string"
+               },
+               "jobMessage" : {
+                  "type" : "string"
+               },
+               "jobStatus" : {
+                  "type" : "string"
+               },
+               "lastRun" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "nextRun" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "state" : {
+                  "type" : "string"
+               },
+               "status" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "CurrentDataPass" : {
             "properties" : {
                "expiryTime" : {
@@ -16439,6 +16482,35 @@
             "summary" : "Get Termination reasons, when service 110 or 2000 then only the termination Reason has been added in Mapping",
             "tags" : [
                "lookups-controller"
+            ]
+         }
+      },
+      "/monitoring/cronjobs" : {
+         "get" : {
+            "operationId" : "getAllCronJobs",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/CronJobScheduler"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves the list of all cronjobs with their according descriptions, status and information on previous and next run",
+            "tags" : [
+               "monitoring-job-controller"
             ]
          }
       },
