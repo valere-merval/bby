@@ -1162,6 +1162,10 @@
                "isTkgRelocation" : {
                   "type" : "boolean"
                },
+               "offerDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "oldProduct" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -10580,6 +10584,10 @@
                },
                "stopped" : {
                   "type" : "boolean"
+               },
+               "subWorkflowId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "transactions" : {
                   "items" : {
@@ -25452,7 +25460,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get a list of all workflowitems accosiated to the specified workflow",
+            "summary" : "Get a list of all workflowitems associated to the specified workflow",
             "tags" : [
                "workflow-controller"
             ]
@@ -25608,7 +25616,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get a List of stopable Wfis and the applicable status. (stopped or not)",
+            "summary" : "Get a List of stoppable Wfis and the applicable status. (stopped or not)",
             "tags" : [
                "workflow-controller"
             ]
@@ -25820,7 +25828,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Set the stopable Workflowitems",
+            "summary" : "Set the stoppable Workflowitems",
             "tags" : [
                "workflow-controller"
             ]
@@ -26053,7 +26061,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Simulate  a workflow",
+            "summary" : "Simulate a workflow",
             "tags" : [
                "workflow-controller"
             ]
