@@ -18094,6 +18094,15 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
+                  }
                }
             ],
             "responses" : {
