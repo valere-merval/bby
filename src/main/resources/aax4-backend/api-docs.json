@@ -2820,6 +2820,15 @@
             },
             "type" : "object"
          },
+         "CronJobToggleRequest" : {
+            "properties" : {
+               "status" : {
+                  "description" : "CronJob execution status",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CurrentDataPass" : {
             "properties" : {
                "expiryTime" : {
@@ -4705,6 +4714,9 @@
          "HardwareType" : {
             "properties" : {
                "color" : {
+                  "type" : "string"
+               },
+               "cwmpId" : {
                   "type" : "string"
                },
                "imei" : {
@@ -16509,6 +16521,53 @@
                }
             ],
             "summary" : "Retrieves the list of all cronjobs with their according descriptions, status and information on previous and next run",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/cronjobs/{jobId}/status" : {
+         "put" : {
+            "operationId" : "toggleCronjob",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CronJobToggleRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Change the status of a specific cron job.",
             "tags" : [
                "monitoring-job-controller"
             ]
