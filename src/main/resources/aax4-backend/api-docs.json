@@ -2779,6 +2779,9 @@
          },
          "CronJobScheduler" : {
             "properties" : {
+               "consolidatedState" : {
+                  "type" : "string"
+               },
                "description" : {
                   "type" : "string"
                },
@@ -2810,12 +2813,20 @@
                   "format" : "date-time",
                   "type" : "string"
                },
-               "state" : {
+               "status" : {
+                  "$ref" : "#/components/schemas/StatusInfo"
+               },
+               "whereRequest" : {
                   "type" : "string"
                },
-               "status" : {
-                  "format" : "int64",
-                  "type" : "integer"
+               "whereRequestDefault" : {
+                  "type" : "string"
+               },
+               "whereXml" : {
+                  "type" : "string"
+               },
+               "whereXmlDefault" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -8868,6 +8879,18 @@
                   "type" : "string"
                },
                "statusId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "StatusInfo" : {
+            "properties" : {
+               "label" : {
+                  "type" : "string"
+               },
+               "value" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -16521,6 +16544,80 @@
                }
             ],
             "summary" : "Retrieves the list of all cronjobs with their according descriptions, status and information on previous and next run",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/cronjobs/{jobId}" : {
+         "get" : {
+            "operationId" : "getCronJobScheduler",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/CronJobScheduler"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific job scheduler",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/cronjobs/{jobId}/run" : {
+         "put" : {
+            "operationId" : "executeCronJob",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Execute a cron job by ID",
             "tags" : [
                "monitoring-job-controller"
             ]
