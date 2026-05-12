@@ -2831,6 +2831,19 @@
             },
             "type" : "object"
          },
+         "CronJobSettingsRequest" : {
+            "properties" : {
+               "interval" : {
+                  "description" : "Execution interval interval of the cron job",
+                  "type" : "string"
+               },
+               "whereClause" : {
+                  "description" : "SQL WHERE clause for filtering records",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CronJobToggleRequest" : {
             "properties" : {
                "status" : {
@@ -16580,7 +16593,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get specific job scheduler",
+            "summary" : "Retrieves information on the specified cron job. The endpoint returns information on job schedule and - if available - on an sql where clause applied within the job.",
             "tags" : [
                "monitoring-job-controller"
             ]
@@ -16617,7 +16630,54 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Execute a cron job by ID",
+            "summary" : "Executes the cron job identified by the given id. Job is started if it is not disabled and not already running.",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
+      "/monitoring/cronjobs/{jobId}/settings" : {
+         "put" : {
+            "operationId" : "updateCronJobSettings",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/CronJobSettingsRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Change the settings of a specific cron job.",
             "tags" : [
                "monitoring-job-controller"
             ]
@@ -16625,7 +16685,7 @@
       },
       "/monitoring/cronjobs/{jobId}/status" : {
          "put" : {
-            "operationId" : "toggleCronjob",
+            "operationId" : "updateCronJobStatus",
             "parameters" : [
                {
                   "in" : "path",
@@ -16664,7 +16724,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Change the status of a specific cron job.",
+            "summary" : "Change the status of a specific cron job. Possible values are disabled, active or inactive",
             "tags" : [
                "monitoring-job-controller"
             ]
