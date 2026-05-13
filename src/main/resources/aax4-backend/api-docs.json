@@ -2802,6 +2802,9 @@
                "jobStatus" : {
                   "type" : "string"
                },
+               "jobType" : {
+                  "type" : "string"
+               },
                "lastRun" : {
                   "format" : "date-time",
                   "type" : "string"
