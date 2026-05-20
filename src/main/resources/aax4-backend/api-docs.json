@@ -2777,6 +2777,50 @@
             },
             "type" : "object"
          },
+         "CronJobChangeHistoryResponse" : {
+            "properties" : {
+               "changeDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "interval" : {
+                  "type" : "string"
+               },
+               "jnId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "jobId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "jobName" : {
+                  "type" : "string"
+               },
+               "jobType" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastUser" : {
+                  "type" : "string"
+               },
+               "maxRows" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "objectId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "status" : {
+                  "type" : "string"
+               },
+               "whereClause" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "CronJobScheduler" : {
             "properties" : {
                "consolidatedState" : {
@@ -4641,6 +4685,9 @@
                   "type" : "string"
                },
                "mailOrderId" : {
+                  "type" : "string"
+               },
+               "mailOrderReturnId" : {
                   "type" : "string"
                },
                "maxReturnDate" : {
@@ -12453,7 +12500,8 @@
                         "WORKFLOW_LIST",
                         "CUSTOMER",
                         "USER",
-                        "JOB_SCHEDULER"
+                        "JOB_SCHEDULER",
+                        "QUARTZ_SCHEDULER"
                      ],
                      "type" : "string"
                   }
@@ -16602,6 +16650,46 @@
             ]
          }
       },
+      "/monitoring/cronjobs/{jobId}/history" : {
+         "get" : {
+            "operationId" : "getCronJobChangeHistory",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "jobId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/CronJobChangeHistoryResponse"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves the history of a cron job.  An entry specifies for a timestamp which settings have been there for the job up to this timestamp.",
+            "tags" : [
+               "monitoring-job-controller"
+            ]
+         }
+      },
       "/monitoring/cronjobs/{jobId}/run" : {
          "put" : {
             "operationId" : "executeCronJob",
@@ -16680,7 +16768,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Change the settings of a specific cron job.",
+            "summary" : "Changes the settings of a cron job. It is possible to change the scheduled interval and possible the sql where clause used by the job.",
             "tags" : [
                "monitoring-job-controller"
             ]
