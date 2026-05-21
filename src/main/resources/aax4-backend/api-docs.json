@@ -147,6 +147,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "offerDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "paymentData" : {
                   "$ref" : "#/components/schemas/BankData"
                },
@@ -2847,7 +2851,8 @@
                   "type" : "string"
                },
                "jobType" : {
-                  "type" : "string"
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "lastRun" : {
                   "format" : "date-time",
