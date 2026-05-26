@@ -7136,6 +7136,9 @@
                "isPurchasableWithInstallmentPlan" : {
                   "type" : "boolean"
                },
+               "isUpgradePromiseOption" : {
+                  "type" : "boolean"
+               },
                "lockDtCcm" : {
                   "format" : "date-time",
                   "type" : "string"
