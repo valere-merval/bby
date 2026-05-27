@@ -18563,6 +18563,55 @@
             ]
          }
       },
+      "/products/relocation/available" : {
+         "post" : {
+            "operationId" : "getRelocationProducts",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "properties" : {
+                           "mainServiceId" : {
+                              "format" : "int64",
+                              "type" : "integer"
+                           },
+                           "relocationAddress" : {
+                              "$ref" : "#/components/schemas/SimpleAddress"
+                           },
+                           "relocationDate" : {
+                              "format" : "date",
+                              "type" : "string"
+                           }
+                        },
+                        "type" : "object"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/LocationModel"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all fixed products for a specific address",
+            "tags" : [
+               "products-filtered-controller"
+            ]
+         }
+      },
       "/resource/campaigns" : {
          "get" : {
             "operationId" : "getCampaignsAsSelectItems",
