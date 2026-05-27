@@ -4526,6 +4526,22 @@
             },
             "type" : "object"
          },
+         "GetProductsRelocationRequest" : {
+            "properties" : {
+               "mainServiceId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "relocationAddress" : {
+                  "$ref" : "#/components/schemas/SimpleAddress"
+               },
+               "relocationDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "GetRetryMnpResponse" : {
             "properties" : {
                "availableProviders" : {
@@ -16363,6 +16379,32 @@
             ]
          }
       },
+      "/jwe/generateJWE" : {
+         "get" : {
+            "operationId" : "generateJWEToken",
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Receive the JWE Token",
+            "tags" : [
+               "jwe-controller"
+            ]
+         }
+      },
       "/labels" : {
          "delete" : {
             "operationId" : "emptyLabelsCache",
@@ -18570,20 +18612,7 @@
                "content" : {
                   "application/json" : {
                      "schema" : {
-                        "properties" : {
-                           "mainServiceId" : {
-                              "format" : "int64",
-                              "type" : "integer"
-                           },
-                           "relocationAddress" : {
-                              "$ref" : "#/components/schemas/SimpleAddress"
-                           },
-                           "relocationDate" : {
-                              "format" : "date",
-                              "type" : "string"
-                           }
-                        },
-                        "type" : "object"
+                        "$ref" : "#/components/schemas/GetProductsRelocationRequest"
                      }
                   }
                },
