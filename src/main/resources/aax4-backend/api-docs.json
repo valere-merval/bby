@@ -2834,8 +2834,7 @@
                   "type" : "string"
                },
                "duration" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "string"
                },
                "id" : {
                   "format" : "int64",
@@ -2855,7 +2854,6 @@
                   "type" : "integer"
                },
                "lastRun" : {
-                  "format" : "date-time",
                   "type" : "string"
                },
                "name" : {
@@ -7056,12 +7054,6 @@
                   "format" : "date-time",
                   "type" : "string"
                },
-               "bundleOptions" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/Product"
-                  },
-                  "type" : "array"
-               },
                "campaign" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -7177,12 +7169,6 @@
                },
                "notes" : {
                   "type" : "string"
-               },
-               "options" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/Product"
-                  },
-                  "type" : "array"
                },
                "parent" : {
                   "$ref" : "#/components/schemas/SimpleServiceObject"
@@ -21808,74 +21794,6 @@
                }
             ],
             "summary" : "Get available services for changing service",
-            "tags" : [
-               "service-controller"
-            ]
-         }
-      },
-      "/service/{serviceId}/availableServices/relocate" : {
-         "post" : {
-            "operationId" : "getAvailableServicesForRelocateContract",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               },
-               {
-                  "in" : "query",
-                  "name" : "ignoreAvailability",
-                  "required" : false,
-                  "schema" : {
-                     "default" : false,
-                     "type" : "boolean"
-                  }
-               },
-               {
-                  "in" : "query",
-                  "name" : "startDate",
-                  "required" : false,
-                  "schema" : {
-                     "format" : "date",
-                     "type" : "string"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/SimpleAddress"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/Product"
-                           },
-                           "type" : "array"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get available services for relocate service",
             "tags" : [
                "service-controller"
             ]
