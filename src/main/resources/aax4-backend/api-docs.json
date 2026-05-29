@@ -2840,6 +2840,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "ifObject" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "interval" : {
                   "type" : "string"
                },
