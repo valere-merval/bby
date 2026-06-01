@@ -3267,6 +3267,9 @@
          },
          "CustomerDunningState" : {
             "properties" : {
+               "contractId" : {
+                  "type" : "string"
+               },
                "dunningState" : {
                   "type" : "string"
                },
