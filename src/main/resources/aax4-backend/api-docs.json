@@ -486,6 +486,75 @@
             },
             "type" : "object"
          },
+         "AdminProductResponse" : {
+            "properties" : {
+               "allowForNewCustomers" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "chargeMode" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "clusterEndDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "clusterStartDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "displayValue" : {
+                  "type" : "string"
+               },
+               "endDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "externalRef" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "noticePeriod" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "productLine" : {
+                  "type" : "string"
+               },
+               "service" : {
+                  "type" : "string"
+               },
+               "serviceCategory" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "serviceClusters" : {
+                  "type" : "string"
+               },
+               "serviceGroup" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "serviceType" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "sortOrder" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "startDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "status" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               }
+            },
+            "type" : "object"
+         },
          "AllowedActionCategoryResponse" : {
             "properties" : {
                "allowedActions" : {
@@ -2834,7 +2903,8 @@
                   "type" : "string"
                },
                "duration" : {
-                  "type" : "string"
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "id" : {
                   "format" : "int64",
@@ -4621,6 +4691,9 @@
                   "format" : "date-time",
                   "type" : "string"
                },
+               "diagnosisRunning" : {
+                  "type" : "boolean"
+               },
                "displayName" : {
                   "type" : "string"
                },
@@ -6303,6 +6376,52 @@
             },
             "type" : "object"
          },
+         "PageAdminProductResponse" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/AdminProductResponse"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/SortObject"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "PageCampaignList" : {
             "properties" : {
                "content" : {
@@ -7306,6 +7425,54 @@
                },
                "tkgRelocationAvailable" : {
                   "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
+         "ProductCharge" : {
+            "properties" : {
+               "amount" : {
+                  "type" : "number"
+               },
+               "amountNet" : {
+                  "type" : "number"
+               },
+               "chargeMode" : {
+                  "type" : "string"
+               },
+               "chargeType" : {
+                  "type" : "string"
+               },
+               "description" : {
+                  "type" : "string"
+               },
+               "fromDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "mandatory" : {
+                  "type" : "string"
+               },
+               "pricedEvent" : {
+                  "type" : "string"
+               },
+               "service" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "status" : {
+                  "$ref" : "#/components/schemas/StatusInfo"
+               },
+               "tax" : {
+                  "type" : "string"
+               },
+               "toDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -12477,20 +12644,24 @@
       },
       "/admin/products" : {
          "get" : {
-            "operationId" : "getAllProducts",
+            "operationId" : "getProducts",
             "parameters" : [
                {
                   "in" : "query",
-                  "name" : "sortBy",
+                  "name" : "page",
                   "required" : false,
                   "schema" : {
-                     "default" : [
-                        "id"
-                     ],
-                     "items" : {
-                        "type" : "string"
-                     },
-                     "type" : "array"
+                     "default" : "0",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "20",
+                     "type" : "string"
                   }
                },
                {
@@ -12499,30 +12670,60 @@
                   "required" : false,
                   "schema" : {
                      "default" : "DESC",
-                     "enum" : [
-                        "ASC",
-                        "DESC"
-                     ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Column to sort by [ID, SERVICE, DISPLAYVALUE, SERVICEGROUP, STARTDT, ENDDT, STATUS]",
+                  "in" : "query",
+                  "name" : "productOrderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "ID",
+                     "description" : "Column to sort by [ID, SERVICE, DISPLAYVALUE, SERVICEGROUP, STARTDT, ENDDT, STATUS]",
                      "type" : "string"
                   }
                },
                {
                   "in" : "query",
-                  "name" : "page",
+                  "name" : "showInactive",
                   "required" : false,
                   "schema" : {
-                     "default" : 0,
-                     "format" : "int32",
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "id",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
                      "type" : "integer"
                   }
                },
                {
                   "in" : "query",
-                  "name" : "size",
+                  "name" : "serviceNames",
                   "required" : false,
                   "schema" : {
-                     "default" : 999,
-                     "format" : "int32",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "client",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "productCategory",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
                      "type" : "integer"
                   }
                }
@@ -12532,10 +12733,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "items" : {
-                              "type" : "string"
-                           },
-                           "type" : "array"
+                           "$ref" : "#/components/schemas/PageAdminProductResponse"
                         }
                      }
                   },
@@ -12548,6 +12746,80 @@
                }
             ],
             "summary" : "Retrieves product data and allows for filtering, paging and sorting.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/charge/{serviceId}" : {
+         "get" : {
+            "operationId" : "getProductChargeById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ProductCharge"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves charge data by serviceId",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{serviceId}" : {
+         "get" : {
+            "operationId" : "getProductDetails",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AdminProductResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific service details by ID.",
             "tags" : [
                "admin-products-controller"
             ]
