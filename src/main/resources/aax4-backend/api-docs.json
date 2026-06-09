@@ -4189,6 +4189,9 @@
                "lbaActive" : {
                   "type" : "boolean"
                },
+               "lbaSupported" : {
+                  "type" : "boolean"
+               },
                "startDt" : {
                   "format" : "date",
                   "type" : "string"
