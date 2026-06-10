@@ -555,6 +555,32 @@
             },
             "type" : "object"
          },
+         "AdminProductTariffs" : {
+            "properties" : {
+               "displayValue" : {
+                  "type" : "string"
+               },
+               "endDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "startDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "status" : {
+                  "type" : "string"
+               },
+               "tariffName" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AllowedActionCategoryResponse" : {
             "properties" : {
                "allowedActions" : {
@@ -5125,7 +5151,8 @@
                   "type" : "string"
                },
                "lastRunDuration" : {
-                  "type" : "string"
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "lastStartDate" : {
                   "format" : "date-time",
@@ -12773,7 +12800,10 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/ProductCharge"
+                           "items" : {
+                              "$ref" : "#/components/schemas/ProductCharge"
+                           },
+                           "type" : "array"
                         }
                      }
                   },
@@ -12823,6 +12853,46 @@
                }
             ],
             "summary" : "Get specific service details by ID.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{serviceId}/billingTariffs" : {
+         "get" : {
+            "operationId" : "getServiceTariffs",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AdminProductTariffs"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Return all billing tariffs which can be associated with a given service. Usually there will be only one.",
             "tags" : [
                "admin-products-controller"
             ]
