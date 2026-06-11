@@ -321,7 +321,7 @@
                   "type" : "integer"
                },
                "relocationAddress" : {
-                  "$ref" : "#/components/schemas/Address"
+                  "$ref" : "#/components/schemas/RelocationAddress"
                },
                "startDtRequested" : {
                   "format" : "date",
@@ -3285,7 +3285,8 @@
                         "FIXED_ABW_IN",
                         "EMAIL_UNVERIFIED",
                         "EMAIL_ONE_FACTOR_VERIFIED",
-                        "EMAIL_INVALID"
+                        "EMAIL_INVALID",
+                        "PERMISSION_STATUS"
                      ],
                      "type" : "string"
                   },
@@ -5151,8 +5152,7 @@
                   "type" : "string"
                },
                "lastRunDuration" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "string"
                },
                "lastStartDate" : {
                   "format" : "date-time",
@@ -7707,6 +7707,55 @@
                },
                "toDt" : {
                   "format" : "date",
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "RelocationAddress" : {
+            "properties" : {
+               "buildingUnitId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "buildingUnitName" : {
+                  "type" : "string"
+               },
+               "city" : {
+                  "type" : "string"
+               },
+               "companyName" : {
+                  "type" : "string"
+               },
+               "country" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "firstName" : {
+                  "type" : "string"
+               },
+               "houseNumber" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "isValid" : {
+                  "type" : "boolean"
+               },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "salutation" : {
+                  "$ref" : "#/components/schemas/Lookup"
+               },
+               "street" : {
+                  "type" : "string"
+               },
+               "title" : {
+                  "type" : "string"
+               },
+               "zip" : {
                   "type" : "string"
                }
             },
@@ -16077,7 +16126,8 @@
                               "FIXED_ABW_IN",
                               "EMAIL_UNVERIFIED",
                               "EMAIL_ONE_FACTOR_VERIFIED",
-                              "EMAIL_INVALID"
+                              "EMAIL_INVALID",
+                              "PERMISSION_STATUS"
                            ],
                            "type" : "string"
                         },
@@ -26292,6 +26342,43 @@
                }
             ],
             "summary" : "Get a list of all workflowitems associated to the specified workflow",
+            "tags" : [
+               "workflow-controller"
+            ]
+         }
+      },
+      "/workflow/{dWorkflowId}/dissolveTimeLockABW" : {
+         "put" : {
+            "operationId" : "dissolveTimeLockABW",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "dWorkflowId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "dissolve TimeLock of connection Workflowitem",
             "tags" : [
                "workflow-controller"
             ]
