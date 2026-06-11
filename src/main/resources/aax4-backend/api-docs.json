@@ -7210,6 +7210,12 @@
                   "format" : "date-time",
                   "type" : "string"
                },
+               "bundleOptions" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
+               },
                "campaign" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -7325,6 +7331,12 @@
                },
                "notes" : {
                   "type" : "string"
+               },
+               "options" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/Product"
+                  },
+                  "type" : "array"
                },
                "parent" : {
                   "$ref" : "#/components/schemas/SimpleServiceObject"
@@ -9919,6 +9931,26 @@
                "date" : {
                   "format" : "date",
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "UpdateAppUsernameRequest" : {
+            "properties" : {
+               "newLoginName" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "newLoginName"
+            ],
+            "type" : "object"
+         },
+         "UpdateAppUsernameResponse" : {
+            "properties" : {
+               "signupId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -16304,6 +16336,71 @@
                }
             ],
             "summary" : "Update customer's address by specific date",
+            "tags" : [
+               "customer-details-controller"
+            ]
+         }
+      },
+      "/customer/{customerId}/updateAppUsername" : {
+         "put" : {
+            "operationId" : "updateAppUsername",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "customerId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "clientId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "source",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateAppUsernameRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/UpdateAppUsernameResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Update customer AppUsername",
             "tags" : [
                "customer-details-controller"
             ]
