@@ -7488,6 +7488,9 @@
                "description" : {
                   "type" : "string"
                },
+               "displayValue" : {
+                  "type" : "string"
+               },
                "fromDt" : {
                   "format" : "date-time",
                   "type" : "string"
@@ -7526,6 +7529,39 @@
                      "$ref" : "#/components/schemas/Product"
                   },
                   "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
+         "ProductOption" : {
+            "properties" : {
+               "endDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "idP" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "role" : {
+                  "type" : "string"
+               },
+               "serviceGroup" : {
+                  "type" : "string"
+               },
+               "startDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "status" : {
+                  "$ref" : "#/components/schemas/StatusInfo"
                }
             },
             "type" : "object"
@@ -12862,13 +12898,13 @@
             ]
          }
       },
-      "/admin/products/charge/{serviceId}" : {
+      "/admin/products/{productId}/options" : {
          "get" : {
-            "operationId" : "getProductChargeById",
+            "operationId" : "getOptionsById",
             "parameters" : [
                {
                   "in" : "path",
-                  "name" : "serviceId",
+                  "name" : "productId",
                   "required" : true,
                   "schema" : {
                      "format" : "int64",
@@ -12882,7 +12918,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/ProductCharge"
+                              "$ref" : "#/components/schemas/ProductOption"
                            },
                            "type" : "array"
                         }
@@ -12896,7 +12932,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Retrieves charge data by serviceId",
+            "summary" : "Return all options which can be associated with a given service.",
             "tags" : [
                "admin-products-controller"
             ]
@@ -12974,6 +13010,46 @@
                }
             ],
             "summary" : "Return all billing tariffs which can be associated with a given service. Usually there will be only one.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{serviceId}/charge" : {
+         "get" : {
+            "operationId" : "getProductChargeById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/ProductCharge"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves charge data by serviceId",
             "tags" : [
                "admin-products-controller"
             ]
