@@ -16438,15 +16438,6 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
-               },
-               {
-                  "in" : "query",
-                  "name" : "source",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
                }
             ],
             "requestBody" : {
