@@ -486,6 +486,25 @@
             },
             "type" : "object"
          },
+         "AdminProductDocument" : {
+            "properties" : {
+               "attachmentType" : {
+                  "type" : "string"
+               },
+               "changeDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "fileName" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "AdminProductResponse" : {
             "properties" : {
                "allowForNewCustomers" : {
@@ -7629,6 +7648,38 @@
             },
             "type" : "object"
          },
+         "ProductSuccessorResp" : {
+            "properties" : {
+               "aax" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "app" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "b2b" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "cpp" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "csc" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "tarif" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "ProviderChange" : {
             "properties" : {
                "currentProvider" : {
@@ -12898,6 +12949,201 @@
             ]
          }
       },
+      "/admin/products/documents/{documentId}" : {
+         "get" : {
+            "operationId" : "downloadDocument",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "documentId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "format" : "binary",
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves and downloads the document for a specified ID",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{productId}" : {
+         "get" : {
+            "operationId" : "getProductDetails",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AdminProductResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get specific service details by ID.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{productId}/billingTariffs" : {
+         "get" : {
+            "operationId" : "getServiceTariffs",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AdminProductTariffs"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Return all billing tariffs which can be associated with a given service. Usually there will be only one.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{productId}/charge" : {
+         "get" : {
+            "operationId" : "getProductChargeById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/ProductCharge"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves charge data by serviceId",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{productId}/documents" : {
+         "get" : {
+            "operationId" : "getProductDocuments",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AdminProductDocument"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Return all documents for a given service",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
       "/admin/products/{productId}/options" : {
          "get" : {
             "operationId" : "getOptionsById",
@@ -12938,50 +13184,22 @@
             ]
          }
       },
-      "/admin/products/{serviceId}" : {
+      "/admin/products/{productId}/successors" : {
          "get" : {
-            "operationId" : "getProductDetails",
+            "operationId" : "getServiceSuccessors",
             "parameters" : [
                {
                   "in" : "path",
-                  "name" : "serviceId",
+                  "name" : "productId",
                   "required" : true,
                   "schema" : {
                      "format" : "int64",
                      "type" : "integer"
                   }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/AdminProductResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
+               },
                {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Get specific service details by ID.",
-            "tags" : [
-               "admin-products-controller"
-            ]
-         }
-      },
-      "/admin/products/{serviceId}/billingTariffs" : {
-         "get" : {
-            "operationId" : "getServiceTariffs",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
+                  "in" : "query",
+                  "name" : "successorType",
                   "required" : true,
                   "schema" : {
                      "format" : "int64",
@@ -12995,7 +13213,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/AdminProductTariffs"
+                              "$ref" : "#/components/schemas/ProductSuccessorResp"
                            },
                            "type" : "array"
                         }
@@ -13009,47 +13227,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Return all billing tariffs which can be associated with a given service. Usually there will be only one.",
-            "tags" : [
-               "admin-products-controller"
-            ]
-         }
-      },
-      "/admin/products/{serviceId}/charge" : {
-         "get" : {
-            "operationId" : "getProductChargeById",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "items" : {
-                              "$ref" : "#/components/schemas/ProductCharge"
-                           },
-                           "type" : "array"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Retrieves charge data by serviceId",
+            "summary" : "Return the possible successors in the given Process for a product",
             "tags" : [
                "admin-products-controller"
             ]
@@ -16513,7 +16691,7 @@
             ]
          }
       },
-      "/customer/{username}" : {
+      "/customer/{username}/clientId/{clientId}" : {
          "get" : {
             "operationId" : "checkCustomerExisted",
             "parameters" : [
@@ -16523,6 +16701,15 @@
                   "required" : true,
                   "schema" : {
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "path",
+                  "name" : "clientId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
                   }
                }
             ],
