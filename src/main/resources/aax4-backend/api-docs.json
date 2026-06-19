@@ -10629,27 +10629,6 @@
             },
             "type" : "object"
          },
-         "ValidationResultBankData" : {
-            "properties" : {
-               "errorCode" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "valid" : {
-                  "type" : "boolean"
-               },
-               "validationMessages" : {
-                  "items" : {
-                     "type" : "string"
-                  },
-                  "type" : "array"
-               },
-               "validationObject" : {
-                  "$ref" : "#/components/schemas/BankData"
-               }
-            },
-            "type" : "object"
-         },
          "ValidationResultString" : {
             "properties" : {
                "errorCode" : {
@@ -26114,78 +26093,6 @@
             ]
          }
       },
-      "/validations/bankData" : {
-         "post" : {
-            "operationId" : "validateBankData",
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/BankData"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ValidationResultBankData"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Validates bankData and retrieves additional bank information if valid",
-            "tags" : [
-               "validation-controller"
-            ]
-         }
-      },
-      "/validations/bic" : {
-         "post" : {
-            "operationId" : "validateBic",
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/BankData"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ValidationResultBankData"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Validates BIC and retrieves additional bank information if valid",
-            "tags" : [
-               "validation-controller"
-            ]
-         }
-      },
       "/validations/email/format" : {
          "post" : {
             "operationId" : "validateEmail",
@@ -26325,42 +26232,6 @@
                }
             ],
             "summary" : "Validate fraenk customer's email by sending SMS",
-            "tags" : [
-               "validation-controller"
-            ]
-         }
-      },
-      "/validations/iban" : {
-         "post" : {
-            "operationId" : "validateIban",
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/BankData"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/ValidationResultBankData"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Validates IBAN and retrieves additional bank information if valid",
             "tags" : [
                "validation-controller"
             ]
