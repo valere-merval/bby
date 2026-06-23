@@ -4502,6 +4502,9 @@
                "positionTae" : {
                   "type" : "string"
                },
+               "preOrderId" : {
+                  "type" : "string"
+               },
                "proceedWithoutHomeId" : {
                   "type" : "boolean"
                },
@@ -4522,6 +4525,14 @@
                "technology" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "timeSlot" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "validityDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
                },
                "witaContractNumber" : {
                   "type" : "string"
@@ -4850,7 +4861,7 @@
                   "type" : "string"
                },
                "returnAnnounceDt" : {
-                  "format" : "date-time",
+                  "format" : "date",
                   "type" : "string"
                },
                "returnDate" : {
