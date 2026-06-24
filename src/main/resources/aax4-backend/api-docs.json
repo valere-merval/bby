@@ -505,6 +505,21 @@
             },
             "type" : "object"
          },
+         "AdminProductQuotas" : {
+            "properties" : {
+               "amount" : {
+                  "type" : "number"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "type" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AdminProductResponse" : {
             "properties" : {
                "allowForNewCustomers" : {
@@ -12958,7 +12973,6 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "format" : "binary",
                            "type" : "string"
                         }
                      }
@@ -13169,6 +13183,46 @@
                }
             ],
             "summary" : "Return all options which can be associated with a given service.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{productId}/quotas" : {
+         "get" : {
+            "operationId" : "getQuotasById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AdminProductQuotas"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Return all quotas for a given service.",
             "tags" : [
                "admin-products-controller"
             ]
