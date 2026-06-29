@@ -486,6 +486,20 @@
             },
             "type" : "object"
          },
+         "AdminProductBandwidths" : {
+            "properties" : {
+               "download" : {
+                  "type" : "string"
+               },
+               "type" : {
+                  "type" : "string"
+               },
+               "upload" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AdminProductDocument" : {
             "properties" : {
                "attachmentType" : {
@@ -13023,6 +13037,46 @@
                }
             ],
             "summary" : "Get specific service details by ID.",
+            "tags" : [
+               "admin-products-controller"
+            ]
+         }
+      },
+      "/admin/products/{productId}/bandwidths" : {
+         "get" : {
+            "operationId" : "getBandwidthsById",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AdminProductBandwidths"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Return all bandwidths for a given service.",
             "tags" : [
                "admin-products-controller"
             ]
