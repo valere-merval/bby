@@ -568,6 +568,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "isTargetTariff" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "noticePeriod" : {
                   "$ref" : "#/components/schemas/Lookup"
                },
@@ -4176,6 +4180,18 @@
          "EmailValidationResponse" : {
             "properties" : {
                "workflowId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "ExchangeMSISDNDataResponse" : {
+            "properties" : {
+               "message" : {
+                  "type" : "string"
+               },
+               "signUpId" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -21153,6 +21169,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/exchangeMSISDN" : {
+         "post" : {
+            "operationId" : "exchangeMSISDN",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/ExchangeMSISDNDataResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Starts the exchangeMSISDN process",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/exchangeSim" : {
          "get" : {
             "operationId" : "getAllExchangeSimDataForService",
@@ -22927,7 +22980,8 @@
                         "REQUEST_ACCESS_REFERENCE",
                         "LBA_ONT_OUT_ACTIVATE",
                         "LBA_ONT_OUT_DEACTIVATE",
-                        "GUIDED_DIAGNOSIS"
+                        "GUIDED_DIAGNOSIS",
+                        "EXCHANGE_MSISDN"
                      ],
                      "type" : "string"
                   }
