@@ -4188,9 +4188,6 @@
          },
          "ExchangeMSISDNDataResponse" : {
             "properties" : {
-               "message" : {
-                  "type" : "string"
-               },
                "signUpId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -10821,6 +10818,34 @@
                "returnCode",
                "simulator"
             ],
+            "type" : "object"
+         },
+         "WitaMessageHistoryData" : {
+            "properties" : {
+               "date" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "inOut" : {
+                  "type" : "string"
+               },
+               "messageCode" : {
+                  "type" : "string"
+               },
+               "messageText" : {
+                  "type" : "string"
+               },
+               "messageType" : {
+                  "type" : "string"
+               },
+               "workflow" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "workflowData" : {
+                  "type" : "string"
+               }
+            },
             "type" : "object"
          },
          "WorkflowData" : {
@@ -22753,6 +22778,15 @@
                      "default" : false,
                      "type" : "boolean"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
+                  }
                }
             ],
             "responses" : {
@@ -22981,7 +23015,8 @@
                         "LBA_ONT_OUT_ACTIVATE",
                         "LBA_ONT_OUT_DEACTIVATE",
                         "GUIDED_DIAGNOSIS",
-                        "EXCHANGE_MSISDN"
+                        "EXCHANGE_MSISDN",
+                        "SHOW_WITA_MESSAGE_HISTORY"
                      ],
                      "type" : "string"
                   }
@@ -23406,6 +23441,15 @@
                      "format" : "int64",
                      "type" : "integer"
                   }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
+                  }
                }
             ],
             "responses" : {
@@ -23507,6 +23551,43 @@
                }
             ],
             "summary" : "Get the main contract Id of a service",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/contractNumber" : {
+         "get" : {
+            "operationId" : "getContractNumber",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get the main contract Number of a service",
             "tags" : [
                "service-controller"
             ]
@@ -25212,6 +25293,46 @@
                }
             ],
             "summary" : "Get all data usage by serviceId",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/witaMessageHistory" : {
+         "get" : {
+            "operationId" : "getWitaMessageHistory",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/WitaMessageHistoryData"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get WITA message history of given service",
             "tags" : [
                "service-controller"
             ]
