@@ -1861,6 +1861,10 @@
                   "format" : "int64",
                   "type" : "integer"
                },
+               "offerDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "paymentAccount" : {
                   "$ref" : "#/components/schemas/CustomerPaymentAccount"
                },
@@ -20664,6 +20668,15 @@
                         "BOOK_UP",
                         "RELOCATE"
                      ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
                      "type" : "string"
                   }
                }
