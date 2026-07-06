@@ -4793,9 +4793,6 @@
                   "format" : "date-time",
                   "type" : "string"
                },
-               "diagnosisRunning" : {
-                  "type" : "boolean"
-               },
                "displayName" : {
                   "type" : "string"
                },
@@ -4810,6 +4807,14 @@
                   "type" : "integer"
                },
                "sourceName" : {
+                  "type" : "string"
+               },
+               "status" : {
+                  "enum" : [
+                     "RUNNING",
+                     "SUCCESS",
+                     "ERROR"
+                  ],
                   "type" : "string"
                }
             },
