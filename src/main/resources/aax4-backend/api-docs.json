@@ -633,6 +633,46 @@
             },
             "type" : "object"
          },
+         "AdminUserResponse" : {
+            "properties" : {
+               "deactivated" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "email" : {
+                  "type" : "string"
+               },
+               "firstName" : {
+                  "type" : "string"
+               },
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "initialPassword" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "lastPasswordChange" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "lastUserLogin" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "login" : {
+                  "type" : "string"
+               },
+               "notes" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "AllowedActionCategoryResponse" : {
             "properties" : {
                "allowedActions" : {
@@ -773,6 +813,20 @@
                      "type" : "integer"
                   },
                   "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
+         "AssignedPartnerDto" : {
+            "properties" : {
+               "ao" : {
+                  "type" : "string"
+               },
+               "client" : {
+                  "type" : "string"
+               },
+               "vo" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -6529,6 +6583,52 @@
             },
             "type" : "object"
          },
+         "PageAdminUserResponse" : {
+            "properties" : {
+               "content" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/AdminUserResponse"
+                  },
+                  "type" : "array"
+               },
+               "empty" : {
+                  "type" : "boolean"
+               },
+               "first" : {
+                  "type" : "boolean"
+               },
+               "last" : {
+                  "type" : "boolean"
+               },
+               "number" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "numberOfElements" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "pageable" : {
+                  "$ref" : "#/components/schemas/PageableObject"
+               },
+               "size" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               },
+               "sort" : {
+                  "$ref" : "#/components/schemas/SortObject"
+               },
+               "totalElements" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "totalPages" : {
+                  "format" : "int32",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "PageCampaignList" : {
             "properties" : {
                "content" : {
@@ -10543,6 +10643,18 @@
             ],
             "type" : "object"
          },
+         "UserRole" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "role" : {
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "VHistoryData" : {
             "properties" : {
                "aktion" : {
@@ -13371,7 +13483,92 @@
             ]
          }
       },
-      "/admin/user/usermock" : {
+      "/admin/users" : {
+         "get" : {
+            "operationId" : "getUsersList",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "page",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "0",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Page size (Max: 100)",
+                  "in" : "query",
+                  "name" : "size",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "20",
+                     "description" : "Page size (Max: 100)",
+                     "maximum" : 100,
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "sortOrder",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "DESC",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "description" : "Column to sort by [ID, SERVICE, DISPLAYVALUE, SERVICEGROUP, STARTDT, ENDDT, STATUS]",
+                  "in" : "query",
+                  "name" : "productOrderCriteria",
+                  "required" : false,
+                  "schema" : {
+                     "default" : "ID",
+                     "description" : "Column to sort by [ID, SERVICE, DISPLAYVALUE, SERVICEGROUP, STARTDT, ENDDT, STATUS]",
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "showDeactivated",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "boolean"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "searchKeyword",
+                  "required" : false,
+                  "schema" : {
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/PageAdminUserResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Retrieves a list of AAX users. The endpoint also allows for filtering, paging and sorting.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
+      "/admin/users/usermock" : {
          "get" : {
             "operationId" : "getUserMock",
             "responses" : {
@@ -13392,6 +13589,132 @@
                }
             ],
             "summary" : "Temporary mock",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
+      "/admin/users/{userId}" : {
+         "get" : {
+            "operationId" : "getUserDetailInfo",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AdminUserResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint retrieves data on a specific AAX user.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
+      "/admin/users/{userId}/partners" : {
+         "get" : {
+            "operationId" : "getUserPartner",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "clientId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/AssignedPartnerDto"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint retrieves the partner organisations (AO and VO) assigned to a specific AAX user. By default, the partners assignments for a user are listed for all active clients, since they are specific to user and client. If a clientID is passed to the endpoint, only the assignments for this client id are provided.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
+      "/admin/users/{userId}/roles" : {
+         "get" : {
+            "operationId" : "getUserRoles",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/UserRole"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint retrieves the roles assigned to a specific AAX user.",
             "tags" : [
                "user-management-controller"
             ]
@@ -22718,6 +23041,15 @@
                         "BOOK_UP",
                         "RELOCATE"
                      ],
+                     "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
                      "type" : "string"
                   }
                }
