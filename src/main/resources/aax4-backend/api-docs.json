@@ -13518,13 +13518,13 @@
                   }
                },
                {
-                  "description" : "Column to sort by [ID, SERVICE, DISPLAYVALUE, SERVICEGROUP, STARTDT, ENDDT, STATUS]",
+                  "description" : "Column to sort by [ID, LOGIN, FIRST_NAME, LAST_NAME, EMAIL, LAST_USER_LOGIN, LAST_PASSWORD_CHANGE, DEACTIVATED]",
                   "in" : "query",
-                  "name" : "productOrderCriteria",
+                  "name" : "userOrderCriteria",
                   "required" : false,
                   "schema" : {
                      "default" : "ID",
-                     "description" : "Column to sort by [ID, SERVICE, DISPLAYVALUE, SERVICEGROUP, STARTDT, ENDDT, STATUS]",
+                     "description" : "Column to sort by [ID, LOGIN, FIRST_NAME, LAST_NAME, EMAIL, LAST_USER_LOGIN, LAST_PASSWORD_CHANGE, DEACTIVATED]",
                      "type" : "string"
                   }
                },
