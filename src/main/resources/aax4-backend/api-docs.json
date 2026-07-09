@@ -4560,6 +4560,18 @@
                "floor" : {
                   "type" : "string"
                },
+               "gfTaPartnerEmail" : {
+                  "type" : "string"
+               },
+               "gfTaPartnerMobil" : {
+                  "type" : "string"
+               },
+               "gfTaPartnerName" : {
+                  "type" : "string"
+               },
+               "gfTaPartnerTelefon" : {
+                  "type" : "string"
+               },
                "homeId" : {
                   "type" : "string"
                },
