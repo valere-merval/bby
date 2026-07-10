@@ -825,6 +825,10 @@
                "client" : {
                   "type" : "string"
                },
+               "clientId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "vo" : {
                   "type" : "string"
                }
@@ -5195,6 +5199,10 @@
          "InventoryUpdateRequest" : {
             "properties" : {
                "article" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "cardType" : {
                   "format" : "int64",
                   "type" : "integer"
                },
