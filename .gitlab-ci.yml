@@ -70,7 +70,7 @@ oasdiff:
   script:
     - 'echo "AAX4 backend base url: $aax4_backend_base_url"'
     - chmod +x ./api/oasdiff/1.10.5/linux/oasdiff
-    - curl --output api-docs.json --retry 10 --retry-max-time 300 https://cc4.nicotuadev.de/co-restservice/v3/api-docs
+    - curl --output api-docs.json --retry 10 --retry-max-time 300 "${aax4_backend_base_url}/v3/api-docs"
     - ./api/oasdiff/1.10.5/linux/oasdiff changelog ./src/main/resources/aax4-backend/api-docs.json api-docs.json | tee ./api/api-docs-changelog.txt
     - if [[ -n $(grep '[^[:space:]]' ./api/api-docs-changelog.txt) ]]; then exit 1; fi
   after_script:
