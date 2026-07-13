@@ -10610,6 +10610,17 @@
             },
             "type" : "object"
          },
+         "UpdateTechnicalDataResult" : {
+            "properties" : {
+               "connected" : {
+                  "type" : "boolean"
+               },
+               "homeIdOldStandard" : {
+                  "type" : "boolean"
+               }
+            },
+            "type" : "object"
+         },
          "UpdateWorkflowDataOthersRequest" : {
             "properties" : {
                "notes" : {
@@ -24923,7 +24934,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "type" : "string"
+                           "$ref" : "#/components/schemas/UpdateTechnicalDataResult"
                         }
                      }
                   },
