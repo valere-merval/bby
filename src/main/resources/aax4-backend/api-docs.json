@@ -673,6 +673,39 @@
             },
             "type" : "object"
          },
+         "AdminUserUpdateRequest" : {
+            "properties" : {
+               "deactivated" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "email" : {
+                  "type" : "string"
+               },
+               "firstName" : {
+                  "type" : "string"
+               },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "login" : {
+                  "type" : "string"
+               },
+               "notes" : {
+                  "type" : "string"
+               },
+               "password" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "deactivated",
+               "email",
+               "lastName",
+               "login"
+            ],
+            "type" : "object"
+         },
          "AllowedActionCategoryResponse" : {
             "properties" : {
                "allowedActions" : {
@@ -822,6 +855,13 @@
                "ao" : {
                   "type" : "string"
                },
+               "aoDistributionChannel" : {
+                  "type" : "string"
+               },
+               "aoId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "client" : {
                   "type" : "string"
                },
@@ -831,6 +871,13 @@
                },
                "vo" : {
                   "type" : "string"
+               },
+               "voDistributionChannel" : {
+                  "type" : "string"
+               },
+               "voId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -13599,32 +13646,6 @@
             ]
          }
       },
-      "/admin/users/usermock" : {
-         "get" : {
-            "operationId" : "getUserMock",
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "type" : "string"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Temporary mock",
-            "tags" : [
-               "user-management-controller"
-            ]
-         }
-      },
       "/admin/users/{userId}" : {
          "get" : {
             "operationId" : "getUserDetailInfo",
@@ -13656,7 +13677,52 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "The endpoint retrieves data on a specific AAX user.",
+            "summary" : "The endpoint retrieves user data on a specific AAX user.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "editUserDetailInfo",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/AdminUserUpdateRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint allows for modifying the data associated with a specific AAX user. It also allows to change the password of the user.",
             "tags" : [
                "user-management-controller"
             ]
