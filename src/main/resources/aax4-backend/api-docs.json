@@ -3435,6 +3435,7 @@
                         "EMAIL_UNVERIFIED",
                         "EMAIL_ONE_FACTOR_VERIFIED",
                         "EMAIL_INVALID",
+                        "EMAIL_ON_DO_NOT_CONTACT_LIST",
                         "PERMISSION_STATUS"
                      ],
                      "type" : "string"
@@ -4246,6 +4247,9 @@
             "properties" : {
                "email" : {
                   "type" : "string"
+               },
+               "isDoNotContactEmail" : {
+                  "type" : "boolean"
                },
                "verificationStatus" : {
                   "enum" : [
@@ -16963,6 +16967,7 @@
                               "EMAIL_UNVERIFIED",
                               "EMAIL_ONE_FACTOR_VERIFIED",
                               "EMAIL_INVALID",
+                              "EMAIL_ON_DO_NOT_CONTACT_LIST",
                               "PERMISSION_STATUS"
                            ],
                            "type" : "string"
