@@ -2953,14 +2953,6 @@
             },
             "type" : "object"
          },
-         "CreateReturnLabelRequest" : {
-            "properties" : {
-               "trackingNumber" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
          "CreateWorkflowProcedureResult" : {
             "properties" : {
                "errorCode" : {
@@ -28104,53 +28096,6 @@
                }
             ],
             "summary" : "Close Workflowitem Manually",
-            "tags" : [
-               "workflowitem-controller"
-            ]
-         }
-      },
-      "/workflowitems/{dWorkflowItemId}/createReturnLabel" : {
-         "post" : {
-            "operationId" : "createReturnLabel",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "dWorkflowItemId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "requestBody" : {
-               "content" : {
-                  "application/json" : {
-                     "schema" : {
-                        "$ref" : "#/components/schemas/CreateReturnLabelRequest"
-                     }
-                  }
-               },
-               "required" : true
-            },
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "type" : "string"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Save returnlabel string in database and complete task in tasklist",
             "tags" : [
                "workflowitem-controller"
             ]
