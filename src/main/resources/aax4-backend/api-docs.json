@@ -673,11 +673,27 @@
             },
             "type" : "object"
          },
+         "AdminUserRoleResponse" : {
+            "properties" : {
+               "assignableRoles" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/UserRole"
+                  },
+                  "type" : "array"
+               },
+               "assignedRoles" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/UserRole"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
          "AdminUserUpdateRequest" : {
             "properties" : {
                "deactivated" : {
-                  "format" : "int64",
-                  "type" : "integer"
+                  "type" : "string"
                },
                "email" : {
                   "type" : "string"
@@ -13773,6 +13789,43 @@
             ]
          }
       },
+      "/admin/users/{userId}/roleConfiguration" : {
+         "get" : {
+            "operationId" : "getRoleConfiguration",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AdminUserRoleResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Returns two lists of roles.  One list covers the roles already assigned to the given user. The second lists the roles which still can be assigned to the user. This list will contain roles not already assigned and available for the current platform",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
       "/admin/users/{userId}/roles" : {
          "get" : {
             "operationId" : "getUserRoles",
@@ -13808,6 +13861,54 @@
                }
             ],
             "summary" : "The endpoint retrieves the roles assigned to a specific AAX user.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "updateUserRoles",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "items" : {
+                           "$ref" : "#/components/schemas/UserRole"
+                        },
+                        "type" : "array"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint allows for updating the roles assigned to a specific AAX user.",
             "tags" : [
                "user-management-controller"
             ]
