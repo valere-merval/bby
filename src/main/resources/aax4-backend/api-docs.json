@@ -5599,6 +5599,10 @@
                "msisdnRecruiter" : {
                   "type" : "string"
                },
+               "recruitedContractStart" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
                "recruitedCustomerId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -5606,6 +5610,10 @@
                "recruiterCustomerId" : {
                   "format" : "int64",
                   "type" : "integer"
+               },
+               "recruiterDiscountStart" : {
+                  "format" : "date-time",
+                  "type" : "string"
                },
                "recruiterStatus" : {
                   "format" : "int64",
