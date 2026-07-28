@@ -3899,6 +3899,46 @@
             },
             "type" : "object"
          },
+         "Diagnosis" : {
+            "properties" : {
+               "contextTypeId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "contextTypeName" : {
+                  "type" : "string"
+               },
+               "createDt" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
+               "displayName" : {
+                  "type" : "string"
+               },
+               "measurements" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/DiagnosisMeasurement"
+                  },
+                  "type" : "array"
+               },
+               "referenceNumber" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "sourceName" : {
+                  "type" : "string"
+               },
+               "status" : {
+                  "enum" : [
+                     "RUNNING",
+                     "SUCCESS",
+                     "ERROR"
+                  ],
+                  "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
          "DiagnosisMeasurement" : {
             "properties" : {
                "measurement" : {
@@ -4373,7 +4413,7 @@
             "properties" : {
                "diagnoses" : {
                   "items" : {
-                     "$ref" : "#/components/schemas/GuidedDiagnosis"
+                     "$ref" : "#/components/schemas/Diagnosis"
                   },
                   "type" : "array"
                }
@@ -4905,46 +4945,6 @@
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
-               }
-            },
-            "type" : "object"
-         },
-         "GuidedDiagnosis" : {
-            "properties" : {
-               "contextTypeId" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "contextTypeName" : {
-                  "type" : "string"
-               },
-               "createDt" : {
-                  "format" : "date-time",
-                  "type" : "string"
-               },
-               "displayName" : {
-                  "type" : "string"
-               },
-               "measurements" : {
-                  "items" : {
-                     "$ref" : "#/components/schemas/DiagnosisMeasurement"
-                  },
-                  "type" : "array"
-               },
-               "referenceNumber" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "sourceName" : {
-                  "type" : "string"
-               },
-               "status" : {
-                  "enum" : [
-                     "RUNNING",
-                     "SUCCESS",
-                     "ERROR"
-                  ],
-                  "type" : "string"
                }
             },
             "type" : "object"
@@ -24511,6 +24511,43 @@
                }
             ],
             "summary" : "Get service events",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/faultClearance/allDiagnoses" : {
+         "get" : {
+            "operationId" : "getFaultClearanceDiagnosesByAccessService",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/FaultClearanceDiagnoses"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get all diagnoses of the access service",
             "tags" : [
                "service-controller"
             ]
