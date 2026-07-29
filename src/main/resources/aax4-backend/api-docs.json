@@ -22633,52 +22633,6 @@
             ]
          }
       },
-      "/service/{serviceId}/action/startDiagnosis/{contextId}" : {
-         "post" : {
-            "operationId" : "startDiagnosis_1",
-            "parameters" : [
-               {
-                  "in" : "path",
-                  "name" : "serviceId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               },
-               {
-                  "in" : "path",
-                  "name" : "contextId",
-                  "required" : true,
-                  "schema" : {
-                     "format" : "int64",
-                     "type" : "integer"
-                  }
-               }
-            ],
-            "responses" : {
-               "200" : {
-                  "content" : {
-                     "*/*" : {
-                        "schema" : {
-                           "$ref" : "#/components/schemas/SignupResponse"
-                        }
-                     }
-                  },
-                  "description" : "OK"
-               }
-            },
-            "security" : [
-               {
-                  "oAuth2" : []
-               }
-            ],
-            "summary" : "Start Diagnosis for a D_Service in a specific diagnosis context",
-            "tags" : [
-               "service-actions-controller"
-            ]
-         }
-      },
       "/service/{serviceId}/action/stopCredit" : {
          "get" : {
             "operationId" : "getStopCredit",
