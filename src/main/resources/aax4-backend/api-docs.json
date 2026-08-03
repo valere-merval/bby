@@ -696,6 +696,8 @@
                   "type" : "string"
                },
                "email" : {
+                  "example" : "string",
+                  "pattern" : "^[^\\s@]+@[^\\s@]+\\.[a-zA-Z]{2,}$",
                   "type" : "string"
                },
                "firstName" : {
