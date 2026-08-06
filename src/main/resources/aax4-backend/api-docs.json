@@ -633,6 +633,35 @@
             },
             "type" : "object"
          },
+         "AdminUserCreateRequest" : {
+            "properties" : {
+               "email" : {
+                  "type" : "string"
+               },
+               "firstName" : {
+                  "type" : "string"
+               },
+               "lastName" : {
+                  "type" : "string"
+               },
+               "login" : {
+                  "type" : "string"
+               },
+               "notes" : {
+                  "type" : "string"
+               },
+               "password" : {
+                  "type" : "string"
+               }
+            },
+            "required" : [
+               "email",
+               "lastName",
+               "login",
+               "password"
+            ],
+            "type" : "object"
+         },
          "AdminUserResponse" : {
             "properties" : {
                "deactivated" : {
@@ -862,6 +891,23 @@
                   "items" : {
                      "format" : "int64",
                      "type" : "integer"
+                  },
+                  "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
+         "AssignablePartners" : {
+            "properties" : {
+               "orderList" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/OrderPartners"
+                  },
+                  "type" : "array"
+               },
+               "salesList" : {
+                  "items" : {
+                     "$ref" : "#/components/schemas/SalesPartners"
                   },
                   "type" : "array"
                }
@@ -6607,6 +6653,31 @@
             },
             "type" : "object"
          },
+         "OrderPartners" : {
+            "properties" : {
+               "channel" : {
+                  "type" : "string"
+               },
+               "identifier" : {
+                  "type" : "string"
+               },
+               "listValue" : {
+                  "type" : "string"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "orgId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "partnerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "OutpaymentForInactiveCustomerRequest" : {
             "properties" : {
                "bic" : {
@@ -8247,6 +8318,31 @@
                },
                "name" : {
                   "type" : "string"
+               }
+            },
+            "type" : "object"
+         },
+         "SalesPartners" : {
+            "properties" : {
+               "channel" : {
+                  "type" : "string"
+               },
+               "identifier" : {
+                  "type" : "string"
+               },
+               "listValue" : {
+                  "type" : "string"
+               },
+               "name" : {
+                  "type" : "string"
+               },
+               "orgId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "partnerId" : {
+                  "format" : "int64",
+                  "type" : "integer"
                }
             },
             "type" : "object"
@@ -13663,6 +13759,86 @@
                }
             ],
             "summary" : "Retrieves a list of AAX users. The endpoint also allows for filtering, paging and sorting.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         },
+         "post" : {
+            "operationId" : "createUserDetailInfo",
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/AdminUserCreateRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "format" : "int64",
+                           "type" : "integer"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint allows to create a new AAX user. It creates the user with base data. No roles or partners are assigned.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         }
+      },
+      "/admin/users/{clientId}/assignablePartners" : {
+         "get" : {
+            "operationId" : "getAssignablePartners",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "clientId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "getAllActivePartners",
+                  "required" : true,
+                  "schema" : {
+                     "type" : "boolean"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/AssignablePartners"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Returns two lists of partner organizations available for a given client.  One list covers the ones being able to act as partner organization for sales partner assignment, the other the options for order partner assignment. If the parameter onlyPartnersInUse is set to true, only partners are returned for which there are existing assignments to active users.",
             "tags" : [
                "user-management-controller"
             ]
