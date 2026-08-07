@@ -897,24 +897,24 @@
             },
             "type" : "object"
          },
-         "AssignablePartners" : {
+         "AssignableOrganisations" : {
             "properties" : {
                "orderList" : {
                   "items" : {
-                     "$ref" : "#/components/schemas/OrderPartners"
+                     "$ref" : "#/components/schemas/OrderPartnerOrganisations"
                   },
                   "type" : "array"
                },
                "salesList" : {
                   "items" : {
-                     "$ref" : "#/components/schemas/SalesPartners"
+                     "$ref" : "#/components/schemas/SalesPartnerOrganisations"
                   },
                   "type" : "array"
                }
             },
             "type" : "object"
          },
-         "AssignedPartnerDto" : {
+         "AssignedOrganisationDto" : {
             "properties" : {
                "ao" : {
                   "type" : "string"
@@ -923,6 +923,10 @@
                   "type" : "string"
                },
                "aoId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "aoOrgId" : {
                   "format" : "int64",
                   "type" : "integer"
                },
@@ -940,6 +944,10 @@
                   "type" : "string"
                },
                "voId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "voOrgId" : {
                   "format" : "int64",
                   "type" : "integer"
                }
@@ -6653,7 +6661,7 @@
             },
             "type" : "object"
          },
-         "OrderPartners" : {
+         "OrderPartnerOrganisations" : {
             "properties" : {
                "channel" : {
                   "type" : "string"
@@ -8310,19 +8318,7 @@
             },
             "type" : "object"
          },
-         "SalesPartnerResponse" : {
-            "properties" : {
-               "id" : {
-                  "format" : "int64",
-                  "type" : "integer"
-               },
-               "name" : {
-                  "type" : "string"
-               }
-            },
-            "type" : "object"
-         },
-         "SalesPartners" : {
+         "SalesPartnerOrganisations" : {
             "properties" : {
                "channel" : {
                   "type" : "string"
@@ -8343,6 +8339,18 @@
                "partnerId" : {
                   "format" : "int64",
                   "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
+         "SalesPartnerResponse" : {
+            "properties" : {
+               "id" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "name" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
@@ -13799,9 +13807,9 @@
             ]
          }
       },
-      "/admin/users/{clientId}/assignablePartners" : {
+      "/admin/users/{clientId}/assignableOrganisations" : {
          "get" : {
-            "operationId" : "getAssignablePartners",
+            "operationId" : "getAssignableOrganisations",
             "parameters" : [
                {
                   "in" : "path",
@@ -13826,7 +13834,7 @@
                   "content" : {
                      "*/*" : {
                         "schema" : {
-                           "$ref" : "#/components/schemas/AssignablePartners"
+                           "$ref" : "#/components/schemas/AssignableOrganisations"
                         }
                      }
                   },
@@ -13926,9 +13934,9 @@
             ]
          }
       },
-      "/admin/users/{userId}/partners" : {
+      "/admin/users/{userId}/organisations" : {
          "get" : {
-            "operationId" : "getUserPartner",
+            "operationId" : "getUserOrganisations",
             "parameters" : [
                {
                   "in" : "path",
@@ -13955,7 +13963,7 @@
                      "*/*" : {
                         "schema" : {
                            "items" : {
-                              "$ref" : "#/components/schemas/AssignedPartnerDto"
+                              "$ref" : "#/components/schemas/AssignedOrganisationDto"
                            },
                            "type" : "array"
                         }
