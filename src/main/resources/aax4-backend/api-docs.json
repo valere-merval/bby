@@ -10772,6 +10772,23 @@
             },
             "type" : "object"
          },
+         "UpdateOrganisationRequest" : {
+            "properties" : {
+               "clientId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "orderOrgId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
+               "salesOrgId" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "UpdateServiceEventDatesRequest" : {
             "properties" : {
                "startCurrentDate" : {
@@ -13824,7 +13841,7 @@
                },
                {
                   "in" : "query",
-                  "name" : "getAllActivePartners",
+                  "name" : "getAllActiveOrganisations",
                   "required" : true,
                   "schema" : {
                      "type" : "boolean"
@@ -13848,7 +13865,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Returns two lists of partner organizations available for a given client.  One list covers the ones being able to act as partner organization for sales partner assignment, the other the options for order partner assignment. If the parameter onlyPartnersInUse is set to true, only partners are returned for which there are existing assignments to active users.",
+            "summary" : "Returns two lists of partner organisations available for a given client. One list covers the ones being able to act as partner organisation for sales partner assignment, the other the options for order partner organisation assignment. The Parameter getAllActiveOrganisations governs, whether the endpoint returns partner organisations which have no active assignments to users. If the parameter is set to false, only organisations are returned for which there are existing assignments to active users. Otherwise all organisations are returned, which are themselves active and reference active partners",
             "tags" : [
                "user-management-controller"
             ]
@@ -13980,6 +13997,49 @@
                }
             ],
             "summary" : "The endpoint retrieves the partner organisations (AO and VO) assigned to a specific AAX user. By default, the partners assignments for a user are listed for all active clients, since they are specific to user and client. If a clientID is passed to the endpoint, only the assignments for this client id are provided.",
+            "tags" : [
+               "user-management-controller"
+            ]
+         },
+         "put" : {
+            "operationId" : "updateUserPartner",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "userId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "request",
+                  "required" : true,
+                  "schema" : {
+                     "$ref" : "#/components/schemas/UpdateOrganisationRequest"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/MessageResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "The endpoint allows for updating the partners (AO and VO) assigned to a specific AAX user.",
             "tags" : [
                "user-management-controller"
             ]
