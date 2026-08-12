@@ -22254,6 +22254,43 @@
             ]
          }
       },
+      "/service/{serviceId}/action/lineReset" : {
+         "post" : {
+            "operationId" : "triggerLineReset",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "$ref" : "#/components/schemas/SignupResponse"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Trigger a line reset for a service",
+            "tags" : [
+               "service-actions-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/action/lockVoip" : {
          "post" : {
             "operationId" : "lockVoip",
@@ -23789,7 +23826,8 @@
                         "LBA_ONT_OUT_DEACTIVATE",
                         "GUIDED_DIAGNOSIS",
                         "EXCHANGE_MSISDN",
-                        "SHOW_WITA_MESSAGE_HISTORY"
+                        "SHOW_WITA_MESSAGE_HISTORY",
+                        "LINE_RESET"
                      ],
                      "type" : "string"
                   }
