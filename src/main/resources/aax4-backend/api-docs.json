@@ -23827,7 +23827,8 @@
                         "GUIDED_DIAGNOSIS",
                         "EXCHANGE_MSISDN",
                         "SHOW_WITA_MESSAGE_HISTORY",
-                        "LINE_RESET"
+                        "LINE_RESET",
+                        "CANCEL_OLD_AND_BOOK_NEW_ORDER"
                      ],
                      "type" : "string"
                   }
