@@ -10608,6 +10608,33 @@
             },
             "type" : "object"
          },
+         "UpdateFixedEndUserContactRequest" : {
+            "properties" : {
+               "endUserContactFirstName" : {
+                  "type" : "string"
+               },
+               "endUserContactLastName" : {
+                  "type" : "string"
+               },
+               "endUserContactMail" : {
+                  "type" : "string"
+               },
+               "endUserContactPhoneCountryCode" : {
+                  "type" : "string"
+               },
+               "endUserContactPhoneNumber" : {
+                  "type" : "string"
+               },
+               "endUserContactPhonePrefix" : {
+                  "type" : "string"
+               },
+               "endUserContactSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               }
+            },
+            "type" : "object"
+         },
          "UpdateFixedEventsRequest" : {
             "properties" : {
                "requestedCurrentDate" : {
@@ -25053,6 +25080,53 @@
                }
             ],
             "summary" : "update the building information for an existing Fixed Physical Access ",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
+      "/service/{serviceId}/fixedEndUserContact" : {
+         "put" : {
+            "operationId" : "updateFixedEndUserContact",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "requestBody" : {
+               "content" : {
+                  "application/json" : {
+                     "schema" : {
+                        "$ref" : "#/components/schemas/UpdateFixedEndUserContactRequest"
+                     }
+                  }
+               },
+               "required" : true
+            },
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "string"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "update the end user contact for an existing Fixed Physical Access ",
             "tags" : [
                "service-controller"
             ]
