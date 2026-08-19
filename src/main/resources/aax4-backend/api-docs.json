@@ -3179,6 +3179,10 @@
                "lastRun" : {
                   "type" : "string"
                },
+               "maxRowsRequest" : {
+                  "format" : "int64",
+                  "type" : "integer"
+               },
                "name" : {
                   "type" : "string"
                },
@@ -3209,6 +3213,11 @@
                "interval" : {
                   "description" : "Execution interval interval of the cron job",
                   "type" : "string"
+               },
+               "maxRowRequest" : {
+                  "description" : "Setting the maximum number of rows for the quartz job.",
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "whereClause" : {
                   "description" : "SQL WHERE clause for filtering records",
@@ -4717,6 +4726,28 @@
                },
                "district" : {
                   "type" : "string"
+               },
+               "endUserContactFirstName" : {
+                  "type" : "string"
+               },
+               "endUserContactLastName" : {
+                  "type" : "string"
+               },
+               "endUserContactMail" : {
+                  "type" : "string"
+               },
+               "endUserContactPhoneCountryCode" : {
+                  "type" : "string"
+               },
+               "endUserContactPhonePhoneNumber" : {
+                  "type" : "string"
+               },
+               "endUserContactPhonePrefix" : {
+                  "type" : "string"
+               },
+               "endUserContactSalutation" : {
+                  "format" : "int64",
+                  "type" : "integer"
                },
                "floor" : {
                   "type" : "string"
@@ -13792,6 +13823,17 @@
          },
          "post" : {
             "operationId" : "createUserDetailInfo",
+            "parameters" : [
+               {
+                  "in" : "query",
+                  "name" : "existingUserId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
             "requestBody" : {
                "content" : {
                   "application/json" : {
@@ -13820,7 +13862,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "The endpoint allows to create a new AAX user. It creates the user with base data. No roles or partners are assigned.",
+            "summary" : "The endpoint allows to create a new AAX user. It creates the user with base data. If the id of an existing user is passed to the endpoint, roles and partner assignments are copied from this user to the newly created one.",
             "tags" : [
                "user-management-controller"
             ]
