@@ -4573,6 +4573,9 @@
                "prevTenantSurname" : {
                   "type" : "string"
                },
+               "providerChangeExportData" : {
+                  "$ref" : "#/components/schemas/FixedProviderChangeExportData"
+               },
                "providerChangeImportData" : {
                   "$ref" : "#/components/schemas/FixedProviderChangeImportData"
                },
@@ -4627,6 +4630,14 @@
                      "$ref" : "#/components/schemas/OntDataRow"
                   },
                   "type" : "array"
+               }
+            },
+            "type" : "object"
+         },
+         "FixedProviderChangeExportData" : {
+            "properties" : {
+               "currentRtaId" : {
+                  "type" : "string"
                }
             },
             "type" : "object"
