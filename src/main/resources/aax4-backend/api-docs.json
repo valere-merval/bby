@@ -9227,6 +9227,10 @@
                "iban" : {
                   "type" : "string"
                },
+               "mnpDate" : {
+                  "format" : "date",
+                  "type" : "string"
+               },
                "mpsAccount" : {
                   "$ref" : "#/components/schemas/MpsAccount"
                },
