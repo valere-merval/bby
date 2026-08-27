@@ -4636,7 +4636,7 @@
          },
          "FixedProviderChangeExportData" : {
             "properties" : {
-               "currentRtaId" : {
+               "exportWbciId" : {
                   "type" : "string"
                }
             },
