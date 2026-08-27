@@ -3997,10 +3997,20 @@
                },
                "status" : {
                   "enum" : [
+                     "NEW",
                      "RUNNING",
                      "SUCCESS",
                      "ERROR"
                   ],
+                  "type" : "string"
+               },
+               "statusTexts" : {
+                  "items" : {
+                     "type" : "string"
+                  },
+                  "type" : "array"
+               },
+               "typeName" : {
                   "type" : "string"
                }
             },
