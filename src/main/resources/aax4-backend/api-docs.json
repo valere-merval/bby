@@ -7737,6 +7737,10 @@
                   },
                   "type" : "array"
                },
+               "orderDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
                "parent" : {
                   "$ref" : "#/components/schemas/SimpleServiceObject"
                },
@@ -18316,6 +18320,24 @@
             ]
          }
       },
+      "/logout" : {
+         "post" : {
+            "operationId" : "logout",
+            "responses" : {
+               "200" : {
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "tags" : [
+               "authentication-controller"
+            ]
+         }
+      },
       "/lookups" : {
          "delete" : {
             "operationId" : "emptyLookupsCache",
@@ -20197,6 +20219,64 @@
       "/product/{productId}/companions/process/new" : {
          "get" : {
             "operationId" : "getCompanionsByProductIdNewCustomer",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "productId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "customerId",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "offerDate",
+                  "required" : false,
+                  "schema" : {
+                     "format" : "date",
+                     "type" : "string"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "items" : {
+                              "$ref" : "#/components/schemas/Product"
+                           },
+                           "type" : "array"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Get companions by product Id",
+            "tags" : [
+               "product-controller"
+            ]
+         }
+      },
+      "/product/{productId}/companions/process/new/alternateProduct" : {
+         "get" : {
+            "operationId" : "getCompanionsByProductIdNewCustomerForAlternateProduct",
             "parameters" : [
                {
                   "in" : "path",
