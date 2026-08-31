@@ -10771,6 +10771,9 @@
                "isReferencePhoneNumberRequired" : {
                   "type" : "boolean"
                },
+               "plusnetWbciCarrierCode" : {
+                  "type" : "string"
+               },
                "providerId" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -14644,7 +14647,7 @@
       },
       "/campaigns/preselectableCampaignsforAlternativProduct" : {
          "get" : {
-            "operationId" : "getPreselectableCampaignsforAlternativProduct",
+            "operationId" : "getPreselectableCampaignsForAlternativProduct",
             "parameters" : [
                {
                   "in" : "query",
@@ -15446,7 +15449,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Recall Invoice for specifc timeframe",
+            "summary" : "Recall Invoice for specific timeframe",
             "tags" : [
                "customer-actions-controller"
             ]
@@ -21053,7 +21056,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Triggers the creation of a relocaton signup",
+            "summary" : "Triggers the creation of a relocation signup",
             "tags" : [
                "service-actions-controller"
             ]
@@ -22377,7 +22380,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Get payment informations for first topup by serviceId",
+            "summary" : "Get payment information for first topup by serviceId",
             "tags" : [
                "service-actions-controller"
             ]
@@ -26768,7 +26771,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Apply action on given tasklis entries",
+            "summary" : "Apply action on given tasklist entries",
             "tags" : [
                "task-list-controller"
             ]
@@ -28087,7 +28090,7 @@
       },
       "/workflow/{dWorkflowId}/getStopableWorkflowitems" : {
          "get" : {
-            "operationId" : "getStopableWorkflowitems",
+            "operationId" : "getStoppableWorkflowitems",
             "parameters" : [
                {
                   "description" : "The workflowId where the wfis should be checked",
@@ -28289,7 +28292,7 @@
       },
       "/workflow/{dWorkflowId}/setStopableWorkflowitems" : {
          "put" : {
-            "operationId" : "setStopableWorkflowitems",
+            "operationId" : "setStoppableWorkflowitems",
             "parameters" : [
                {
                   "description" : "The workflowId where the wfis should be checked",
