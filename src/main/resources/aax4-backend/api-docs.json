@@ -10925,6 +10925,9 @@
          },
          "UsageLocation" : {
             "properties" : {
+               "addition" : {
+                  "type" : "string"
+               },
                "buildingUnitAnnex" : {
                   "type" : "string"
                },
