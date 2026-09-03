@@ -7731,6 +7731,10 @@
                "notes" : {
                   "type" : "string"
                },
+               "offerDate" : {
+                  "format" : "date-time",
+                  "type" : "string"
+               },
                "options" : {
                   "items" : {
                      "$ref" : "#/components/schemas/Product"
