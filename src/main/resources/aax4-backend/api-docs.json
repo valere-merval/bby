@@ -18585,7 +18585,7 @@
                   "oAuth2" : []
                }
             ],
-            "summary" : "Retrieves the history of a cron job.  An entry specifies for a timestamp which settings have been there for the job up to this timestamp.",
+            "summary" : "Retrieves the history of a cron job. An entry specifies for a timestamp which settings have been there for the job up to this timestamp.",
             "tags" : [
                "monitoring-job-controller"
             ]
@@ -26141,6 +26141,15 @@
                         "RELOCATE"
                      ],
                      "type" : "string"
+                  }
+               },
+               {
+                  "in" : "query",
+                  "name" : "forceImmediateChange",
+                  "required" : false,
+                  "schema" : {
+                     "default" : false,
+                     "type" : "boolean"
                   }
                }
             ],
