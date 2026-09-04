@@ -26220,6 +26220,43 @@
             ]
          }
       },
+      "/service/{serviceId}/showWarningCancellation" : {
+         "get" : {
+            "operationId" : "showWarningCancellation",
+            "parameters" : [
+               {
+                  "in" : "path",
+                  "name" : "serviceId",
+                  "required" : true,
+                  "schema" : {
+                     "format" : "int64",
+                     "type" : "integer"
+                  }
+               }
+            ],
+            "responses" : {
+               "200" : {
+                  "content" : {
+                     "*/*" : {
+                        "schema" : {
+                           "type" : "boolean"
+                        }
+                     }
+                  },
+                  "description" : "OK"
+               }
+            },
+            "security" : [
+               {
+                  "oAuth2" : []
+               }
+            ],
+            "summary" : "Checking whether the order cancellation warning screen should be displayed",
+            "tags" : [
+               "service-controller"
+            ]
+         }
+      },
       "/service/{serviceId}/signUps" : {
          "get" : {
             "operationId" : "getAllSignUpsByServiceId",
