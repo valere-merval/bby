@@ -5434,7 +5434,7 @@
                "paramValue" : {
                   "type" : "string"
                },
-               "ssntr" : {
+               "sstnr" : {
                   "type" : "string"
                }
             },
