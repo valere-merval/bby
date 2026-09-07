@@ -2273,9 +2273,6 @@
                   "format" : "int64",
                   "type" : "integer"
                },
-               "initiator" : {
-                  "type" : "string"
-               },
                "isCritical" : {
                   "format" : "int64",
                   "type" : "integer"
@@ -2347,9 +2344,6 @@
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
-               },
-               "initiator" : {
-                  "type" : "string"
                },
                "subject" : {
                   "type" : "string"
@@ -3339,9 +3333,6 @@
                "id" : {
                   "format" : "int64",
                   "type" : "integer"
-               },
-               "initiator" : {
-                  "type" : "string"
                },
                "isCritical" : {
                   "format" : "int64",
